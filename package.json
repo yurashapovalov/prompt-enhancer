@@ -1,0 +1,30 @@
+{
+  "name": "prompt-enhancer",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "frontend/web-app",
+    "frontend/chrome-extension",
+    "shared"
+  ],
+  "scripts": {
+    "start:web": "cd frontend/web-app && npm run dev",
+    "start:extension": "cd frontend/chrome-extension && npm run dev",
+    "start:backend": "cd backend && python -m uvicorn main:app --reload",
+    "build:web": "cd frontend/web-app && npm run build",
+    "build:extension": "cd frontend/chrome-extension && npm run build",
+    "lint": "npm run lint:web && npm run lint:extension",
+    "lint:web": "cd frontend/web-app && npm run lint",
+    "lint:extension": "cd frontend/chrome-extension && npm run lint",
+    "test": "npm run test:web && npm run test:extension",
+    "test:web": "cd frontend/web-app && npm run test",
+    "test:extension": "cd frontend/chrome-extension && npm run test"
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+}

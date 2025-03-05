@@ -1,0 +1,7 @@
+/* 
+ * Web App Design System Tokens
+ * Imports the base tokens from shared directory
+ */
+
+/* Import base tokens */
+@import '@shared/tokens.css';

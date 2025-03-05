@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Prompt Enhancer",
+  "version": "0.1.0",
+  "description": "Enhance your prompts for ChatGPT and other text interfaces",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "sidePanel"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Prompt Enhancer"
+  },
+  "side_panel": {
+    "default_path": "index.html"
+  }
+}
