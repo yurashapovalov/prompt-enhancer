@@ -4,6 +4,7 @@
  */
 
 /* Base tokens (shared between themes) */
+
 :root {
   /* Typography */
   --font-family-base: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -18,9 +19,11 @@
   --font-size-2xl: 24px;
   --font-size-3xl: 30px;
   --font-size-4xl: 36px;
+  --font-size-5xl: 42px;
   
   --font-weight-regular: 400;
   --font-weight-medium: 500;
+  --font-weight-semibold: 600;
   --font-weight-bold: 700;
   
   --line-height-tight: 1.25;
@@ -67,6 +70,7 @@
 }
 
 /* Light theme (default) */
+
 :root, .light-theme {
   /* Brand colors */
   --color-primary: #4285f4;
@@ -133,7 +137,7 @@
   --color-text-secondary: #9aa0a6;
   --color-text-disabled: #5f6368;
   --color-text-on-primary: #202124;
-  --color-text-on-secondary: #202124;
+  --color-text-on-secondary: #202124; 
   
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.25);

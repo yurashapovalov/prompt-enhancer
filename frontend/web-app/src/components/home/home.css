@@ -1,0 +1,92 @@
+/* Home Component Styles */
+
+.home-container {
+  min-height: 100vh;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  padding: var(--spacing-6);
+}
+
+.home-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--spacing-8);
+  background-color: var(--color-surface);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.home-content h1 {
+  margin-bottom: var(--spacing-6);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  text-align: center;
+}
+
+.user-info {
+  margin-bottom: var(--spacing-6);
+  padding: var(--spacing-4);
+  background-color: var(--color-surface-variant);
+  border-radius: var(--border-radius-md);
+  text-align: center;
+}
+
+.user-email {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+}
+
+.dashboard-section {
+  margin-bottom: var(--spacing-8);
+  padding: var(--spacing-4);
+  border: var(--border-width-thin) solid var(--color-border);
+  border-radius: var(--border-radius-md);
+}
+
+.dashboard-section h2 {
+  margin-bottom: var(--spacing-4);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.dashboard-section p {
+  margin-bottom: var(--spacing-3);
+  line-height: var(--line-height-relaxed);
+}
+
+.btn-signout {
+  display: block;
+  width: 100%;
+  max-width: 200px;
+  margin: 0 auto;
+  padding: var(--spacing-3) var(--spacing-4);
+  background-color: var(--color-error);
+  border: none;
+  border-radius: var(--border-radius-md);
+  color: var(--color-text-on-primary);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  text-align: center;
+  cursor: pointer;
+  transition: background-color var(--transition-fast) var(--transition-ease);
+}
+
+.btn-signout:hover {
+  background-color: #d32f2f; /* Darker red */
+}
+
+@media (max-width: 600px) {
+  .home-container {
+    padding: var(--spacing-4);
+  }
+  
+  .home-content {
+    padding: var(--spacing-4);
+  }
+  
+  .home-content h1 {
+    font-size: var(--font-size-2xl);
+  }
+}

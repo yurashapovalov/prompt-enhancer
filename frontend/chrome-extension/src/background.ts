@@ -4,19 +4,16 @@ import {
   isAuthenticated,
   openAuthPage
 } from '@services/auth-service';
-import { api } from '@shared/firebase-config';
+import { api } from '../../shared/firebase-config';
 
 // Initialize auth service
 initAuthService();
-
-// API endpoint for enhancing prompts
-const API_BASE_URL = api.baseUrl;
 
 // Function to handle opening the side panel
 chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: true });
 
 // Listen for messages from content script or side panel
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   // Handle enhance prompt request from content script
   if (message.action === 'enhancePrompt') {
     enhancePrompt(message.text)
