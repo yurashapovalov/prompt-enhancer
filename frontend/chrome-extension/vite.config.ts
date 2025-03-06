@@ -22,6 +22,7 @@ export default defineConfig({
       '@hooks': resolve(__dirname, 'src/hooks'),
       '@contexts': resolve(__dirname, 'src/contexts'),
       '@types': resolve(__dirname, 'src/types'),
+      '@layout': resolve(__dirname, 'src/layout'),
     },
   },
   // SVG configuration

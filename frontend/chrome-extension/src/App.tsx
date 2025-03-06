@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { isAuthenticated, openAuthPage } from '@services/auth-service';
+import { AuthPage } from '@layout/auth-page/auth-page';
+import { HomePage } from '@layout/home-page/home-page';
 import './App.css';
 
 function App() {
@@ -52,37 +54,11 @@ function App() {
 
   return (
     <div className="app-container">
-      <h1>Prompt Enhancer</h1>
-      
       {isAuth ? (
-        <div className="auth-status authenticated">
-          <div className="status-icon">✓</div>
-          <p>You are authenticated</p>
-          <p className="status-description">
-            You can now use all features of the extension.
-          </p>
-        </div>
+        <HomePage />
       ) : (
-        <div className="auth-status not-authenticated">
-          <div className="status-icon">!</div>
-          <p>Authentication required</p>
-          <p className="status-description">
-            You need to log in to use the extension.
-          </p>
-          <button className="login-button" onClick={handleLogin}>
-            Log in via web app
-          </button>
-        </div>
+        <AuthPage onLogin={handleLogin} />
       )}
-      
-      <div className="features">
-        <h2>Features</h2>
-        <ul>
-          <li>Enhance prompts for ChatGPT</li>
-          <li>Save prompt templates</li>
-          <li>Quick access to frequently used prompts</li>
-        </ul>
-      </div>
     </div>
   );
 }
