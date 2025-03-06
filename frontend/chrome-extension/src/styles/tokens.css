@@ -4,4 +4,4 @@
  */
 
 /* Import base tokens */
-@import '@shared/tokens.css';
+@import '../../../shared/tokens.css';

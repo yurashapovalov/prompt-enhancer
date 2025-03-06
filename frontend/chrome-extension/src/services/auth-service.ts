@@ -93,7 +93,7 @@ export const getCurrentUserToken = async (): Promise<string | null> => {
 
 // Open authentication page in a new tab
 export const openAuthPage = (): void => {
-  // Получаем ID расширения
+  // Get the extension ID for communication
   const extensionId = chrome.runtime.id;
   
   chrome.tabs.create({
@@ -108,27 +108,27 @@ export const onAuthStateChange = (callback: (user: any) => void): (() => void) =
 
 // Initialize auth service
 export const initAuthService = (): void => {
-  // Слушаем сообщения от веб-приложения
+  // Listen for messages from the web application
   chrome.runtime.onMessageExternal.addListener(
     async (message, sender, sendResponse) => {
-      // Проверяем, что сообщение от нашего веб-приложения
+      // Verify that the message is from our web application
       if (sender.url && sender.url.startsWith('http://localhost:5173')) {
-        // Обрабатываем сообщение об успешной аутентификации
+        // Handle successful authentication message
         if (message.action === 'auth_success' && message.token) {
           console.log('Received auth token from web app');
           
-          // Сохраняем токен
+          // Save the authentication token
           await saveToken(message.token);
           
-          // Отправляем ответ
+          // Send response back to the web app
           sendResponse({ success: true });
           
-          // Обновляем UI расширения, если необходимо
+          // Update extension UI if necessary
           chrome.runtime.sendMessage({ action: 'auth_updated' });
         }
       }
       
-      return true; // Держим соединение открытым для асинхронного ответа
+      return true; // Keep the message channel open for async response
     }
   );
   
