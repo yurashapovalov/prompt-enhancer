@@ -16,23 +16,23 @@ const Home: React.FC = () => {
   return (
     <div className="home-container">
       <div className="home-content">
-        <h1>Добро пожаловать!</h1>
+        <h1>Welcome!</h1>
         
         <div className="user-info">
-          <p>Вы вошли как: <span className="user-email">{user?.email}</span></p>
+          <p>You are logged in as: <span className="user-email">{user?.email}</span></p>
         </div>
         
         <div className="dashboard-section">
-          <h2>Панель управления</h2>
-          <p>Это защищенная страница, доступная только авторизованным пользователям.</p>
-          <p>Здесь может быть размещен основной функционал приложения.</p>
+          <h2>Dashboard</h2>
+          <p>This is a protected page, accessible only to authenticated users.</p>
+          <p>The main functionality of the application can be placed here.</p>
         </div>
         
         <button 
           className="btn-signout" 
           onClick={handleSignOut}
         >
-          Выйти
+          Sign Out
         </button>
       </div>
     </div>

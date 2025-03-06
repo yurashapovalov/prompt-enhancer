@@ -10,15 +10,15 @@ function App() {
   return (
     <AuthProvider>
       <Routes>
-        {/* Публичные маршруты */}
+        {/* Public routes - accessible without authentication */}
         <Route path="/login" element={<Login />} />
         
-        {/* Защищенные маршруты */}
+        {/* Protected routes - require authentication to access */}
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<Home />} />
         </Route>
         
-        {/* Перенаправление на главную страницу для неизвестных маршрутов */}
+        {/* Redirect to home page for any unknown routes */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </AuthProvider>

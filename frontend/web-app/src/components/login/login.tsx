@@ -12,19 +12,19 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   
-  // Получаем параметры из URL
+  // Get parameters from URL query string
   const queryParams = new URLSearchParams(location.search);
   const isFromExtension = queryParams.get('source') === 'extension';
   const extensionId = queryParams.get('extensionId');
   
-  // Перенаправление на домашнюю страницу, если пользователь уже авторизован
+  // Redirect to home page if user is already authenticated
   useEffect(() => {
     if (user) {
-      // Если пользователь вошел и есть токен, отправляем его в расширение
+      // If user is logged in and has a token, send it to the extension
       if (isFromExtension && extensionId && token) {
         console.log('Sending token to extension:', extensionId);
         try {
-          // Отправляем сообщение в расширение Chrome
+          // Send message to Chrome extension
           chrome.runtime.sendMessage(extensionId, {
             action: 'auth_success',
             token: token
@@ -35,9 +35,9 @@ const Login: React.FC = () => {
               console.log('Token sent to extension:', response);
             }
             
-            // Закрываем вкладку или перенаправляем на домашнюю страницу
+            // Close tab or redirect to home page
             if (window.opener) {
-              window.close(); // Закрываем вкладку, если она была открыта из расширения
+              window.close(); // Close tab if it was opened from the extension
             } else {
               navigate('/');
             }
@@ -47,7 +47,7 @@ const Login: React.FC = () => {
           navigate('/');
         }
       } else {
-        // Обычное перенаправление на домашнюю страницу
+        // Standard redirect to home page
         navigate('/');
       }
     }
@@ -64,7 +64,7 @@ const Login: React.FC = () => {
     
     try {
       await signIn(email, password);
-      // Перенаправление будет выполнено через useEffect
+      // Redirection will be handled by the useEffect hook
     } catch (error) {
       console.error('Login error:', error);
     } finally {
@@ -77,7 +77,7 @@ const Login: React.FC = () => {
     
     try {
       await signInWithGoogle();
-      // Перенаправление будет выполнено через useEffect
+      // Redirection will be handled by the useEffect hook
     } catch (error) {
       console.error('Google login error:', error);
     } finally {
@@ -92,7 +92,7 @@ const Login: React.FC = () => {
         
         {isFromExtension && (
           <div className="extension-notice">
-            Вход для расширения Chrome
+            Login for Chrome Extension
           </div>
         )}
         

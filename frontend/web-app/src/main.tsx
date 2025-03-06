@@ -4,8 +4,8 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App.tsx';
 
-// Импортируем общие стили
-import '../../shared/tokens.css';
+// Import design tokens and global styles
+import '@styles/tokens.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

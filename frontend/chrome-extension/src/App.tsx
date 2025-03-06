@@ -6,7 +6,7 @@ function App() {
   const [isAuth, setIsAuth] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Проверяем статус аутентификации при загрузке
+  // Check authentication status when component mounts
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -22,7 +22,7 @@ function App() {
 
     checkAuth();
 
-    // Слушаем сообщения об обновлении аутентификации
+    // Listen for authentication update messages from background script
     const handleAuthUpdate = (message: any) => {
       if (message.action === 'auth_updated') {
         checkAuth();
@@ -36,7 +36,7 @@ function App() {
     };
   }, []);
 
-  // Обработчик для кнопки входа
+  // Handler for login button click - opens authentication page
   const handleLogin = () => {
     openAuthPage();
   };
@@ -45,7 +45,7 @@ function App() {
     return (
       <div className="app-container">
         <div className="loading-spinner"></div>
-        <p>Загрузка...</p>
+        <p>Loading...</p>
       </div>
     );
   }
@@ -57,30 +57,30 @@ function App() {
       {isAuth ? (
         <div className="auth-status authenticated">
           <div className="status-icon">✓</div>
-          <p>Вы авторизованы</p>
+          <p>You are authenticated</p>
           <p className="status-description">
-            Теперь вы можете использовать все функции расширения.
+            You can now use all features of the extension.
           </p>
         </div>
       ) : (
         <div className="auth-status not-authenticated">
           <div className="status-icon">!</div>
-          <p>Требуется вход</p>
+          <p>Authentication required</p>
           <p className="status-description">
-            Для использования расширения необходимо войти в аккаунт.
+            You need to log in to use the extension.
           </p>
           <button className="login-button" onClick={handleLogin}>
-            Войти через веб-приложение
+            Log in via web app
           </button>
         </div>
       )}
       
       <div className="features">
-        <h2>Возможности</h2>
+        <h2>Features</h2>
         <ul>
-          <li>Улучшение промптов для ChatGPT</li>
-          <li>Сохранение шаблонов промптов</li>
-          <li>Быстрый доступ к часто используемым промптам</li>
+          <li>Enhance prompts for ChatGPT</li>
+          <li>Save prompt templates</li>
+          <li>Quick access to frequently used prompts</li>
         </ul>
       </div>
     </div>

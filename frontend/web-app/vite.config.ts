@@ -4,7 +4,12 @@ import { resolve } from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react({
+      // Enable SVG support in JSX
+      include: '**/*.{jsx,tsx,svg}',
+    }),
+  ],
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
@@ -18,5 +23,10 @@ export default defineConfig({
       '@contexts': resolve(__dirname, 'src/contexts'),
       '@types': resolve(__dirname, 'src/types'),
     },
+  },
+  // SVG configuration
+  assetsInclude: ['**/*.svg'],
+  build: {
+    assetsInlineLimit: 0, // Prevent SVG inlining
   },
 })

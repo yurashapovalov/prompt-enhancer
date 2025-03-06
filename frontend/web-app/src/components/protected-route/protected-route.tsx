@@ -6,22 +6,22 @@ import './protected-route.css';
 const ProtectedRoute: React.FC = () => {
   const { user, loading } = useAuth();
   
-  // Показываем индикатор загрузки, пока проверяем статус аутентификации
+  // Display loading indicator while checking authentication status
   if (loading) {
     return (
       <div className="loading-container">
         <div className="loading-spinner"></div>
-        <p>Проверка аутентификации...</p>
+        <p>Checking authentication...</p>
       </div>
     );
   }
   
-  // Если пользователь не авторизован, перенаправляем на страницу логина
+  // If user is not authenticated, redirect to login page
   if (!user) {
     return <Navigate to="/login" replace />;
   }
   
-  // Если пользователь авторизован, отображаем защищенный контент
+  // If user is authenticated, render the protected content
   return <Outlet />;
 };
 
