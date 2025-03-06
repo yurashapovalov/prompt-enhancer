@@ -8,7 +8,7 @@ import {
   setPersistence,
   browserLocalPersistence
 } from 'firebase/auth';
-import { firebaseConfig } from '@shared/firebase-config';
+import { firebaseConfig } from '../../../shared/firebase-config';
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -93,8 +93,11 @@ export const getCurrentUserToken = async (): Promise<string | null> => {
 
 // Open authentication page in a new tab
 export const openAuthPage = (): void => {
+  // Получаем ID расширения
+  const extensionId = chrome.runtime.id;
+  
   chrome.tabs.create({
-    url: 'http://localhost:5173/login?source=extension'
+    url: `http://localhost:5173/login?source=extension&extensionId=${extensionId}`
   });
 };
 
@@ -105,6 +108,30 @@ export const onAuthStateChange = (callback: (user: any) => void): (() => void) =
 
 // Initialize auth service
 export const initAuthService = (): void => {
+  // Слушаем сообщения от веб-приложения
+  chrome.runtime.onMessageExternal.addListener(
+    async (message, sender, sendResponse) => {
+      // Проверяем, что сообщение от нашего веб-приложения
+      if (sender.url && sender.url.startsWith('http://localhost:5173')) {
+        // Обрабатываем сообщение об успешной аутентификации
+        if (message.action === 'auth_success' && message.token) {
+          console.log('Received auth token from web app');
+          
+          // Сохраняем токен
+          await saveToken(message.token);
+          
+          // Отправляем ответ
+          sendResponse({ success: true });
+          
+          // Обновляем UI расширения, если необходимо
+          chrome.runtime.sendMessage({ action: 'auth_updated' });
+        }
+      }
+      
+      return true; // Держим соединение открытым для асинхронного ответа
+    }
+  );
+  
   // Listen for auth state changes
   onAuthStateChanged(auth, async (user) => {
     if (user) {

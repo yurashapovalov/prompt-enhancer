@@ -6,16 +6,19 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut as firebaseSignOut,
+  GoogleAuthProvider,
+  signInWithPopup,
   User,
   Auth,
   setPersistence,
   browserLocalPersistence
 } from 'firebase/auth';
-import { firebaseConfig, firebaseAuth } from '@shared/firebase-config';
+import { firebaseConfig, firebaseAuth } from '../../../shared/firebase-config';
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider();
 
 // Set persistence to LOCAL
 setPersistence(auth, browserLocalPersistence)
@@ -30,6 +33,7 @@ interface AuthContextType {
   error: string | null;
   token: string | null;
   signIn: (email: string, password: string) => Promise<void>;
+  signInWithGoogle: () => Promise<void>;
   signUp: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
 }
@@ -95,6 +99,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  // Sign in with Google
+  const signInWithGoogle = async () => {
+    try {
+      setError(null);
+      setLoading(true);
+      
+      const result = await signInWithPopup(auth, googleProvider);
+      const token = await result.user.getIdToken();
+      setToken(token);
+    } catch (error: any) {
+      setError(error.message || 'Failed to sign in with Google');
+      console.error('Google sign in error:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Sign up with email and password
   const signUp = async (email: string, password: string) => {
     try {
@@ -131,6 +152,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     error,
     token,
     signIn,
+    signInWithGoogle,
     signUp,
     signOut
   };

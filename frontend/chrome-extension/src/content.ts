@@ -127,13 +127,13 @@ function handleFocus(event: FocusEvent): void {
     element.isContentEditable
   ) {
     activeTextElement = element;
-    const button = createEnhanceButton();
+    createEnhanceButton();
     positionEnhanceButton(element);
   }
 }
 
 // Function to handle blur (focus lost) on text elements
-function handleBlur(event: FocusEvent): void {
+function handleBlur(_event: FocusEvent): void {
   // Hide the button with a small delay to allow clicking it
   setTimeout(() => {
     if (enhanceButton) {
@@ -154,7 +154,7 @@ window.addEventListener('resize', () => {
 });
 
 // Listen for messages from the background script
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message.action === 'insertPrompt' && message.text) {
     // If we have an active text element, insert the prompt template
     if (activeTextElement) {
