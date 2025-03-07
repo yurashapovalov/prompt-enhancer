@@ -6,10 +6,15 @@
 }
 
 .history-tab__header {
-  padding: var(--spacing-4) 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 20px;
+}
+
+.history-tab__actions {
+  display: flex;
+  gap: 10px;
 }
 
 .history-tab__title {

@@ -1,6 +1,7 @@
 import { api } from '../../../shared/firebase-config';
+import { promptsCache, variablesCache, historyCache } from './cache-service';
 
-// Типы данных
+// Types
 export interface Prompt {
   id?: string;
   promptName: string;
@@ -27,7 +28,7 @@ export interface HistoryEntry {
   timestamp?: Date;
 }
 
-// Интерфейсы для ответов API
+// API response interfaces
 interface PromptListResponse {
   prompts: Prompt[];
 }
@@ -44,18 +45,18 @@ interface EnhancePromptResponse {
   enhancedText: string;
 }
 
-// Вспомогательная функция для обработки ошибок
+// Helper function for error handling
 const handleApiError = (error: any, endpoint: string) => {
   console.error(`API Error (${endpoint}):`, error);
   
-  // Создаем более информативное сообщение об ошибке
-  let errorMessage = `Ошибка при обращении к ${endpoint}`;
+  // Create a more informative error message
+  let errorMessage = `Error accessing ${endpoint}`;
   
   if (error.message) {
     errorMessage += `: ${error.message}`;
   }
   
-  // Если есть дополнительная информация об ошибке
+  // If there is additional error information
   if (error.response) {
     try {
       const responseData = error.response.data;
@@ -65,38 +66,73 @@ const handleApiError = (error: any, endpoint: string) => {
     }
   }
   
-  // Создаем новый объект ошибки с более подробной информацией
+  // Create a new error object with more detailed information
   const enhancedError = new Error(errorMessage);
   enhancedError.name = 'ApiError';
-  // Не используем свойство cause, так как оно доступно только в ES2022+
+  // We don't use the 'cause' property as it's only available in ES2022+
   
   throw enhancedError;
 };
 
-// API для промптов
+// API for prompts
 export const promptsApi = {
-  // Получить все промпты пользователя
-  getPrompts: async (token: string): Promise<Prompt[]> => {
+  // Get all user prompts with caching
+  getPrompts: async (token: string, forceRefresh = false): Promise<Prompt[]> => {
     try {
-      console.log('API: Запрос промптов...');
+      // Check cache first if not forcing refresh
+      if (!forceRefresh) {
+        const isValid = await promptsCache.isValid();
+        if (isValid) {
+          const { data } = await promptsCache.get();
+          if (data && data.length > 0) {
+            console.log('Using cached prompts data');
+            return data;
+          }
+        }
+      }
+      
+      // Cache invalid or empty, fetch from API
+      console.log('API: Requesting prompts...');
       const response = await api.fetchWithAuth<PromptListResponse>('/api/prompts', { method: 'GET' }, token);
-      console.log('API: Получен ответ:', response);
+      console.log('API: Response received:', response);
+      
+      // Cache the result
+      await promptsCache.set(response.prompts);
+      
       return response.prompts;
     } catch (error) {
       return handleApiError(error, '/api/prompts');
     }
   },
   
-  // Получить конкретный промпт
-  getPrompt: async (id: string, token: string): Promise<Prompt> => {
+  // Get a specific prompt with caching
+  getPrompt: async (id: string, token: string, forceRefresh = false): Promise<Prompt> => {
     try {
+      // Check cache first if not forcing refresh
+      if (!forceRefresh) {
+        const isValid = await promptsCache.isValid();
+        if (isValid) {
+          const { data } = await promptsCache.get();
+          if (data && data.length > 0) {
+            // Try to find the prompt in the cached list
+            const cachedPrompt = data.find(prompt => prompt.id === id);
+            if (cachedPrompt) {
+              console.log('Using cached prompt data for id:', id);
+              return cachedPrompt;
+            }
+          }
+        }
+      }
+      
+      // Cache miss or forced refresh, fetch from API
+      console.log('API: Requesting prompt details for id:', id);
       return await api.fetchWithAuth(`/api/prompts/${id}`, { method: 'GET' }, token);
     } catch (error) {
       return handleApiError(error, `/api/prompts/${id}`);
     }
   },
   
-  // Создать новый промпт
+  // Create a new prompt
   createPrompt: async (prompt: Prompt, token: string): Promise<Prompt> => {
     try {
       return await api.fetchWithAuth('/api/prompts', {
@@ -108,7 +144,7 @@ export const promptsApi = {
     }
   },
   
-  // Обновить существующий промпт
+  // Update an existing prompt
   updatePrompt: async (id: string, prompt: Prompt, token: string): Promise<Prompt> => {
     try {
       return await api.fetchWithAuth(`/api/prompts/${id}`, {
@@ -120,7 +156,7 @@ export const promptsApi = {
     }
   },
   
-  // Удалить промпт
+  // Delete a prompt
   deletePrompt: async (id: string, token: string): Promise<void> => {
     try {
       await api.fetchWithAuth(`/api/prompts/${id}`, { method: 'DELETE' }, token);
@@ -130,28 +166,65 @@ export const promptsApi = {
   }
 };
 
-// API для переменных
+// API for variables
 export const variablesApi = {
-  // Получить все переменные пользователя
-  getVariables: async (token: string): Promise<Variable[]> => {
+  // Get all user variables with caching
+  getVariables: async (token: string, forceRefresh = false): Promise<Variable[]> => {
     try {
+      // Check cache first if not forcing refresh
+      if (!forceRefresh) {
+        const isValid = await variablesCache.isValid();
+        if (isValid) {
+          const { data } = await variablesCache.get();
+          if (data && data.length > 0) {
+            console.log('Using cached variables data');
+            return data;
+          }
+        }
+      }
+      
+      // Cache invalid or empty, fetch from API
+      console.log('API: Requesting variables...');
       const response = await api.fetchWithAuth<VariableListResponse>('/api/variables', { method: 'GET' }, token);
+      console.log('API: Response received:', response);
+      
+      // Cache the result
+      await variablesCache.set(response.variables);
+      
       return response.variables;
     } catch (error) {
       return handleApiError(error, '/api/variables');
     }
   },
   
-  // Получить конкретную переменную
-  getVariable: async (id: string, token: string): Promise<Variable> => {
+  // Get a specific variable with caching
+  getVariable: async (id: string, token: string, forceRefresh = false): Promise<Variable> => {
     try {
+      // Check cache first if not forcing refresh
+      if (!forceRefresh) {
+        const isValid = await variablesCache.isValid();
+        if (isValid) {
+          const { data } = await variablesCache.get();
+          if (data && data.length > 0) {
+            // Try to find the variable in the cached list
+            const cachedVariable = data.find(variable => variable.id === id);
+            if (cachedVariable) {
+              console.log('Using cached variable data for id:', id);
+              return cachedVariable;
+            }
+          }
+        }
+      }
+      
+      // Cache miss or forced refresh, fetch from API
+      console.log('API: Requesting variable details for id:', id);
       return await api.fetchWithAuth(`/api/variables/${id}`, { method: 'GET' }, token);
     } catch (error) {
       return handleApiError(error, `/api/variables/${id}`);
     }
   },
   
-  // Создать новую переменную
+  // Create a new variable
   createVariable: async (variable: Variable, token: string): Promise<Variable> => {
     try {
       return await api.fetchWithAuth('/api/variables', {
@@ -163,7 +236,7 @@ export const variablesApi = {
     }
   },
   
-  // Обновить существующую переменную
+  // Update an existing variable
   updateVariable: async (id: string, variable: Variable, token: string): Promise<Variable> => {
     try {
       return await api.fetchWithAuth(`/api/variables/${id}`, {
@@ -175,29 +248,83 @@ export const variablesApi = {
     }
   },
   
-  // Удалить переменную
+  // Delete a variable
   deleteVariable: async (id: string, token: string): Promise<void> => {
     try {
       await api.fetchWithAuth(`/api/variables/${id}`, { method: 'DELETE' }, token);
+      
+      // Invalidate cache after deletion
+      await variablesCache.clear();
     } catch (error) {
       handleApiError(error, `/api/variables/${id} (DELETE)`);
     }
   }
 };
 
-// API для истории
+// API for history
 export const historyApi = {
-  // Получить историю пользователя
-  getHistory: async (token: string, limit: number = 20, offset: number = 0): Promise<HistoryEntry[]> => {
+  // Get user history with caching
+  getHistory: async (token: string, limit: number = 20, offset: number = 0, forceRefresh = false): Promise<HistoryEntry[]> => {
     try {
+      // Check cache first if not forcing refresh
+      if (!forceRefresh) {
+        const isValid = await historyCache.isValid();
+        if (isValid) {
+          const { data } = await historyCache.get();
+          if (data && data.length > 0) {
+            console.log('Using cached history data');
+            return data;
+          }
+        }
+      }
+      
+      // Cache invalid or empty, fetch from API
+      console.log('API: Requesting history...');
       const response = await api.fetchWithAuth<HistoryListResponse>(`/api/history?limit=${limit}&offset=${offset}`, { method: 'GET' }, token);
+      console.log('API: Response received:', response);
+      
+      // Cache the result
+      await historyCache.set(response.history);
+      
       return response.history;
     } catch (error) {
       return handleApiError(error, '/api/history');
     }
   },
   
-  // Добавить запись в историю
+  // Get a specific history entry with caching
+  getHistoryEntry: async (id: string, token: string, forceRefresh = false): Promise<HistoryEntry | null> => {
+    try {
+      // Check cache first if not forcing refresh
+      if (!forceRefresh) {
+        const isValid = await historyCache.isValid();
+        if (isValid) {
+          const { data } = await historyCache.get();
+          if (data && data.length > 0) {
+            // Try to find the history entry in the cached list
+            const cachedEntry = data.find(entry => entry.id === id);
+            if (cachedEntry) {
+              console.log('Using cached history entry data for id:', id);
+              return cachedEntry;
+            }
+          }
+        }
+      }
+      
+      // Cache miss or forced refresh, fetch all history and find the entry
+      // (Since there's no direct API endpoint for a single history entry)
+      console.log('API: Requesting all history to find entry with id:', id);
+      const historyData = await historyApi.getHistory(token, 100, 0, true);
+      const entry = historyData.find(item => item.id === id);
+      
+      return entry || null;
+    } catch (error) {
+      console.error(`Error getting history entry (${id}):`, error);
+      return null;
+    }
+  },
+  
+  // Add an entry to history
   addHistoryEntry: async (entry: HistoryEntry, token: string): Promise<HistoryEntry> => {
     try {
       return await api.fetchWithAuth('/api/history', {
@@ -209,28 +336,34 @@ export const historyApi = {
     }
   },
   
-  // Удалить запись из истории
+  // Delete a history entry
   deleteHistoryEntry: async (id: string, token: string): Promise<void> => {
     try {
       await api.fetchWithAuth(`/api/history/${id}`, { method: 'DELETE' }, token);
+      
+      // Invalidate cache after deletion
+      await historyCache.clear();
     } catch (error) {
       handleApiError(error, `/api/history/${id} (DELETE)`);
     }
   },
   
-  // Очистить всю историю пользователя
+  // Clear all user history
   clearHistory: async (token: string): Promise<void> => {
     try {
       await api.fetchWithAuth('/api/history', { method: 'DELETE' }, token);
+      
+      // Invalidate cache after clearing
+      await historyCache.clear();
     } catch (error) {
       handleApiError(error, '/api/history (DELETE all)');
     }
   }
 };
 
-// API для улучшения промптов
+// API for prompt enhancement
 export const enhanceApi = {
-  // Улучшить промпт
+  // Enhance a prompt
   enhancePrompt: async (text: string, token: string): Promise<string> => {
     try {
       const response = await api.fetchWithAuth<EnhancePromptResponse>('/api/enhance-prompt', {
