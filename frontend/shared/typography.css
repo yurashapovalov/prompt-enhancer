@@ -1,0 +1,58 @@
+/* 
+ * Typography Classes
+ * These classes can be combined to create different text styles
+ */
+
+/* Import base tokens */
+@import url('./tokens.css');
+
+/* Base text size classes */
+
+.text-default {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-tight);
+}
+
+.text-small {
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-tight);
+}
+
+.text-large {
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-tight);
+}
+
+/* Font weight modifiers */
+.text-regular {
+  font-weight: var(--font-weight-regular);
+}
+
+.text-medium {
+  font-weight: var(--font-weight-medium);
+}
+
+.text-semibold {
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Line height modifiers */
+.line-button {
+  line-height: var(--line-height-0);
+}
+
+.line-normal {
+  line-height: var(--line-height-normal);
+}
+
+.line-relaxed {
+  line-height: var(--line-height-relaxed);
+}
+
+/* 
+ * Usage examples:
+ * 
+ * Default text: <div class="text-default text-regular">...</div>
+ * Small text with medium weight: <div class="text-small text-medium">...</div>
+ * Large text with semibold weight: <div class="text-large text-semibold">...</div>
+ */

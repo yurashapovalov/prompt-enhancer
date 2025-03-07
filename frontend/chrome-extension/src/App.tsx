@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { isAuthenticated, openAuthPage } from '@services/auth-service';
-import { AuthPage } from '@layout/auth-page/auth-page';
-import { HomePage } from '@layout/home-page/home-page';
+import { MainLayout } from '@layout/main-layout/main-layout';
 import './App.css';
 
 function App() {
@@ -12,7 +11,9 @@ function App() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
+        console.log('Проверка аутентификации...');
         const authenticated = await isAuthenticated();
+        console.log('Статус аутентификации:', authenticated);
         setIsAuth(authenticated);
       } catch (error) {
         console.error('Error checking authentication:', error);
@@ -25,28 +26,25 @@ function App() {
     checkAuth();
 
     // Listen for authentication update messages from background script
-    const handleAuthUpdate = (message: any) => {
-      if (message.action === 'auth_updated') {
-        checkAuth();
-      }
-    };
+    // Only in Chrome extension environment
+    if (typeof chrome !== 'undefined' && chrome.runtime) {
+      const handleAuthUpdate = (message: any) => {
+        if (message.action === 'auth_updated') {
+          checkAuth();
+        }
+      };
 
-    chrome.runtime.onMessage.addListener(handleAuthUpdate);
+      chrome.runtime.onMessage.addListener(handleAuthUpdate);
 
-    return () => {
-      chrome.runtime.onMessage.removeListener(handleAuthUpdate);
-    };
+      return () => {
+        chrome.runtime.onMessage.removeListener(handleAuthUpdate);
+      };
+    }
   }, []);
-
-  // Handler for login button click - opens authentication page
-  const handleLogin = () => {
-    openAuthPage();
-  };
 
   if (loading) {
     return (
       <div className="app-container">
-        <div className="loading-spinner"></div>
         <p>Loading...</p>
       </div>
     );
@@ -55,9 +53,13 @@ function App() {
   return (
     <div className="app-container">
       {isAuth ? (
-        <HomePage />
+        <MainLayout />
       ) : (
-        <AuthPage onLogin={handleLogin} />
+        <div className="login-container">
+          <h2>Prompt Enhancer</h2>
+          <p>Пожалуйста, войдите в систему для доступа к приложению</p>
+          <button onClick={openAuthPage}>Войти</button>
+        </div>
       )}
     </div>
   );

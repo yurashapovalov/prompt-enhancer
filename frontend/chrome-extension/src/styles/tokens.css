@@ -1,7 +1,10 @@
 /* 
  * Chrome Extension Design System Tokens
- * Imports the base tokens from shared directory
+ * Imports the base tokens and typography classes from shared directory
  */
 
 /* Import base tokens */
 @import '../../../shared/tokens.css';
+
+/* Import typography classes */
+@import '../../../shared/typography.css';

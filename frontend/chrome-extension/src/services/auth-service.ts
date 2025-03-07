@@ -20,17 +20,41 @@ setPersistence(auth, browserLocalPersistence)
     console.error('Error setting auth persistence:', error);
   });
 
+// Check if we're in a Chrome extension environment
+const isChromeExtension = typeof chrome !== 'undefined' && chrome.storage && chrome.runtime;
+
 // Save token to chrome.storage.local
 const saveToken = async (token: string): Promise<void> => {
+  console.log('Saving token...');
+  if (!isChromeExtension) {
+    console.log('Not in Chrome extension environment, saving token to localStorage');
+    // For testing in browser, save token to localStorage
+    localStorage.setItem('authToken', token);
+    return Promise.resolve();
+  }
+  
   return new Promise((resolve) => {
-    chrome.storage.local.set({ authToken: token }, resolve);
+    chrome.storage.local.set({ authToken: token }, () => {
+      console.log('Token saved to chrome.storage.local');
+      resolve();
+    });
   });
 };
 
 // Get token from chrome.storage.local
 const getToken = async (): Promise<string | null> => {
+  console.log('Getting token...');
+  if (!isChromeExtension) {
+    console.log('Not in Chrome extension environment, getting token from localStorage');
+    // For testing in browser, get token from localStorage
+    const token = localStorage.getItem('authToken');
+    console.log('Token from localStorage:', token ? 'found' : 'not found');
+    return Promise.resolve(token);
+  }
+  
   return new Promise((resolve) => {
     chrome.storage.local.get(['authToken'], (result: { authToken?: string }) => {
+      console.log('Token from chrome.storage.local:', result.authToken ? 'found' : 'not found');
       resolve(result.authToken || null);
     });
   });
@@ -38,16 +62,29 @@ const getToken = async (): Promise<string | null> => {
 
 // Remove token from chrome.storage.local
 const removeToken = async (): Promise<void> => {
+  console.log('Removing token...');
+  if (!isChromeExtension) {
+    console.log('Not in Chrome extension environment, removing token from localStorage');
+    localStorage.removeItem('authToken');
+    return Promise.resolve();
+  }
+  
   return new Promise((resolve) => {
-    chrome.storage.local.remove(['authToken'], resolve);
+    chrome.storage.local.remove(['authToken'], () => {
+      console.log('Token removed from chrome.storage.local');
+      resolve();
+    });
   });
 };
 
 // Sign in with email and password
 export const signIn = async (email: string, password: string): Promise<string> => {
   try {
+    console.log(`Signing in with email: ${email}...`);
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    console.log('Sign in successful, getting token...');
     const token = await userCredential.user.getIdToken();
+    console.log('Token received, saving...');
     await saveToken(token);
     return token;
   } catch (error) {
@@ -59,8 +96,11 @@ export const signIn = async (email: string, password: string): Promise<string> =
 // Sign up with email and password
 export const signUp = async (email: string, password: string): Promise<string> => {
   try {
+    console.log(`Signing up with email: ${email}...`);
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    console.log('Sign up successful, getting token...');
     const token = await userCredential.user.getIdToken();
+    console.log('Token received, saving...');
     await saveToken(token);
     return token;
   } catch (error) {
@@ -72,7 +112,9 @@ export const signUp = async (email: string, password: string): Promise<string> =
 // Sign out
 export const signOutUser = async (): Promise<void> => {
   try {
+    console.log('Signing out...');
     await signOut(auth);
+    console.log('Sign out successful, removing token...');
     await removeToken();
   } catch (error) {
     console.error('Error signing out:', error);
@@ -82,17 +124,33 @@ export const signOutUser = async (): Promise<void> => {
 
 // Check if user is authenticated
 export const isAuthenticated = async (): Promise<boolean> => {
+  console.log('Checking authentication...');
   const token = await getToken();
+  console.log('Authentication check result:', !!token);
   return !!token;
 };
 
 // Get current user's ID token
 export const getCurrentUserToken = async (): Promise<string | null> => {
-  return getToken();
+  console.log('Getting current user token...');
+  const token = await getToken();
+  if (token) {
+    console.log('Current user token received:', token.substring(0, 10) + '...');
+  } else {
+    console.log('Current user token not found');
+  }
+  return token;
 };
 
 // Open authentication page in a new tab
 export const openAuthPage = (): void => {
+  if (!isChromeExtension) {
+    console.log('Not in Chrome extension environment, cannot open auth page');
+    // In browser, just log a message
+    console.log('Would open auth page in extension environment');
+    return;
+  }
+  
   // Get the extension ID for communication
   const extensionId = chrome.runtime.id;
   
@@ -108,24 +166,40 @@ export const onAuthStateChange = (callback: (user: any) => void): (() => void) =
 
 // Initialize auth service
 export const initAuthService = (): void => {
+  if (!isChromeExtension) {
+    console.log('Not in Chrome extension environment, auth service not initialized');
+    return;
+  }
+  
+  console.log('Initializing auth service in Chrome extension environment');
+  
   // Listen for messages from the web application
   chrome.runtime.onMessageExternal.addListener(
     async (message, sender, sendResponse) => {
+      console.log('Received external message:', message);
+      console.log('Sender:', sender);
+      
       // Verify that the message is from our web application
       if (sender.url && sender.url.startsWith('http://localhost:5173')) {
+        console.log('Message is from our web application');
+        
         // Handle successful authentication message
         if (message.action === 'auth_success' && message.token) {
-          console.log('Received auth token from web app');
+          console.log('Received auth token from web app:', message.token.substring(0, 10) + '...');
           
           // Save the authentication token
           await saveToken(message.token);
           
           // Send response back to the web app
           sendResponse({ success: true });
+          console.log('Sent response back to web app');
           
           // Update extension UI if necessary
           chrome.runtime.sendMessage({ action: 'auth_updated' });
+          console.log('Sent auth_updated message to extension');
         }
+      } else {
+        console.log('Message is not from our web application');
       }
       
       return true; // Keep the message channel open for async response

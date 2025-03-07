@@ -1,0 +1,22 @@
+.marketplace-tab {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.marketplace-tab__header {
+  padding: var(--spacing-4) 0;
+}
+
+.marketplace-tab__title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  margin: 0;
+}
+
+.marketplace-tab__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
