@@ -104,18 +104,33 @@ export const api = {
       ...options.headers
     };
     
+    console.log(`Request to ${url}...`);
+    console.log(`Authentication token: ${token.substring(0, 10)}...`);
+    console.log(`Request headers:`, headers);
+    
     try {
       const response = await fetch(url, {
         ...options,
         headers
       });
       
+      console.log(`Response from ${url}, status:`, response.status);
+      
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.detail || `API error: ${response.status}`);
+        let errorMessage = `API error: ${response.status}`;
+        try {
+          const errorData = await response.json();
+          console.error(`API error (${endpoint}):`, errorData);
+          errorMessage = errorData.detail || errorMessage;
+        } catch (jsonError) {
+          console.error(`Failed to read JSON from error response:`, jsonError);
+        }
+        throw new Error(errorMessage);
       }
       
-      return await response.json();
+      const data = await response.json();
+      console.log(`Response from ${url}:`, data);
+      return data;
     } catch (error) {
       console.error(`Error fetching ${endpoint}:`, error);
       throw error;
