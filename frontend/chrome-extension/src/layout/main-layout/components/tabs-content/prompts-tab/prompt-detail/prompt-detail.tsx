@@ -10,14 +10,14 @@ interface PromptDetailProps {
 }
 
 export const PromptDetail: React.FC<PromptDetailProps> = ({ promptId, onBack }) => {
-  // Состояние для хранения данных промпта
+  // State for storing prompt data
   const [prompt, setPrompt] = useState<Prompt | null>(null);
-  // Состояние для отображения загрузки
+  // State for displaying loading
   const [loading, setLoading] = useState<boolean>(true);
-  // Состояние для отображения ошибки
+  // State for displaying error
   const [error, setError] = useState<string | null>(null);
 
-  // Загрузка данных промпта при монтировании компонента
+  // Load prompt data when component mounts
   useEffect(() => {
     const fetchPrompt = async () => {
       try {
@@ -25,25 +25,25 @@ export const PromptDetail: React.FC<PromptDetailProps> = ({ promptId, onBack }) 
         const token = await getCurrentUserToken();
         
         if (token) {
-          // Если это тестовый промпт, создаем заглушку
+          // If this is a sample prompt, create a stub
           if (promptId === 'sample-prompt-id') {
             setPrompt({
-              promptName: 'Тестовый промпт',
-              promptDescription: 'Это тестовый промпт для демонстрации',
-              promptText: 'Текст тестового промпта. Здесь будет содержимое промпта.',
+              promptName: 'Sample Prompt',
+              promptDescription: 'This is a sample prompt for demonstration',
+              promptText: 'Sample prompt text. This is where the prompt content will be.',
               color: 'var(--color-prompt-tile-emerald)'
             });
           } else {
-            // Иначе загружаем данные с сервера
-            const promptData = await promptsApi.getPrompt(promptId, token);
+            // Otherwise load data from the server with caching
+            const promptData = await promptsApi.getPrompt(promptId, token, false);
             setPrompt(promptData);
           }
         } else {
-          setError('Не удалось получить токен аутентификации');
+          setError('Failed to get authentication token');
         }
       } catch (err) {
-        console.error('Ошибка при загрузке промпта:', err);
-        setError('Не удалось загрузить промпт');
+        console.error('Error loading prompt:', err);
+        setError('Failed to load prompt');
       } finally {
         setLoading(false);
       }
@@ -67,7 +67,7 @@ export const PromptDetail: React.FC<PromptDetailProps> = ({ promptId, onBack }) 
       <div className="prompt-detail__content">
         {loading ? (
           <div className="prompt-detail__loading">
-            <p>Загрузка промпта...</p>
+            <p>Loading prompt...</p>
           </div>
         ) : error ? (
           <div className="prompt-detail__error">
@@ -76,7 +76,7 @@ export const PromptDetail: React.FC<PromptDetailProps> = ({ promptId, onBack }) 
               variant="transparent"
               onClick={() => window.location.reload()}
             >
-              Попробовать снова
+              Try again
             </Button>
           </div>
         ) : prompt ? (
@@ -90,12 +90,12 @@ export const PromptDetail: React.FC<PromptDetailProps> = ({ promptId, onBack }) 
             </div>
             
             <div className="prompt-detail__section">
-              <h3 className="prompt-detail__section-title">Описание</h3>
+              <h3 className="prompt-detail__section-title">Description</h3>
               <p className="prompt-detail__description">{prompt.promptDescription}</p>
             </div>
             
             <div className="prompt-detail__section">
-              <h3 className="prompt-detail__section-title">Текст промпта</h3>
+              <h3 className="prompt-detail__section-title">Prompt Text</h3>
               <div className="prompt-detail__text-box">
                 {prompt.promptText}
               </div>
@@ -103,12 +103,12 @@ export const PromptDetail: React.FC<PromptDetailProps> = ({ promptId, onBack }) 
           </div>
         ) : (
           <div className="prompt-detail__not-found">
-            <p>Промпт не найден</p>
+            <p>Prompt not found</p>
             <Button 
               variant="transparent"
               onClick={onBack}
             >
-              Вернуться к списку
+              Back to list
             </Button>
           </div>
         )}

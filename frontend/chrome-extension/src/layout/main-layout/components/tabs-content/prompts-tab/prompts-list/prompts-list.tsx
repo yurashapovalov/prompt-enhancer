@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './prompts-list.css';
 import { Button } from '@components/ui/button/button';
 import { ItemCard } from '@components/shared/item-card/item-card';
@@ -11,63 +11,74 @@ interface PromptsListProps {
 }
 
 export const PromptsList: React.FC<PromptsListProps> = ({ onPromptSelect }) => {
-  // Состояние для хранения промптов
+  // State for storing prompts
   const [prompts, setPrompts] = useState<Prompt[]>([]);
-  // Состояние для отображения загрузки
+  // State for displaying loading
   const [loading, setLoading] = useState<boolean>(true);
-  // Состояние для отображения ошибки
+  // State for displaying error
   const [error, setError] = useState<string | null>(null);
-  // Состояние для отображения детальной информации об ошибке
+  // State for displaying detailed error information
   const [errorDetails, setErrorDetails] = useState<string | null>(null);
 
-  // Функция для выбора промпта
+  // Function for selecting a prompt
   const handleSelectPrompt = (promptId: string) => {
     onPromptSelect(promptId);
   };
 
-  // Загрузка промптов при монтировании компонента
-  useEffect(() => {
-    const fetchPrompts = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        setErrorDetails(null);
-        
-        console.log('Получение токена аутентификации...');
-        const token = await getCurrentUserToken();
-        
-        if (token) {
-          console.log('Токен получен, загрузка промптов...');
-          try {
-            const promptsData = await promptsApi.getPrompts(token);
-            console.log('Промпты загружены:', promptsData);
-            setPrompts(promptsData);
-          } catch (apiError: any) {
-            console.error('Ошибка API при загрузке промптов:', apiError);
-            setError('Не удалось загрузить промпты');
-            setErrorDetails(`Ошибка API: ${apiError.message || JSON.stringify(apiError)}`);
-          }
-        } else {
-          console.error('Не удалось получить токен аутентификации');
-          setError('Не удалось получить токен аутентификации');
-          setErrorDetails('Токен аутентификации не получен. Возможно, вы не авторизованы.');
+  // Function to fetch prompts (can be called for refresh)
+  const fetchPrompts = useCallback(async (forceRefresh = false) => {
+    try {
+      setLoading(true);
+      setError(null);
+      setErrorDetails(null);
+      
+      console.log('Getting authentication token...');
+      const token = await getCurrentUserToken();
+      
+      if (token) {
+        console.log('Token received, loading prompts...');
+        try {
+          const promptsData = await promptsApi.getPrompts(token, forceRefresh);
+          console.log('Prompts loaded:', promptsData);
+          setPrompts(promptsData);
+        } catch (apiError: any) {
+          console.error('API error when loading prompts:', apiError);
+          setError('Failed to load prompts');
+          setErrorDetails(`API Error: ${apiError.message || JSON.stringify(apiError)}`);
         }
-      } catch (err: any) {
-        console.error('Общая ошибка при загрузке промптов:', err);
-        setError('Не удалось загрузить промпты');
-        setErrorDetails(`Ошибка: ${err.message || JSON.stringify(err)}`);
-      } finally {
-        setLoading(false);
+      } else {
+        console.error('Failed to get authentication token');
+        setError('Failed to get authentication token');
+        setErrorDetails('Authentication token not received. You may not be authorized.');
       }
-    };
-
-    fetchPrompts();
+    } catch (err: any) {
+      console.error('General error when loading prompts:', err);
+      setError('Failed to load prompts');
+      setErrorDetails(`Error: ${err.message || JSON.stringify(err)}`);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  // Проверяем, есть ли промпты для отображения
+  // Load prompts when component mounts and set up auto-refresh
+  useEffect(() => {
+    // Initial load
+    fetchPrompts(false);
+    
+    // Set up auto-refresh every 5 minutes
+    const intervalId = setInterval(() => {
+      console.log('Auto-refreshing prompts data...');
+      fetchPrompts(true);
+    }, 5 * 60 * 1000); // 5 minutes in milliseconds
+    
+    // Clean up interval on component unmount
+    return () => clearInterval(intervalId);
+  }, [fetchPrompts]);
+
+  // Check if there are prompts to display
   const hasPrompts = prompts.length > 0;
 
-  // Для отладки - показываем информацию о состоянии в консоли
+  // For debugging - show state information in the console
   useEffect(() => {
     console.log('PromptsList state:', { loading, error, errorDetails, prompts });
   }, [loading, error, errorDetails, prompts]);
@@ -81,7 +92,7 @@ export const PromptsList: React.FC<PromptsListProps> = ({ onPromptSelect }) => {
       <div className="prompts-list__content">
         {loading ? (
           <div className="prompts-list__loading">
-            <p>Загрузка промптов...</p>
+            <p>Loading prompts...</p>
           </div>
         ) : error ? (
           <div className="prompts-list__error">
@@ -93,9 +104,9 @@ export const PromptsList: React.FC<PromptsListProps> = ({ onPromptSelect }) => {
             )}
             <Button 
               variant="transparent"
-              onClick={() => window.location.reload()}
+              onClick={() => fetchPrompts(true)}
             >
-              Попробовать снова
+              Try again
             </Button>
           </div>
         ) : hasPrompts ? (
@@ -113,12 +124,12 @@ export const PromptsList: React.FC<PromptsListProps> = ({ onPromptSelect }) => {
           </div>
         ) : (
           <div className="prompts-list__empty-state">
-            <p>Нет доступных промптов</p>
+            <p>No prompts available</p>
             <Button 
               variant="transparent"
               onClick={() => handleSelectPrompt('sample-prompt-id')}
             >
-              Создать первый промпт
+              Create first prompt
             </Button>
           </div>
         )}

@@ -1,0 +1,112 @@
+.variable-detail {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.variable-detail__header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.variable-detail__title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  margin: 0 0 0 20px;
+}
+
+.variable-detail__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.variable-detail__loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-6);
+  text-align: center;
+  height: 100%;
+}
+
+.variable-detail__error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-6);
+  text-align: center;
+  height: 100%;
+  color: var(--color-error);
+}
+
+.variable-detail__not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-6);
+  text-align: center;
+  height: 100%;
+  color: var(--color-text-secondary);
+}
+
+.variable-detail__info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.variable-detail__header-info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.variable-detail__color {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+}
+
+.variable-detail__name {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  margin: 0;
+}
+
+.variable-detail__section {
+  margin-top: var(--spacing-4);
+}
+
+.variable-detail__section-title {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  margin: 0 0 var(--spacing-2) 0;
+  color: var(--color-text-secondary);
+}
+
+.variable-detail__value-box {
+  background-color: var(--color-background-secondary);
+  border-radius: 8px;
+  padding: var(--spacing-3);
+  font-family: monospace;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.variable-detail__meta {
+  margin-top: var(--spacing-4);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.variable-detail__meta-item {
+  margin-bottom: var(--spacing-1);
+}
