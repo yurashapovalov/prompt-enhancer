@@ -6,13 +6,16 @@ import {
   signOut,
   onAuthStateChanged,
   setPersistence,
-  browserLocalPersistence
+  browserLocalPersistence,
+  GoogleAuthProvider,
+  signInWithPopup
 } from 'firebase/auth';
 import { firebaseConfig } from '../../../shared/firebase-config';
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider();
 
 // Set persistence to LOCAL
 setPersistence(auth, browserLocalPersistence)
@@ -89,6 +92,22 @@ export const signIn = async (email: string, password: string): Promise<string> =
     return token;
   } catch (error) {
     console.error('Error signing in:', error);
+    throw error;
+  }
+};
+
+// Sign in with Google
+export const signInWithGoogle = async (): Promise<string> => {
+  try {
+    console.log('Signing in with Google...');
+    const userCredential = await signInWithPopup(auth, googleProvider);
+    console.log('Google sign in successful, getting token...');
+    const token = await userCredential.user.getIdToken();
+    console.log('Token received, saving...');
+    await saveToken(token);
+    return token;
+  } catch (error) {
+    console.error('Error signing in with Google:', error);
     throw error;
   }
 };

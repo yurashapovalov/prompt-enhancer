@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { isAuthenticated, openAuthPage } from '@services/auth-service';
 import { MainLayout } from '@layout/main-layout/main-layout';
+import { DevLoginForm } from '@components/dev-login-form/dev-login-form';
 import './App.css';
 
 function App() {
@@ -50,6 +51,13 @@ function App() {
     );
   }
 
+  // Check if we're in a Chrome extension environment
+  const isChromeExtension = typeof chrome !== 'undefined' && chrome.storage && chrome.runtime;
+  
+  const handleLoginSuccess = async () => {
+    setIsAuth(true);
+  };
+
   return (
     <div className="app-container">
       {isAuth ? (
@@ -58,7 +66,14 @@ function App() {
         <div className="login-container">
           <h2>Prompt Enhancer</h2>
           <p>Пожалуйста, войдите в систему для доступа к приложению</p>
-          <button onClick={openAuthPage}>Войти</button>
+          
+          {isChromeExtension ? (
+            // In Chrome extension environment, show the button to open auth page
+            <button onClick={openAuthPage}>Войти</button>
+          ) : (
+            // In development mode, show the login form
+            <DevLoginForm onLoginSuccess={handleLoginSuccess} />
+          )}
         </div>
       )}
     </div>
