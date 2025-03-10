@@ -22,12 +22,17 @@ class PromptTemplateList(BaseModel):
     templates: List[PromptTemplate]
 
 # New models for prompts, variables, and history
+class PromptVariable(BaseModel):
+    name: str
+    value: str
+
 class Prompt(BaseModel):
     id: Optional[str] = None
     promptName: str
     promptDescription: str
     promptText: str
     color: str = "#666460"  # Default color
+    variables: Optional[List[PromptVariable]] = None
     userId: Optional[str] = None
     createdAt: Optional[datetime] = None
     updatedAt: Optional[datetime] = None

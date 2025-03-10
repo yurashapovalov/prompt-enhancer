@@ -97,7 +97,10 @@ export const api = {
       throw new Error('No authentication token available');
     }
     
-    const url = `${api.baseUrl}${endpoint}`;
+    // Убедимся, что endpoint начинается с /
+    const normalizedEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+    const url = `${api.baseUrl}${normalizedEndpoint}`;
+    
     const headers = {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`,
@@ -116,6 +119,12 @@ export const api = {
       
       console.log(`Response from ${url}, status:`, response.status);
       
+      // Для статуса 304 (Not Modified) возвращаем пустой массив
+      if (response.status === 304) {
+        console.log(`304 Not Modified response from ${url}, returning empty array`);
+        return { prompts: [], variables: [], history: [] };
+      }
+      
       if (!response.ok) {
         let errorMessage = `API error: ${response.status}`;
         try {
@@ -128,18 +137,25 @@ export const api = {
         throw new Error(errorMessage);
       }
       
-      const data = await response.json();
-      console.log(`Response from ${url}:`, data);
-      return data;
+      try {
+        const data = await response.json();
+        console.log(`Response data from ${url}:`, data);
+        return data;
+      } catch (jsonError) {
+        console.error(`Failed to parse JSON response from ${url}:`, jsonError);
+        // Возвращаем пустой объект в случае ошибки парсинга JSON
+        return { prompts: [], variables: [], history: [] };
+      }
     } catch (error) {
       console.error(`Error fetching ${endpoint}:`, error);
-      throw error;
+      // Возвращаем пустой объект в случае ошибки запроса
+      return { prompts: [], variables: [], history: [] };
     }
   },
   
   // Enhance prompt
   enhancePrompt: async (text, token) => {
-    return api.fetchWithAuth('/api/enhance-prompt', {
+    return api.fetchWithAuth('/enhance', {
       method: 'POST',
       body: JSON.stringify({ text })
     }, token);
@@ -147,14 +163,14 @@ export const api = {
   
   // Get prompt templates
   getPromptTemplates: async (token) => {
-    return api.fetchWithAuth('/api/prompt-templates', {
+    return api.fetchWithAuth('/prompt-templates', {
       method: 'GET'
     }, token);
   },
   
   // Create prompt template
   createPromptTemplate: async (template, token) => {
-    return api.fetchWithAuth('/api/prompt-templates', {
+    return api.fetchWithAuth('/prompt-templates', {
       method: 'POST',
       body: JSON.stringify(template)
     }, token);

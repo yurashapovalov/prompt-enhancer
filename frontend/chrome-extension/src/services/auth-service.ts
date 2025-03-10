@@ -170,12 +170,22 @@ export const openAuthPage = (): void => {
     return;
   }
   
-  // Get the extension ID for communication
-  const extensionId = chrome.runtime.id;
+  // Make sure chrome.runtime and chrome.tabs are available
+  if (typeof chrome === 'undefined' || !chrome.runtime || !chrome.tabs || typeof chrome.tabs.create !== 'function') {
+    console.error('Chrome extension APIs not available');
+    return;
+  }
   
-  chrome.tabs.create({
-    url: `http://localhost:5173/login?source=extension&extensionId=${extensionId}`
-  });
+  try {
+    // Get the extension ID for communication
+    const extensionId = chrome.runtime.id;
+    
+    chrome.tabs.create({
+      url: `http://localhost:5173/login?source=extension&extensionId=${extensionId}`
+    });
+  } catch (error) {
+    console.error('Error opening auth page:', error);
+  }
 };
 
 // Listen for auth state changes
@@ -190,40 +200,57 @@ export const initAuthService = (): void => {
     return;
   }
   
+  // Make sure chrome.runtime is available
+  if (typeof chrome === 'undefined' || !chrome.runtime) {
+    console.error('Chrome runtime API not available');
+    return;
+  }
+  
   console.log('Initializing auth service in Chrome extension environment');
   
-  // Listen for messages from the web application
-  chrome.runtime.onMessageExternal.addListener(
-    async (message, sender, sendResponse) => {
-      console.log('Received external message:', message);
-      console.log('Sender:', sender);
-      
-      // Verify that the message is from our web application
-      if (sender.url && sender.url.startsWith('http://localhost:5173')) {
-        console.log('Message is from our web application');
-        
-        // Handle successful authentication message
-        if (message.action === 'auth_success' && message.token) {
-          console.log('Received auth token from web app:', message.token.substring(0, 10) + '...');
+  try {
+    // Check if onMessageExternal is available
+    if (chrome.runtime.onMessageExternal && typeof chrome.runtime.onMessageExternal.addListener === 'function') {
+      // Listen for messages from the web application
+      chrome.runtime.onMessageExternal.addListener(
+        async (message, sender, sendResponse) => {
+          console.log('Received external message:', message);
+          console.log('Sender:', sender);
           
-          // Save the authentication token
-          await saveToken(message.token);
+          // Verify that the message is from our web application
+          if (sender.url && sender.url.startsWith('http://localhost:5173')) {
+            console.log('Message is from our web application');
+            
+            // Handle successful authentication message
+            if (message.action === 'auth_success' && message.token) {
+              console.log('Received auth token from web app:', message.token.substring(0, 10) + '...');
+              
+              // Save the authentication token
+              await saveToken(message.token);
+              
+              // Send response back to the web app
+              sendResponse({ success: true });
+              console.log('Sent response back to web app');
+              
+              // Update extension UI if necessary
+              if (chrome.runtime && chrome.runtime.sendMessage && typeof chrome.runtime.sendMessage === 'function') {
+                chrome.runtime.sendMessage({ action: 'auth_updated' });
+                console.log('Sent auth_updated message to extension');
+              }
+            }
+          } else {
+            console.log('Message is not from our web application');
+          }
           
-          // Send response back to the web app
-          sendResponse({ success: true });
-          console.log('Sent response back to web app');
-          
-          // Update extension UI if necessary
-          chrome.runtime.sendMessage({ action: 'auth_updated' });
-          console.log('Sent auth_updated message to extension');
+          return true; // Keep the message channel open for async response
         }
-      } else {
-        console.log('Message is not from our web application');
-      }
-      
-      return true; // Keep the message channel open for async response
+      );
+    } else {
+      console.log('chrome.runtime.onMessageExternal not available');
     }
-  );
+  } catch (error) {
+    console.error('Error setting up message listener:', error);
+  }
   
   // Listen for auth state changes
   onAuthStateChanged(auth, async (user) => {

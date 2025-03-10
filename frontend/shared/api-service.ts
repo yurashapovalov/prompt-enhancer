@@ -48,18 +48,18 @@ interface EnhancePromptResponse {
 export const promptsApi = {
   // Получить все промпты пользователя
   getPrompts: async (token: string): Promise<Prompt[]> => {
-    const response = await api.fetchWithAuth<PromptListResponse>('/api/prompts', { method: 'GET' }, token);
+    const response = await api.fetchWithAuth<PromptListResponse>('/prompts', { method: 'GET' }, token);
     return response.prompts;
   },
   
   // Получить конкретный промпт
   getPrompt: async (id: string, token: string): Promise<Prompt> => {
-    return api.fetchWithAuth(`/api/prompts/${id}`, { method: 'GET' }, token);
+    return api.fetchWithAuth(`/prompts/${id}`, { method: 'GET' }, token);
   },
   
   // Создать новый промпт
   createPrompt: async (prompt: Prompt, token: string): Promise<Prompt> => {
-    return api.fetchWithAuth('/api/prompts', {
+    return api.fetchWithAuth('/prompts', {
       method: 'POST',
       body: JSON.stringify(prompt)
     }, token);
@@ -67,7 +67,7 @@ export const promptsApi = {
   
   // Обновить существующий промпт
   updatePrompt: async (id: string, prompt: Prompt, token: string): Promise<Prompt> => {
-    return api.fetchWithAuth(`/api/prompts/${id}`, {
+    return api.fetchWithAuth(`/prompts/${id}`, {
       method: 'PUT',
       body: JSON.stringify(prompt)
     }, token);
@@ -75,7 +75,7 @@ export const promptsApi = {
   
   // Удалить промпт
   deletePrompt: async (id: string, token: string): Promise<void> => {
-    await api.fetchWithAuth(`/api/prompts/${id}`, { method: 'DELETE' }, token);
+    await api.fetchWithAuth(`/prompts/${id}`, { method: 'DELETE' }, token);
   }
 };
 
@@ -83,18 +83,18 @@ export const promptsApi = {
 export const variablesApi = {
   // Получить все переменные пользователя
   getVariables: async (token: string): Promise<Variable[]> => {
-    const response = await api.fetchWithAuth<VariableListResponse>('/api/variables', { method: 'GET' }, token);
+    const response = await api.fetchWithAuth<VariableListResponse>('/variables', { method: 'GET' }, token);
     return response.variables;
   },
   
   // Получить конкретную переменную
   getVariable: async (id: string, token: string): Promise<Variable> => {
-    return api.fetchWithAuth(`/api/variables/${id}`, { method: 'GET' }, token);
+    return api.fetchWithAuth(`/variables/${id}`, { method: 'GET' }, token);
   },
   
   // Создать новую переменную
   createVariable: async (variable: Variable, token: string): Promise<Variable> => {
-    return api.fetchWithAuth('/api/variables', {
+    return api.fetchWithAuth('/variables', {
       method: 'POST',
       body: JSON.stringify(variable)
     }, token);
@@ -102,7 +102,7 @@ export const variablesApi = {
   
   // Обновить существующую переменную
   updateVariable: async (id: string, variable: Variable, token: string): Promise<Variable> => {
-    return api.fetchWithAuth(`/api/variables/${id}`, {
+    return api.fetchWithAuth(`/variables/${id}`, {
       method: 'PUT',
       body: JSON.stringify(variable)
     }, token);
@@ -110,7 +110,7 @@ export const variablesApi = {
   
   // Удалить переменную
   deleteVariable: async (id: string, token: string): Promise<void> => {
-    await api.fetchWithAuth(`/api/variables/${id}`, { method: 'DELETE' }, token);
+    await api.fetchWithAuth(`/variables/${id}`, { method: 'DELETE' }, token);
   }
 };
 
@@ -118,13 +118,13 @@ export const variablesApi = {
 export const historyApi = {
   // Получить историю пользователя
   getHistory: async (token: string, limit: number = 20, offset: number = 0): Promise<HistoryEntry[]> => {
-    const response = await api.fetchWithAuth<HistoryListResponse>(`/api/history?limit=${limit}&offset=${offset}`, { method: 'GET' }, token);
+    const response = await api.fetchWithAuth<HistoryListResponse>(`/history?limit=${limit}&offset=${offset}`, { method: 'GET' }, token);
     return response.history;
   },
   
   // Добавить запись в историю
   addHistoryEntry: async (entry: HistoryEntry, token: string): Promise<HistoryEntry> => {
-    return api.fetchWithAuth('/api/history', {
+    return api.fetchWithAuth('/history', {
       method: 'POST',
       body: JSON.stringify(entry)
     }, token);
@@ -132,12 +132,12 @@ export const historyApi = {
   
   // Удалить запись из истории
   deleteHistoryEntry: async (id: string, token: string): Promise<void> => {
-    await api.fetchWithAuth(`/api/history/${id}`, { method: 'DELETE' }, token);
+    await api.fetchWithAuth(`/history/${id}`, { method: 'DELETE' }, token);
   },
   
   // Очистить всю историю пользователя
   clearHistory: async (token: string): Promise<void> => {
-    await api.fetchWithAuth('/api/history', { method: 'DELETE' }, token);
+    await api.fetchWithAuth('/history', { method: 'DELETE' }, token);
   }
 };
 
@@ -145,7 +145,7 @@ export const historyApi = {
 export const enhanceApi = {
   // Улучшить промпт
   enhancePrompt: async (text: string, token: string): Promise<string> => {
-    const response = await api.fetchWithAuth<EnhancePromptResponse>('/api/enhance-prompt', {
+    const response = await api.fetchWithAuth<EnhancePromptResponse>('/enhance', {
       method: 'POST',
       body: JSON.stringify({ text })
     }, token);

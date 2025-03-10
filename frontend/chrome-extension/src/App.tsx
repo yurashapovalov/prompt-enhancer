@@ -1,12 +1,19 @@
 import { useState, useEffect } from 'react';
 import { isAuthenticated, openAuthPage } from '@services/auth-service';
 import { MainLayout } from '@layout/main-layout/main-layout';
-import { DevLoginForm } from '@components/dev-login-form/dev-login-form';
+import { DevLoginForm } from '@layout/dev-login-form/dev-login-form';
+import { initializeServices } from '@services/services';
 import './App.css';
 
 function App() {
   const [isAuth, setIsAuth] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(true);
+
+  // Initialize services
+  useEffect(() => {
+    // Инициализируем сервисы данных при запуске приложения
+    initializeServices();
+  }, []);
 
   // Check authentication status when component mounts
   useEffect(() => {
@@ -28,7 +35,7 @@ function App() {
 
     // Listen for authentication update messages from background script
     // Only in Chrome extension environment
-    if (typeof chrome !== 'undefined' && chrome.runtime) {
+    if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.onMessage && typeof chrome.runtime.onMessage.addListener === 'function') {
       const handleAuthUpdate = (message: any) => {
         if (message.action === 'auth_updated') {
           checkAuth();
@@ -38,7 +45,9 @@ function App() {
       chrome.runtime.onMessage.addListener(handleAuthUpdate);
 
       return () => {
-        chrome.runtime.onMessage.removeListener(handleAuthUpdate);
+        if (chrome.runtime && chrome.runtime.onMessage && typeof chrome.runtime.onMessage.removeListener === 'function') {
+          chrome.runtime.onMessage.removeListener(handleAuthUpdate);
+        }
       };
     }
   }, []);

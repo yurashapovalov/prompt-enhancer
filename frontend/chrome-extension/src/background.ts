@@ -14,19 +14,6 @@ chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: true });
 
 // Listen for messages from content script or side panel
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
-  // Handle enhance prompt request from content script
-  if (message.action === 'enhancePrompt') {
-    enhancePrompt(message.text)
-      .then(enhancedText => {
-        sendResponse({ enhancedText });
-      })
-      .catch(error => {
-        console.error('Error enhancing prompt:', error);
-        sendResponse({ error: 'Failed to enhance prompt' });
-      });
-    return true; // Keep the message channel open for async response
-  }
-  
   // Handle get prompt templates request from side panel
   if (message.action === 'getPromptTemplates') {
     getPromptTemplates()
@@ -73,32 +60,6 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     return false; // No async response needed
   }
 });
-
-// Function to enhance a prompt using the backend API
-async function enhancePrompt(text: string): Promise<string> {
-  try {
-    // Check if user is authenticated
-    const isAuth = await isAuthenticated();
-    if (!isAuth) {
-      // Open auth page if not authenticated
-      openAuthPage();
-      throw new Error('User not authenticated');
-    }
-    
-    // Get user authentication token
-    const token = await getCurrentUserToken();
-    if (!token) {
-      throw new Error('No authentication token found');
-    }
-    
-    // Call the API to enhance the prompt
-    const data = await api.enhancePrompt(text, token);
-    return data.enhancedText;
-  } catch (error) {
-    console.error('Error in enhancePrompt:', error);
-    throw error;
-  }
-}
 
 // Function to get prompt templates from the backend
 async function getPromptTemplates(): Promise<any[]> {

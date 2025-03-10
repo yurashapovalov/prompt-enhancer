@@ -5,7 +5,7 @@ logging.basicConfig(level=logging.INFO)
 
 from .core import firebase_core
 from .auth import verify_token
-from .repositories import prompts_repository, variables_repository, history_repository
+from .repositories import prompts_repository, history_repository
 
 # Create a wrapper class for backward compatibility
 class FirebaseManager:
@@ -36,21 +36,26 @@ class FirebaseManager:
     def delete_prompt(self, prompt_id, user_id):
         return prompts_repository.delete_prompt(prompt_id, user_id)
     
-    # Variables methods
+    # Variables methods - removed after migration to prompts
     def get_user_variables(self, user_id):
-        return variables_repository.get_user_variables(user_id)
+        # Return empty list for backward compatibility
+        return []
     
     def get_variable(self, variable_id, user_id):
-        return variables_repository.get_variable(variable_id, user_id)
+        # Return None for backward compatibility
+        return None
     
     def create_variable(self, variable_data):
-        return variables_repository.create_variable(variable_data)
+        # Return None for backward compatibility
+        return None
     
     def update_variable(self, variable_id, variable_data, user_id):
-        return variables_repository.update_variable(variable_id, variable_data, user_id)
+        # Return None for backward compatibility
+        return None
     
     def delete_variable(self, variable_id, user_id):
-        return variables_repository.delete_variable(variable_id, user_id)
+        # Return False for backward compatibility
+        return False
     
     # History methods
     def get_user_history(self, user_id, limit=None, offset=None):

@@ -3,6 +3,7 @@ import './history-entry-detail.css';
 import { Button } from '@components/ui/button/button';
 import { HistoryEntry, historyApi } from '@services/api-service';
 import { getCurrentUserToken } from '@services/auth-service';
+import { InputBlock } from '@components/shared/input-block/input-block';
 
 interface HistoryEntryDetailProps {
   entryId: string;
@@ -106,17 +107,21 @@ export const HistoryEntryDetail: React.FC<HistoryEntryDetailProps> = ({ entryId,
             )}
             
             <div className="history-entry-detail__section">
-              <h3 className="history-entry-detail__section-title">Original Prompt</h3>
-              <div className="history-entry-detail__prompt-box">
+              <InputBlock 
+                className="history-entry-detail__prompt-block"
+                label="Original Prompt"
+              >
                 {entry.originalPrompt}
-              </div>
+              </InputBlock>
             </div>
             
             <div className="history-entry-detail__section">
-              <h3 className="history-entry-detail__section-title">Enhanced Prompt</h3>
-              <div className="history-entry-detail__prompt-box">
+              <InputBlock 
+                className="history-entry-detail__prompt-block"
+                label="Enhanced Prompt"
+              >
                 {entry.enhancedPrompt}
-              </div>
+              </InputBlock>
             </div>
           </div>
         ) : (
