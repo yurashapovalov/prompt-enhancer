@@ -2052,3 +2052,46 @@ INFO:     Stopping reloader process [11027]
 2025-03-10 15:13:25,183 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
 2025-03-10 15:13:25,694 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
 2025-03-10 15:13:25,695 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.51s
+2025-03-10 15:51:06,242 - run - INFO - Starting server with 4 workers
+2025-03-10 15:51:07,374 - firebase_manager - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-10 15:51:07,442 - firebase_manager - INFO - Firebase initialized successfully.
+2025-03-10 15:51:07,451 - backend.firebase.core - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-10 15:51:07,451 - backend.firebase.core - INFO - Firebase app already exists, using existing app.
+2025-03-10 15:51:07,451 - backend.firebase.core - INFO - Firebase initialized successfully with existing app.
+2025-03-10 15:51:07,469 - main - INFO - Application startup
+2025-03-10 15:55:30,483 - main - INFO - Application shutdown
+2025-03-10 15:55:55,562 - run - INFO - Starting server with 4 workers
+2025-03-10 15:55:56,680 - firebase_manager - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-10 15:55:56,751 - firebase_manager - INFO - Firebase initialized successfully.
+2025-03-10 15:55:56,761 - backend.firebase.core - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-10 15:55:56,761 - backend.firebase.core - INFO - Firebase app already exists, using existing app.
+2025-03-10 15:55:56,761 - backend.firebase.core - INFO - Firebase initialized successfully with existing app.
+2025-03-10 15:55:56,780 - main - INFO - Application startup
+2025-03-10 15:56:48,111 - backend.firebase.auth - INFO - Verifying token: eyJhbGciOi...
+2025-03-10 15:56:48,112 - backend.firebase.auth - INFO - Attempting to verify token with Firebase Admin SDK...
+2025-03-10 15:56:48,206 - backend.firebase.auth - INFO - Token verified successfully. User ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 15:56:48,207 - backend.firebase.repositories.base - INFO - Getting document 'new' from 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 15:56:49,343 - backend.firebase.repositories.base - WARNING - Document 'new' not found or doesn't belong to user '9wfpc7SokLe1QPw1RoLiJdZPgY93'
+2025-03-10 15:56:49,344 - main - WARNING - Slow request: GET /prompts/new took 1.23s
+2025-03-10 15:59:31,693 - backend.firebase.repositories.base - INFO - Getting all documents from 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 15:59:32,615 - backend.firebase.repositories.base - INFO - Retrieved 1 documents from 'prompts'
+2025-03-10 15:59:32,616 - backend.firebase.repositories.base - INFO - Getting all documents from 'history' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 15:59:32,814 - backend.firebase.repositories.base - INFO - Retrieved 8 documents from 'history'
+2025-03-10 15:59:32,815 - main - WARNING - Slow request: GET /prompts took 1.12s
+2025-03-10 15:59:32,815 - main - WARNING - Slow request: GET /history took 1.12s
+2025-03-10 16:02:44,709 - run - INFO - Starting server with 4 workers
+2025-03-10 16:02:45,850 - firebase_manager - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-10 16:02:45,917 - firebase_manager - INFO - Firebase initialized successfully.
+2025-03-10 16:02:45,927 - backend.firebase.core - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-10 16:02:45,927 - backend.firebase.core - INFO - Firebase app already exists, using existing app.
+2025-03-10 16:02:45,928 - backend.firebase.core - INFO - Firebase initialized successfully with existing app.
+2025-03-10 16:02:45,949 - main - INFO - Application startup
+2025-03-10 16:02:48,927 - backend.firebase.auth - INFO - Verifying token: eyJhbGciOi...
+2025-03-10 16:02:48,927 - backend.firebase.auth - INFO - Attempting to verify token with Firebase Admin SDK...
+2025-03-10 16:02:49,007 - backend.firebase.auth - ERROR - Error verifying token with Firebase Admin SDK: Token expired, 1741612984 < 1741615369
+2025-03-10 16:02:49,007 - backend.firebase.auth - INFO - Extracted user_id from token: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 16:02:49,007 - backend.firebase.repositories.base - INFO - Getting all documents from 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 16:02:49,504 - backend.firebase.repositories.base - INFO - Retrieved 1 documents from 'prompts'
+2025-03-10 16:02:49,504 - backend.firebase.repositories.base - INFO - Getting all documents from 'history' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 16:02:49,709 - backend.firebase.repositories.base - INFO - Retrieved 8 documents from 'history'
+2025-03-10 16:02:49,710 - main - WARNING - Slow request: GET /prompts took 0.78s

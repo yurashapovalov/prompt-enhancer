@@ -11,6 +11,7 @@ import {
   signInWithPopup
 } from 'firebase/auth';
 import { firebaseConfig } from '../../../shared/firebase-config';
+import { promptsService, historyService } from './services';
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -236,6 +237,11 @@ export const initAuthService = (): void => {
               if (chrome.runtime && chrome.runtime.sendMessage && typeof chrome.runtime.sendMessage === 'function') {
                 chrome.runtime.sendMessage({ action: 'auth_updated' });
                 console.log('Sent auth_updated message to extension');
+                
+                // Явно загружаем данные с сервера после авторизации
+                console.log('Explicitly loading data from server after authentication...');
+                promptsService.loadFromServer();
+                historyService.loadFromServer();
               }
             }
           } else {
