@@ -1,20 +1,37 @@
 from fastapi import Depends, HTTPException, status, Header
 from backend.firebase import firebase_manager
+import logging
+
+# Настройка логирования
+logger = logging.getLogger('auth')
+
+# Кэш для токенов
+token_cache = {}
 
 async def get_current_user(authorization: str = Header(None)):
-    print(f"Authorization header: {authorization[:20]}..." if authorization else "None")
+    """
+    Получение текущего пользователя по токену авторизации.
     
+    Args:
+        authorization: Заголовок Authorization с токеном.
+        
+    Returns:
+        ID пользователя.
+        
+    Raises:
+        HTTPException: Если токен отсутствует или недействителен.
+    """
     if not authorization:
-        print("Authorization header is missing")
+        logger.warning("Authorization header is missing")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Authentication required",
             headers={"WWW-Authenticate": "Bearer"},
         )
     
-    # Check the Authorization header format
+    # Проверка формата заголовка Authorization
     if not authorization.startswith("Bearer "):
-        print("Invalid authorization header format")
+        logger.warning("Invalid authorization header format")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid authentication format. Use Bearer token",
@@ -22,19 +39,24 @@ async def get_current_user(authorization: str = Header(None)):
         )
     
     token = authorization.replace("Bearer ", "")
-    print(f"Extracted token: {token[:10]}...")
+    
+    # Проверка токена в кэше
+    if token in token_cache:
+        return token_cache[token]
     
     try:
-        # Verify the Firebase token using FirebaseManager
-        print("Verifying token with FirebaseManager...")
+        # Проверка токена через FirebaseManager
         decoded_token = firebase_manager.verify_token(token)
         uid = decoded_token["uid"]
-        print(f"Token verified successfully. User ID: {uid}")
+        
+        # Сохранение в кэше
+        token_cache[token] = uid
+        
         return uid
     except Exception as e:
-        print(f"Error verifying token: {str(e)}")
+        logger.error(f"Error verifying token: {str(e)}")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail=f"Invalid authentication credentials: {str(e)}",
+            detail="Invalid authentication credentials",
             headers={"WWW-Authenticate": "Bearer"},
         )

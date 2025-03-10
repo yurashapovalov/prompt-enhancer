@@ -10,7 +10,7 @@ import bracesIconRaw from '@assets/icons/general/braces-line.svg?raw';
 import menuIconRaw from '@assets/icons/general/menu-line.svg?raw';
 
 // Типы табов
-export type TabType = 'prompts' | 'variables' | 'history' | 'marketplace';
+export type TabType = 'prompts' | 'history' | 'marketplace';
 
 // Интерфейс пропсов
 interface TabsHeaderProps {
@@ -22,7 +22,6 @@ export const TabsHeader: React.FC<TabsHeaderProps> = ({ onTabChange }) => {
   // Массив с данными о табах
   const tabs: { id: TabType; icon: string }[] = [
     { id: 'prompts', icon: promptIconRaw },
-    { id: 'variables', icon: bracesIconRaw },
     { id: 'history', icon: historyIconRaw },
     { id: 'marketplace', icon: baseIconRaw }
   ];

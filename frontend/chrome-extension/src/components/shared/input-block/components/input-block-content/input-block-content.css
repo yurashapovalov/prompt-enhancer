@@ -1,0 +1,59 @@
+.input-block-content-wrapper {
+  width: 100%;
+}
+
+/* Стили для contentEditable */
+.input-block-content-editable {
+  width: 100%;
+  min-height: 100px;
+  padding: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-text-primary);
+  background-color: var(--color-background-secondary);
+  border: none;
+  border-radius: var(--border-radius-md);
+  outline: none;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  overflow: auto;
+  display: block; /* Важно для правильной обработки переносов строк */
+}
+
+/* Стиль для переменных */
+.variable {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+  background-color: rgba(66, 133, 244, 0.1);
+  border-radius: var(--border-radius-sm);
+  padding: 0 2px;
+}
+
+/* Стиль для пустого contentEditable (плейсхолдер) */
+.input-block-content-editable.empty:before {
+  content: attr(data-placeholder);
+  color: var(--color-text-tertiary);
+  pointer-events: none;
+  display: block;
+}
+
+/* Стили для переноса строк */
+.input-block-content-editable br {
+  display: block;
+  content: "";
+  margin-top: 0.5em;
+}
+
+/* Стили для параграфов, которые создаются при нажатии Enter */
+.input-block-content-editable p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Стили для div, которые создаются при нажатии Enter в некоторых браузерах */
+.input-block-content-editable div {
+  margin: 0;
+  padding: 0;
+}

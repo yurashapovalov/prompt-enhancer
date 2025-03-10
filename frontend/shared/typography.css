@@ -11,6 +11,7 @@
 .text-default {
   font-size: var(--font-size-sm);
   line-height: var(--line-height-tight);
+  
 }
 
 .text-small {
@@ -49,10 +50,11 @@
   line-height: var(--line-height-relaxed);
 }
 
-/* 
- * Usage examples:
- * 
- * Default text: <div class="text-default text-regular">...</div>
- * Small text with medium weight: <div class="text-small text-medium">...</div>
- * Large text with semibold weight: <div class="text-large text-semibold">...</div>
- */
+/* Color modifiers */
+.text-primary {
+  color: var(--color-text-primary);
+}
+
+.text-secondary {
+  color: var(--color-text-secondary);
+}

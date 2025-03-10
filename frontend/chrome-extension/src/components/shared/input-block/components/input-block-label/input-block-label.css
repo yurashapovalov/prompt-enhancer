@@ -1,0 +1,17 @@
+.input-block-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-2);
+  width: 100%;
+}
+
+.input-block-label-left {
+
+}
+
+.input-block-label-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}

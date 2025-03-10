@@ -1,0 +1,25 @@
+.variable-inputs {
+  margin-top: 20px;
+  padding: 16px;
+  background-color: var(--color-background-primary);
+  border-radius: var(--border-radius-md);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.variable-inputs__title {
+  font-size: 16px;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.variable-inputs__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.variable-inputs__item {
+  margin-bottom: 0;
+}

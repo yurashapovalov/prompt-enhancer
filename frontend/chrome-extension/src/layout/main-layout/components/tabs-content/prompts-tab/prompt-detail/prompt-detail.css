@@ -93,3 +93,34 @@
   line-height: 1.5;
   min-height: 150px;
 }
+
+.prompt-detail__saving,
+.prompt-detail__saving-prompt {
+  margin-top: 8px;
+  padding: 8px;
+  background-color: var(--color-background-secondary);
+  border-radius: var(--border-radius-sm);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  text-align: center;
+  animation: pulse 1.5s infinite;
+}
+
+.prompt-detail__saving-prompt {
+  margin-top: 0;
+  margin-left: auto;
+  padding: 4px 8px;
+  font-size: var(--font-size-xs);
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}

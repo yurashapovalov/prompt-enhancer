@@ -1,0 +1,12 @@
+.input-block {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: var(--border-radius-md);
+  border: var(--border-width-thin) solid transparent;
+  transition: border-color var(--transition-fast);
+}
+
+.input-block:hover {
+  border-color: var(--color-border);
+}

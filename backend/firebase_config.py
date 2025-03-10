@@ -3,13 +3,25 @@ from firebase_admin import credentials, firestore, auth
 import os
 from typing import Dict, List, Any, Optional
 from datetime import datetime
+import logging
+
+# Настройка логирования
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger('firebase_manager')
 
 # Path to the Firebase service account key file
-# This should be set in a more secure way in production
 SERVICE_ACCOUNT_KEY_PATH = os.environ.get(
     "FIREBASE_SERVICE_ACCOUNT_KEY_PATH", 
     os.path.join(os.path.dirname(__file__), "prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json")
 )
+
+# Кэш для данных
+CACHE_TTL = 300  # 5 минут в секундах
+cache = {
+    "prompts": {},
+    "history": {},
+    "timestamps": {}
+}
 
 class FirebaseManager:
     """
@@ -33,43 +45,37 @@ class FirebaseManager:
         Initialize Firebase Admin SDK.
         """
         try:
-            print(f"Attempting to initialize Firebase with service account key at: {SERVICE_ACCOUNT_KEY_PATH}")
+            logger.info(f"Initializing Firebase with service account key at: {SERVICE_ACCOUNT_KEY_PATH}")
             
             # Check if Firebase app already exists
             try:
                 self.app = firebase_admin.get_app()
-                print("Firebase app already exists, using existing app.")
+                logger.info("Firebase app already exists, using existing app.")
                 self.db = firestore.client()
-                print("Firebase initialized successfully with existing app.")
                 return
             except ValueError:
                 # App doesn't exist yet, continue with initialization
-                print("Firebase app doesn't exist yet, initializing new app.")
+                pass
             
             # Check if the service account key file exists
             if os.path.exists(SERVICE_ACCOUNT_KEY_PATH):
-                print(f"Service account key file found at: {SERVICE_ACCOUNT_KEY_PATH}")
                 cred = credentials.Certificate(SERVICE_ACCOUNT_KEY_PATH)
                 self.app = firebase_admin.initialize_app(cred)
                 self.db = firestore.client()
-                print("Firebase initialized successfully with service account key.")
+                logger.info("Firebase initialized successfully.")
             else:
                 # For development, we can use a dummy implementation
-                print(f"Service account key file NOT found at: {SERVICE_ACCOUNT_KEY_PATH}")
-                print("Firebase service account key not found. Using dummy implementation.")
+                logger.warning(f"Service account key file not found. Using dummy implementation.")
                 self.app = None
                 self.db = None
         except Exception as e:
-            print(f"Error initializing Firebase: {str(e)}")
-            print(f"Exception type: {type(e).__name__}")
-            import traceback
-            print(f"Traceback: {traceback.format_exc()}")
+            logger.error(f"Error initializing Firebase: {str(e)}", exc_info=True)
             
             # Try to get existing app if initialization failed
             try:
                 self.app = firebase_admin.get_app()
-                print("Using existing Firebase app after initialization error.")
                 self.db = firestore.client()
+                logger.info("Using existing Firebase app after initialization error.")
             except ValueError:
                 # No existing app, set to None
                 self.app = None
@@ -88,20 +94,25 @@ class FirebaseManager:
         Raises:
             ValueError: If the token is invalid.
         """
-        print(f"Verifying token: {token[:10]}...")
+        # Кэшируем токены для повторного использования
+        token_key = token[:20]  # Используем часть токена как ключ
+        if token_key in cache and "token" in cache[token_key]:
+            if datetime.now().timestamp() - cache[token_key]["timestamp"] < CACHE_TTL:
+                return cache[token_key]["token"]
         
         # Сначала попробуем проверить токен с помощью Firebase Admin SDK
         if self.app:
             try:
-                print("Attempting to verify token with Firebase Admin SDK...")
                 decoded_token = auth.verify_id_token(token)
-                print(f"Token verified successfully. User ID: {decoded_token.get('uid')}")
+                # Кэшируем результат
+                cache[token_key] = {
+                    "token": decoded_token,
+                    "timestamp": datetime.now().timestamp()
+                }
                 return decoded_token
             except Exception as e:
-                print(f"Error verifying token with Firebase Admin SDK: {str(e)}")
+                logger.warning(f"Error verifying token with Firebase Admin SDK: {str(e)}")
                 # Продолжаем с ручной проверкой токена
-        else:
-            print("Firebase app not initialized, trying to extract user_id from token manually")
         
         # Если Firebase не инициализирован или проверка не удалась,
         # попробуем извлечь user_id из токена вручную
@@ -120,19 +131,19 @@ class FirebaseManager:
                 # Извлекаем user_id
                 user_id = payload.get('user_id') or payload.get('sub') or payload.get('uid')
                 if user_id:
-                    print(f"Extracted user_id from token: {user_id}")
-                    return {"uid": user_id, "email": payload.get('email', 'dev@example.com')}
-                else:
-                    print("Could not extract user_id from token payload")
+                    result = {"uid": user_id, "email": payload.get('email', 'dev@example.com')}
+                    # Кэшируем результат
+                    cache[token_key] = {
+                        "token": result,
+                        "timestamp": datetime.now().timestamp()
+                    }
+                    return result
         except Exception as ex:
-            print(f"Error extracting user_id from token: {str(ex)}")
-            print(f"Exception type: {type(ex).__name__}")
-            import traceback
-            print(f"Traceback: {traceback.format_exc()}")
+            logger.error(f"Error extracting user_id from token", exc_info=True)
         
         # Если все методы не сработали, возвращаем dummy user
         # Это нужно для разработки, чтобы не блокировать работу приложения
-        print("All token verification methods failed, returning dummy user")
+        logger.warning("All token verification methods failed, returning dummy user")
         return {"uid": "dummy-user-id", "email": "dummy@example.com"}
     
     def get_user_prompt_templates(self, user_id: str) -> List[Dict[str, Any]]:
@@ -222,10 +233,13 @@ class FirebaseManager:
         Returns:
             A list of prompts.
         """
-        print(f"Getting prompts for user ID: {user_id}")
+        # Проверяем кэш
+        cache_key = f"prompts_{user_id}"
+        if cache_key in cache:
+            if datetime.now().timestamp() - cache[cache_key]["timestamp"] < CACHE_TTL:
+                return cache[cache_key]["data"]
         
         if not self.db:
-            print("Firebase DB not initialized, returning dummy prompts data")
             # Return dummy data for development
             dummy_data = [
                 {
@@ -249,28 +263,32 @@ class FirebaseManager:
                     "updatedAt": datetime.now(),
                 },
             ]
-            print(f"Returning {len(dummy_data)} dummy prompts")
+            # Кэшируем результат
+            cache[cache_key] = {
+                "data": dummy_data,
+                "timestamp": datetime.now().timestamp()
+            }
             return dummy_data
         
         try:
-            print(f"Querying Firestore collection 'prompts' where userId == '{user_id}'")
-            prompts_ref = self.db.collection("prompts").where("userId", "==", user_id)
+            # Оптимизированный запрос с ограничением и сортировкой
+            prompts_ref = self.db.collection("prompts").where("userId", "==", user_id).order_by("updatedAt", direction=firestore.Query.DESCENDING).limit(100)
             prompts = []
             
-            print("Streaming documents from Firestore...")
             for doc in prompts_ref.stream():
-                print(f"Found document with ID: {doc.id}")
                 prompt_data = doc.to_dict()
                 prompt_data["id"] = doc.id
                 prompts.append(prompt_data)
             
-            print(f"Retrieved {len(prompts)} prompts from Firestore")
+            # Кэшируем результат
+            cache[cache_key] = {
+                "data": prompts,
+                "timestamp": datetime.now().timestamp()
+            }
+            
             return prompts
         except Exception as e:
-            print(f"Error getting prompts: {str(e)}")
-            print(f"Exception type: {type(e).__name__}")
-            import traceback
-            print(f"Traceback: {traceback.format_exc()}")
+            logger.error(f"Error getting prompts", exc_info=True)
             return []
     
     def get_prompt(self, prompt_id: str, user_id: str) -> Optional[Dict[str, Any]]:
@@ -417,208 +435,6 @@ class FirebaseManager:
             print(f"Error deleting prompt: {str(e)}")
             return False
     
-    # New methods for variables
-    def get_user_variables(self, user_id: str) -> List[Dict[str, Any]]:
-        """
-        Get all variables for a user.
-        
-        Args:
-            user_id: The user ID.
-            
-        Returns:
-            A list of variables.
-        """
-        print(f"Getting variables for user ID: {user_id}")
-        
-        if not self.db:
-            print("Firebase DB not initialized, returning dummy variables data")
-            # Return dummy data for development
-            dummy_data = [
-                {
-                    "id": "var-1",
-                    "variableName": "API_KEY",
-                    "variableValue": "dummy-api-key",
-                    "color": "var(--color-prompt-tile-tangerine)",
-                    "userId": user_id,
-                    "createdAt": datetime.now(),
-                    "updatedAt": datetime.now(),
-                },
-                {
-                    "id": "var-2",
-                    "variableName": "DATABASE_URL",
-                    "variableValue": "https://example.com/db",
-                    "color": "var(--color-prompt-tile-crimson)",
-                    "userId": user_id,
-                    "createdAt": datetime.now(),
-                    "updatedAt": datetime.now(),
-                },
-            ]
-            print(f"Returning {len(dummy_data)} dummy variables")
-            return dummy_data
-        
-        try:
-            print(f"Querying Firestore collection 'variables' where userId == '{user_id}'")
-            variables_ref = self.db.collection("variables").where("userId", "==", user_id)
-            variables = []
-            
-            print("Streaming documents from Firestore...")
-            for doc in variables_ref.stream():
-                print(f"Found document with ID: {doc.id}")
-                variable_data = doc.to_dict()
-                variable_data["id"] = doc.id
-                variables.append(variable_data)
-            
-            print(f"Retrieved {len(variables)} variables from Firestore")
-            return variables
-        except Exception as e:
-            print(f"Error getting variables: {str(e)}")
-            print(f"Exception type: {type(e).__name__}")
-            import traceback
-            print(f"Traceback: {traceback.format_exc()}")
-            return []
-    
-    def get_variable(self, variable_id: str, user_id: str) -> Optional[Dict[str, Any]]:
-        """
-        Get a specific variable.
-        
-        Args:
-            variable_id: The variable ID.
-            user_id: The user ID.
-            
-        Returns:
-            The variable data, or None if not found.
-        """
-        if not self.db:
-            # Return dummy data for development
-            return {
-                "id": variable_id,
-                "variableName": "DUMMY_VARIABLE",
-                "variableValue": "dummy-value",
-                "color": "var(--color-prompt-tile-tangerine)",
-                "userId": user_id,
-                "createdAt": datetime.now(),
-                "updatedAt": datetime.now(),
-            }
-        
-        try:
-            variable_ref = self.db.collection("variables").document(variable_id)
-            variable_data = variable_ref.get().to_dict()
-            
-            if not variable_data or variable_data.get("userId") != user_id:
-                return None
-            
-            variable_data["id"] = variable_id
-            return variable_data
-        except Exception as e:
-            print(f"Error getting variable: {str(e)}")
-            return None
-    
-    def create_variable(self, variable_data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
-        """
-        Create a new variable.
-        
-        Args:
-            variable_data: The variable data.
-            
-        Returns:
-            The created variable with ID, or None if creation failed.
-        """
-        if not self.db:
-            # Return dummy data for development
-            variable_data["id"] = "new-variable-id"
-            variable_data["createdAt"] = datetime.now()
-            variable_data["updatedAt"] = datetime.now()
-            return variable_data
-        
-        try:
-            # Add timestamp
-            variable_data["createdAt"] = firestore.SERVER_TIMESTAMP
-            variable_data["updatedAt"] = firestore.SERVER_TIMESTAMP
-            
-            # Add to Firestore
-            variable_ref = self.db.collection("variables").document()
-            variable_ref.set(variable_data)
-            
-            # Get the created variable
-            created_variable = variable_ref.get().to_dict()
-            created_variable["id"] = variable_ref.id
-            
-            return created_variable
-        except Exception as e:
-            print(f"Error creating variable: {str(e)}")
-            return None
-    
-    def update_variable(self, variable_id: str, variable_data: Dict[str, Any], user_id: str) -> Optional[Dict[str, Any]]:
-        """
-        Update an existing variable.
-        
-        Args:
-            variable_id: The variable ID.
-            variable_data: The variable data to update.
-            user_id: The user ID.
-            
-        Returns:
-            The updated variable, or None if update failed.
-        """
-        if not self.db:
-            # Return dummy data for development
-            variable_data["id"] = variable_id
-            variable_data["userId"] = user_id
-            variable_data["updatedAt"] = datetime.now()
-            return variable_data
-        
-        try:
-            # Check if the variable exists and belongs to the user
-            variable_ref = self.db.collection("variables").document(variable_id)
-            variable = variable_ref.get().to_dict()
-            
-            if not variable or variable.get("userId") != user_id:
-                return None
-            
-            # Add timestamp
-            variable_data["updatedAt"] = firestore.SERVER_TIMESTAMP
-            
-            # Update in Firestore
-            variable_ref.update(variable_data)
-            
-            # Get the updated variable
-            updated_variable = variable_ref.get().to_dict()
-            updated_variable["id"] = variable_id
-            
-            return updated_variable
-        except Exception as e:
-            print(f"Error updating variable: {str(e)}")
-            return None
-    
-    def delete_variable(self, variable_id: str, user_id: str) -> bool:
-        """
-        Delete a variable.
-        
-        Args:
-            variable_id: The variable ID.
-            user_id: The user ID.
-            
-        Returns:
-            True if deletion was successful, False otherwise.
-        """
-        if not self.db:
-            # Return success for development
-            return True
-        
-        try:
-            # Check if the variable exists and belongs to the user
-            variable_ref = self.db.collection("variables").document(variable_id)
-            variable = variable_ref.get().to_dict()
-            
-            if not variable or variable.get("userId") != user_id:
-                return False
-            
-            # Delete from Firestore
-            variable_ref.delete()
-            return True
-        except Exception as e:
-            print(f"Error deleting variable: {str(e)}")
-            return False
     
     # New methods for history
     def get_user_history(self, user_id: str, limit: int = 20, offset: int = 0) -> List[Dict[str, Any]]:
@@ -627,16 +443,19 @@ class FirebaseManager:
         
         Args:
             user_id: The user ID.
-            limit: Maximum number of entries to return (not used in simplified query).
-            offset: Number of entries to skip (not used in simplified query).
+            limit: Maximum number of entries to return.
+            offset: Number of entries to skip.
             
         Returns:
             A list of history entries.
         """
-        print(f"Getting history for user ID: {user_id}")
+        # Проверяем кэш
+        cache_key = f"history_{user_id}_{limit}_{offset}"
+        if cache_key in cache:
+            if datetime.now().timestamp() - cache[cache_key]["timestamp"] < CACHE_TTL:
+                return cache[cache_key]["data"]
         
         if not self.db:
-            print("Firebase DB not initialized, returning dummy history data")
             # Return dummy data for development
             dummy_data = [
                 {
@@ -654,29 +473,40 @@ class FirebaseManager:
                     "timestamp": datetime.now(),
                 },
             ]
-            print(f"Returning {len(dummy_data)} dummy history entries")
+            # Кэшируем результат
+            cache[cache_key] = {
+                "data": dummy_data,
+                "timestamp": datetime.now().timestamp()
+            }
             return dummy_data
         
         try:
-            print(f"Querying Firestore collection 'history' where userId == '{user_id}'")
-            # Упрощенный запрос без сортировки, ограничения и смещения
-            history_ref = self.db.collection("history").where("userId", "==", user_id)
-            history = []
+            # Оптимизированный запрос с сортировкой, ограничением и смещением
+            history_ref = self.db.collection("history").where("userId", "==", user_id).order_by("timestamp", direction=firestore.Query.DESCENDING).limit(limit)
             
-            print("Streaming documents from Firestore...")
+            # Если указан offset, используем его
+            if offset > 0:
+                # Получаем последний документ из предыдущей страницы
+                last_docs = list(self.db.collection("history").where("userId", "==", user_id).order_by("timestamp", direction=firestore.Query.DESCENDING).limit(offset).stream())
+                if last_docs:
+                    last_doc = last_docs[-1]
+                    history_ref = history_ref.start_after(last_doc)
+            
+            history = []
             for doc in history_ref.stream():
-                print(f"Found document with ID: {doc.id}")
                 entry_data = doc.to_dict()
                 entry_data["id"] = doc.id
                 history.append(entry_data)
             
-            print(f"Retrieved {len(history)} history entries from Firestore")
+            # Кэшируем результат
+            cache[cache_key] = {
+                "data": history,
+                "timestamp": datetime.now().timestamp()
+            }
+            
             return history
         except Exception as e:
-            print(f"Error getting history: {str(e)}")
-            print(f"Exception type: {type(e).__name__}")
-            import traceback
-            print(f"Traceback: {traceback.format_exc()}")
+            logger.error(f"Error getting history", exc_info=True)
             return []
     
     def add_history_entry(self, entry_data: Dict[str, Any]) -> Optional[Dict[str, Any]]:

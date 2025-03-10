@@ -5,7 +5,6 @@ from datetime import datetime
 from backend.firebase import firebase_manager
 
 router = APIRouter(
-    prefix="/api",
     tags=["templates"]
 )
 

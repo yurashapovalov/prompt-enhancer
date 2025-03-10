@@ -2,92 +2,6 @@
 
 // Global variables
 let activeTextElement: HTMLTextAreaElement | HTMLInputElement | HTMLElement | null = null;
-let enhanceButton: HTMLButtonElement | null = null;
-
-// Function to create the enhance button
-function createEnhanceButton(): HTMLButtonElement {
-  if (enhanceButton) return enhanceButton;
-  
-  enhanceButton = document.createElement('button');
-  enhanceButton.id = 'prompt-enhancer-button';
-  enhanceButton.textContent = 'Enhance';
-  enhanceButton.style.position = 'absolute';
-  enhanceButton.style.zIndex = '10000';
-  enhanceButton.style.padding = '5px 10px';
-  enhanceButton.style.backgroundColor = '#4285f4';
-  enhanceButton.style.color = 'white';
-  enhanceButton.style.border = 'none';
-  enhanceButton.style.borderRadius = '4px';
-  enhanceButton.style.cursor = 'pointer';
-  enhanceButton.style.fontSize = '14px';
-  enhanceButton.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
-  enhanceButton.style.display = 'none'; // Hidden by default
-  
-  // Add click event listener
-  enhanceButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    if (!activeTextElement) return;
-    
-    // Get current text
-    const text = getTextFromElement(activeTextElement);
-    
-    if (!text.trim()) {
-      console.log('Prompt Enhancer: No text to enhance');
-      return;
-    }
-    
-    // Check if user is authenticated
-    chrome.runtime.sendMessage(
-      { action: 'checkAuth' },
-      (response) => {
-        if (response && response.isAuthenticated) {
-          // User is authenticated, enhance the prompt
-          enhancePrompt(text);
-        } else {
-          // User is not authenticated, open auth page
-          chrome.runtime.sendMessage({ action: 'login' });
-        }
-      }
-    );
-  });
-  
-  document.body.appendChild(enhanceButton);
-  return enhanceButton;
-}
-
-// Function to enhance the prompt
-function enhancePrompt(text: string): void {
-  // Send message to background script to enhance the prompt
-  chrome.runtime.sendMessage(
-    { action: 'enhancePrompt', text: text },
-    (response) => {
-      if (response && response.enhancedText) {
-        // Update text element with enhanced prompt
-        if (activeTextElement) {
-          setTextToElement(activeTextElement, response.enhancedText);
-        }
-      } else if (response && response.error) {
-        console.error('Error enhancing prompt:', response.error);
-      }
-    }
-  );
-}
-
-// Function to position the enhance button near the active text element
-function positionEnhanceButton(element: HTMLElement): void {
-  if (!element || !enhanceButton) return;
-  
-  const rect = element.getBoundingClientRect();
-  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-  const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
-  
-  // Position the button at the top right of the text element
-  enhanceButton.style.top = `${rect.top + scrollTop - 30}px`;
-  enhanceButton.style.left = `${rect.right + scrollLeft - 80}px`;
-  enhanceButton.style.display = 'block';
-}
 
 // Function to get text from different types of text elements
 function getTextFromElement(element: HTMLElement): string {
@@ -127,31 +41,11 @@ function handleFocus(event: FocusEvent): void {
     element.isContentEditable
   ) {
     activeTextElement = element;
-    createEnhanceButton();
-    positionEnhanceButton(element);
   }
-}
-
-// Function to handle blur (focus lost) on text elements
-function handleBlur(_event: FocusEvent): void {
-  // Hide the button with a small delay to allow clicking it
-  setTimeout(() => {
-    if (enhanceButton) {
-      enhanceButton.style.display = 'none';
-    }
-  }, 200);
 }
 
 // Listen for focus events on the document
 document.addEventListener('focusin', handleFocus);
-document.addEventListener('blur', handleBlur, true);
-
-// Listen for window resize to reposition the button
-window.addEventListener('resize', () => {
-  if (activeTextElement) {
-    positionEnhanceButton(activeTextElement);
-  }
-});
 
 // Listen for messages from the background script
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
@@ -179,6 +73,4 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   return true; // Keep the message channel open for async response
 });
 
-// Initialize when the page loads
-createEnhanceButton();
 console.log('Prompt Enhancer: Content script loaded');
