@@ -1,0 +1,10 @@
+.back-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: var(--spacing-2);
+  position: sticky;
+  top: 0;
+  background-color: var(--color-background-primary, #ffffff);
+  z-index: 10;
+}

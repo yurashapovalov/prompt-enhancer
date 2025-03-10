@@ -5,6 +5,7 @@ import { Prompt, PromptVariable, promptsApi } from '@services/api-service';
 import { getCurrentUserToken } from '@services/auth-service';
 import { InputBlock } from '@components/shared/input-block/input-block';
 import { VariableInputs } from '@components/shared/variable-inputs/variable-inputs';
+import { BackHeader } from '@components/shared/back-header/back-header';
 import { localPromptsStorage } from '@services/local-storage-service';
 
 interface PromptDetailProps {
@@ -304,20 +305,12 @@ export const PromptDetail: React.FC<PromptDetailProps> = ({ promptId, onBack }) 
 
   return (
     <div className="prompt-detail">
-      <div className="prompt-detail__header">
-        <Button 
-          variant="transparent"
-          onClick={handleBackClick}
-        >
-          ← Back
-        </Button>
-        <h1 className="prompt-detail__title">Prompt Details</h1>
-        {savingPrompt && (
-          <div className="prompt-detail__saving-prompt">
-            Saving...
-          </div>
-        )}
-      </div>
+      <BackHeader onBackClick={handleBackClick} />
+      {savingPrompt && (
+        <div className="prompt-detail__saving-prompt">
+          Saving...
+        </div>
+      )}
       
       <div className="prompt-detail__content">
         {loading ? (
@@ -335,18 +328,14 @@ export const PromptDetail: React.FC<PromptDetailProps> = ({ promptId, onBack }) 
             </Button>
           </div>
         ) : prompt ? (
-          <div className="prompt-detail__info">
+          <>
             <div className="prompt-detail__header-info">
               <div 
                 className="prompt-detail__color" 
                 style={{ backgroundColor: prompt.color }}
               ></div>
-              <h2 className="prompt-detail__name">{prompt.promptName}</h2>
-            </div>
-            
-            <div className="prompt-detail__section">
-              <h3 className="prompt-detail__section-title">Description</h3>
-              <p className="prompt-detail__description">{prompt.promptDescription}</p>
+              <h2 className="prompt-detail__name text-medium text-primary">{prompt.promptName}</h2>
+              <p className="prompt-detail__description text-default text-secondary">{prompt.promptDescription}</p>
             </div>
             
             <div className="prompt-detail__section">
@@ -356,6 +345,7 @@ export const PromptDetail: React.FC<PromptDetailProps> = ({ promptId, onBack }) 
                 value={promptText}
                 onChange={handlePromptTextChange}
                 onVariablesChange={handleVariablesChange}
+                onLabelButtonClick={() => console.log('Button clicked')}
               />
               
               {/* Отображаем input блоки для переменных */}
@@ -371,7 +361,7 @@ export const PromptDetail: React.FC<PromptDetailProps> = ({ promptId, onBack }) 
                 </div>
               )}
             </div>
-          </div>
+          </>
         ) : (
           <div className="prompt-detail__not-found">
             <p>Prompt not found</p>

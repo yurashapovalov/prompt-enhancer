@@ -21,7 +21,6 @@ export const VariableInputs: React.FC<VariableInputsProps> = memo(({
   
   return (
     <div className="variable-inputs">
-      <h3 className="variable-inputs__title">Variables</h3>
       <div className="variable-inputs__list">
         {variables.map(variable => (
           <InputBlock
@@ -30,6 +29,7 @@ export const VariableInputs: React.FC<VariableInputsProps> = memo(({
             value={values[variable] || ''}
             onChange={(value) => onChange(variable, value)}
             className="variable-inputs__item"
+            onLabelButtonClick={() => console.log(`Variable ${variable} button clicked`)}
           />
         ))}
       </div>

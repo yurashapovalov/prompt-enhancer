@@ -5,21 +5,25 @@
 /* Стили для contentEditable */
 .input-block-content-editable {
   width: 100%;
-  min-height: 100px;
+  min-height: 32px;
   padding: 8px;
   font-family: inherit;
   font-size: 14px;
   line-height: 1.5;
   color: var(--color-text-primary);
-  background-color: var(--color-background-secondary);
   border: none;
-  border-radius: var(--border-radius-md);
   outline: none;
   white-space: pre-wrap;
   word-break: break-word;
   overflow-wrap: break-word;
   overflow: auto;
   display: block; /* Важно для правильной обработки переносов строк */
+  transition: var(--transition-fast)
+}
+
+/* Стиль для активного состояния */
+.input-block-content-editable:focus {
+  background-color: var(--color-background-secondary, #f1f3f4);
 }
 
 /* Стиль для переменных */

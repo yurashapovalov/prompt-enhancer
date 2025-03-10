@@ -230,14 +230,28 @@ export const InputBlockContent: React.FC<InputBlockContentProps> = ({
   
   // Обработчик для пустого содержимого (показываем плейсхолдер)
   const handleBlur = () => {
-    if (contentRef.current && !contentRef.current.textContent?.trim()) {
-      contentRef.current.classList.add('empty');
+    if (contentRef.current) {
+      if (!contentRef.current.textContent?.trim()) {
+        contentRef.current.classList.add('empty');
+      }
+      
+      // Удаляем класс focused у родительского элемента input-block
+      const inputBlock = contentRef.current.closest('.input-block');
+      if (inputBlock) {
+        inputBlock.classList.remove('input-block--focused');
+      }
     }
   };
   
   const handleFocus = () => {
     if (contentRef.current) {
       contentRef.current.classList.remove('empty');
+      
+      // Добавляем класс focused родительскому элементу input-block
+      const inputBlock = contentRef.current.closest('.input-block');
+      if (inputBlock) {
+        inputBlock.classList.add('input-block--focused');
+      }
     }
   };
   

@@ -9,6 +9,5 @@
 
 .main-content {
   flex: 1;
-  padding: var(--spacing-4);
   overflow-y: auto; /* Добавлен вертикальный скролл */
 }

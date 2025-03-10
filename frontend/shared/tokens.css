@@ -52,7 +52,7 @@
   --border-width-thick: 2px;
   
   /* Transitions */
-  --transition-fast: 20ms ease-in 0s;
+  --transition-fast: 60ms ease-in 10ms;
   
   /* Z-index */
   --z-index-dropdown: 1000;
@@ -86,7 +86,7 @@
   --color-background-tertiary: #e8eaed;
 
   /* Border colors */
-  --color-border: #dadce0;
+  --color-border: hsla(45, 8%, 20%, 0.1);
   --color-divider: #e0e0e0;
 
 
