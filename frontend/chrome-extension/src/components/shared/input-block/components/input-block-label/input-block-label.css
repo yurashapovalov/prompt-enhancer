@@ -14,4 +14,12 @@
   flex: 1;
   display: flex;
   justify-content: flex-end;
+  opacity: 0; /* Делаем прозрачным по умолчанию */
+  transition: opacity var(--transition-fast); /* Добавляем плавный переход */
+}
+
+/* Показываем кнопку при ховере или фокусе на input-block */
+.input-block:hover .input-block-label-right,
+.input-block--focused .input-block-label-right {
+  opacity: 1;
 }

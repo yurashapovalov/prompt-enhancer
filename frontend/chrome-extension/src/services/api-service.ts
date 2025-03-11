@@ -76,7 +76,7 @@ export const promptsApi = {
       const response = await api.fetchWithAuth<PromptListResponse>('/prompts', { method: 'GET' }, token);
       console.log('API: Response received:', response);
       
-      // Проверяем, что ответ содержит массив промптов
+      // Validate that the response contains the prompts array
       if (!response || !response.prompts) {
         console.error('API: Invalid response format for prompts:', response);
         return [];
@@ -143,7 +143,7 @@ export const historyApi = {
       const response = await api.fetchWithAuth<HistoryListResponse>(`/history?limit=${limit}&offset=${offset}`, { method: 'GET' }, token);
       console.log('API: Response received:', response);
       
-      // Проверяем, что ответ содержит массив истории
+      // Validate that the response contains the history array
       if (!response || !response.history) {
         console.error('API: Invalid response format for history:', response);
         return [];

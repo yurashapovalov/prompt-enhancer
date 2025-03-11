@@ -77,8 +77,14 @@
   /* Semantic colors */
   --color-error: #ea4335;
   --color-warning: #fbbc05;
-  --color-success: #34a853;
+  --color-success: rgb(68, 131, 97);
   --color-info: #4285f4;
+
+  
+  /* Element colors */
+  --color-variable: rgb(68, 131, 97);
+  --color-variable-light: rgba(68, 131, 97, 0.06);
+
   
   /* Backgroung colors */
   --color-background-primary: #ffffff;

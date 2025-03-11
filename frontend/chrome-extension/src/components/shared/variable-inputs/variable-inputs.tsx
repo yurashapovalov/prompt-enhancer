@@ -8,13 +8,13 @@ interface VariableInputsProps {
   onChange: (name: string, value: string) => void;
 }
 
-// Используем memo для оптимизации рендеринга
+// Use memo to optimize rendering and prevent unnecessary re-renders
 export const VariableInputs: React.FC<VariableInputsProps> = memo(({ 
   variables, 
   values, 
   onChange 
 }) => {
-  // Если нет переменных, не рендерим компонент
+  // Don't render anything if there are no variables to display
   if (variables.length === 0) {
     return null;
   }
@@ -37,5 +37,5 @@ export const VariableInputs: React.FC<VariableInputsProps> = memo(({
   );
 });
 
-// Добавляем displayName для отладки
+// Add displayName for easier debugging in React DevTools
 VariableInputs.displayName = 'VariableInputs';

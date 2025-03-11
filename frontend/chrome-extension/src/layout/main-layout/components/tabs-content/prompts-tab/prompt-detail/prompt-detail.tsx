@@ -135,14 +135,14 @@ export const PromptDetail: React.FC<PromptDetailProps> = ({ promptId, onBack }) 
     
     let processedText = text;
     
-    // Проверяем, что все переменные в тексте имеют двойные фигурные скобки
+    // Ensure all variables in the text have double curly braces
     variables.forEach(variable => {
-      // Проверяем, есть ли переменная в тексте в формате {{variable}}
+      // Check if the variable exists in the text in {{variable}} format
       const doublePattern = new RegExp(`\\{\\{\\s*${variable}\\s*\\}\\}`, 'g');
-      // Проверяем, есть ли переменная в тексте в формате {variable}
+      // Check if the variable exists in the text in {variable} format
       const singlePattern = new RegExp(`\\{\\s*${variable}\\s*\\}`, 'g');
       
-      // Если переменная есть в тексте в формате {variable}, заменяем на {{variable}}
+      // If the variable exists in {variable} format but not in {{variable}} format, convert it
       if (!doublePattern.test(processedText) && singlePattern.test(processedText)) {
         processedText = processedText.replace(singlePattern, `{{${variable}}}`);
       }
@@ -221,7 +221,7 @@ export const PromptDetail: React.FC<PromptDetailProps> = ({ promptId, onBack }) 
   
   // Handle variables change
   const handleVariablesChange = useCallback((newVariables: string[]) => {
-    // Проверяем, изменились ли переменные
+    // Check if variables have actually changed before updating state
     const varsChanged = 
       variables.length !== newVariables.length || 
       newVariables.some(v => !variables.includes(v));
@@ -249,7 +249,7 @@ export const PromptDetail: React.FC<PromptDetailProps> = ({ promptId, onBack }) 
 
   // Handle variable value change
   const handleVariableValueChange = useCallback((name: string, value: string) => {
-    // Проверяем, изменилось ли значение
+    // Skip update if the value hasn't changed
     if (variableValues[name] === value) return;
     
     const newValues = {
@@ -349,7 +349,7 @@ export const PromptDetail: React.FC<PromptDetailProps> = ({ promptId, onBack }) 
                 onLabelButtonClick={() => console.log('Button clicked')}
               />
               
-              {/* Отображаем input блоки для переменных */}
+              {/* Display input blocks for each variable */}
               <VariableInputs
                 variables={variables}
                 values={variableValues}
