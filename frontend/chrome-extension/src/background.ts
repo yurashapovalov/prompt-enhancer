@@ -72,12 +72,76 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
               if (chrome.runtime.lastError) {
                 console.error('Error sending message to tab:', chrome.runtime.lastError);
                 
+                console.error('Error details:', chrome.runtime.lastError);
+                
                 // Если не удалось отправить сообщение, пробуем выполнить скрипт напрямую
+                console.log('Trying to execute script directly with data:', message.data);
                 chrome.scripting.executeScript({
                   target: { tabId: tabs[0].id as number },
-                  func: (text: string) => {
+                  func: (text: string, url: string, originalText: string, variables: Array<{name: string, value: string}>, doNotReplaceVariables: boolean) => {
                     // Функция для вставки текста в активный элемент
-                    const insertTextToActiveElement = (text: string) => {
+                    const insertTextToActiveElement = (text: string, url: string, originalText: string, variables: Array<{name: string, value: string}>, doNotReplaceVariables: boolean) => {
+                      console.log('Executing script to insert text:', { text, url, originalText, variables, doNotReplaceVariables });
+                      
+                      // Проверяем флаг doNotReplaceVariables
+                      const shouldNotReplaceVariables = doNotReplaceVariables === true;
+                      console.log('[Prompt Enhancer][Background] doNotReplaceVariables:', shouldNotReplaceVariables);
+                      
+                      // Если флаг не установлен и есть переменные, заменяем их на значения
+                      if (!shouldNotReplaceVariables && variables && variables.length > 0) {
+                        console.log('[Prompt Enhancer][Background] Replacing variables in text');
+                        
+                        // Используем текст для замены (originalText или text)
+                        const textToProcess = originalText || text;
+                        console.log('[Prompt Enhancer][Background] Original text with variables:', textToProcess);
+                        console.log('[Prompt Enhancer][Background] Variables:', variables);
+                        
+                        // Заменяем переменные на их значения
+                        let processedText = textToProcess;
+                        variables.forEach(variable => {
+                          // Экранируем специальные символы в имени переменной для использования в регулярном выражении
+                          const escapedName = variable.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                          
+                          // Создаем регулярное выражение, которое учитывает возможные пробелы в имени переменной
+                          const pattern = new RegExp(`\\{\\{\\s*${escapedName}\\s*\\}\\}`, 'g');
+                          
+                          // Проверяем, есть ли совпадения
+                          const matches = processedText.match(pattern);
+                          
+                          if (matches && matches.length > 0) {
+                            console.log(`[Prompt Enhancer][Background] Found ${matches.length} occurrences of variable "${variable.name}"`);
+                            console.log(`[Prompt Enhancer][Background] Matches:`, matches);
+                            
+                            // Заменяем переменную на ее значение
+                            processedText = processedText.replace(pattern, variable.value || '');
+                            console.log(`[Prompt Enhancer][Background] Replaced "${variable.name}" with "${variable.value}"`);
+                          } else {
+                            console.log(`[Prompt Enhancer][Background] No occurrences of variable "${variable.name}" found in text`);
+                            console.log(`[Prompt Enhancer][Background] Pattern used:`, pattern.toString());
+                          }
+                        });
+                        
+                        console.log('[Prompt Enhancer][Background] Processed text with replaced variables:', processedText);
+                        
+                        // Используем обработанный текст, если он отличается от переданного
+                        if (processedText !== text) {
+                          console.log('[Prompt Enhancer][Background] Using processed text instead of original');
+                          text = processedText;
+                        } else {
+                          console.log('[Prompt Enhancer][Background] Processed text is the same as original, no variables were replaced');
+                        }
+                      } else {
+                        if (shouldNotReplaceVariables) {
+                          console.log('[Prompt Enhancer][Background] Not replacing variables as requested by doNotReplaceVariables flag');
+                        } else {
+                          console.log('[Prompt Enhancer][Background] No variables provided for replacement');
+                          if (!variables || variables.length === 0) console.log('[Prompt Enhancer][Background] variables are missing or empty');
+                        }
+                      }
+                      // Определяем тип сайта по URL
+                      const isChatGPT = url.includes('chat.openai.com');
+                      const isClaude = url.includes('claude.ai');
+                      
                       // Получаем активный элемент
                       const activeElement = document.activeElement;
                       
@@ -87,9 +151,6 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
                         (activeElement.tagName === 'INPUT' && (activeElement as HTMLInputElement).type === 'text') ||
                         activeElement.hasAttribute('contenteditable')
                       )) {
-                        // Проверяем, находимся ли мы на сайте ChatGPT
-                        const isChatGPT = window.location.href.includes('chat.openai.com');
-                        
                         // Вставляем текст в зависимости от типа элемента
                         if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
                           (activeElement as HTMLTextAreaElement | HTMLInputElement).value = text;
@@ -102,7 +163,16 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
                             activeElement.dispatchEvent(new Event('change', { bubbles: true }));
                           }
                         } else if (activeElement.hasAttribute('contenteditable')) {
-                          activeElement.textContent = text;
+                          // Для Claude нужна специальная обработка ProseMirror
+                          if (isClaude && (activeElement.classList.contains('ProseMirror') || activeElement.closest('.ProseMirror'))) {
+                            // Для ProseMirror используем прямую вставку HTML
+                            activeElement.innerHTML = '';
+                            const p = document.createElement('p');
+                            p.textContent = text;
+                            activeElement.appendChild(p);
+                          } else {
+                            activeElement.textContent = text;
+                          }
                           
                           // Для ChatGPT генерируем только событие input, чтобы не вызвать автоматическую отправку
                           activeElement.dispatchEvent(new Event('input', { bubbles: true }));
@@ -115,25 +185,58 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
                         return true;
                       }
                       
-                      // Проверяем, находимся ли мы на сайте ChatGPT
-                      const isChatGPT = window.location.href.includes('chat.openai.com');
-                      
                       // Если активный элемент не подходит, ищем другие элементы
+                      
+                      // Для ChatGPT ищем специфичные элементы
+                      if (isChatGPT) {
+                        // Поиск по id (наиболее надежный способ)
+                        const promptTextarea = document.getElementById('prompt-textarea');
+                        if (promptTextarea) {
+                          (promptTextarea as HTMLTextAreaElement).value = text;
+                          promptTextarea.dispatchEvent(new Event('input', { bubbles: true }));
+                          promptTextarea.focus();
+                          return true;
+                        }
+                        
+                        // Поиск по атрибуту placeholder
+                        const placeholderElements = document.querySelectorAll('textarea[placeholder*="Send a message"]');
+                        if (placeholderElements.length > 0) {
+                          const textarea = placeholderElements[0] as HTMLTextAreaElement;
+                          textarea.value = text;
+                          textarea.dispatchEvent(new Event('input', { bubbles: true }));
+                          textarea.focus();
+                          return true;
+                        }
+                      }
+                      
+                      // Для Claude ищем специфичные элементы
+                      if (isClaude) {
+                        // Поиск по классу ProseMirror
+                        const proseMirrorElements = document.querySelectorAll('.ProseMirror[contenteditable="true"]');
+                        if (proseMirrorElements.length > 0) {
+                          const element = proseMirrorElements[0] as HTMLElement;
+                          element.innerHTML = '';
+                          const p = document.createElement('p');
+                          p.textContent = text;
+                          element.appendChild(p);
+                          element.dispatchEvent(new Event('input', { bubbles: true }));
+                          element.dispatchEvent(new Event('change', { bubbles: true }));
+                          element.focus();
+                          return true;
+                        }
+                      }
+                      
+                      // Общий поиск для всех сайтов
+                      
                       // Поиск textarea
                       const textareas = document.querySelectorAll('textarea');
                       if (textareas.length > 0) {
                         const textarea = textareas[0] as HTMLTextAreaElement;
                         textarea.value = text;
-                        
-                        // Для ChatGPT генерируем только событие input, чтобы не вызвать автоматическую отправку
                         textarea.dispatchEvent(new Event('input', { bubbles: true }));
-                        
-                        // Для других сайтов генерируем также событие change
                         if (!isChatGPT) {
                           textarea.dispatchEvent(new Event('change', { bubbles: true }));
                         }
-                        
-                        // Фокусируемся на элементе
                         textarea.focus();
                         return true;
                       }
@@ -143,16 +246,10 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
                       if (inputs.length > 0) {
                         const input = inputs[0] as HTMLInputElement;
                         input.value = text;
-                        
-                        // Для ChatGPT генерируем только событие input, чтобы не вызвать автоматическую отправку
                         input.dispatchEvent(new Event('input', { bubbles: true }));
-                        
-                        // Для других сайтов генерируем также событие change
                         if (!isChatGPT) {
                           input.dispatchEvent(new Event('change', { bubbles: true }));
                         }
-                        
-                        // Фокусируемся на элементе
                         input.focus();
                         return true;
                       }
@@ -162,16 +259,10 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
                       if (editables.length > 0) {
                         const editable = editables[0] as HTMLElement;
                         editable.textContent = text;
-                        
-                        // Для ChatGPT генерируем только событие input, чтобы не вызвать автоматическую отправку
                         editable.dispatchEvent(new Event('input', { bubbles: true }));
-                        
-                        // Для других сайтов генерируем также событие change
                         if (!isChatGPT) {
                           editable.dispatchEvent(new Event('change', { bubbles: true }));
                         }
-                        
-                        // Фокусируемся на элементе
                         editable.focus();
                         return true;
                       }
@@ -180,9 +271,15 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
                     };
                     
                     // Вставляем текст
-                    return insertTextToActiveElement(text);
+                    return insertTextToActiveElement(text, url, originalText, variables, doNotReplaceVariables);
                   },
-                  args: [message.data.text]
+                  args: [
+                    message.data.text, 
+                    tabs[0].url || '', 
+                    message.data.originalText || '',
+                    message.data.variables || [],
+                    message.data.doNotReplaceVariables || false
+                  ]
                 }).then((results) => {
                   if (results && results[0] && results[0].result) {
                     sendResponse({ success: true, method: 'executeScript' });
