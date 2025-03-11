@@ -340,6 +340,7 @@ export const PromptDetail: React.FC<PromptDetailProps> = ({ promptId, onBack }) 
             
             <div className="prompt-detail__section">
               <InputBlock 
+                variant="prompt"
                 className="prompt-detail__text-block"
                 label="Prompt Text"
                 value={promptText}

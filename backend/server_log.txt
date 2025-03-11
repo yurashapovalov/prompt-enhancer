@@ -2729,3 +2729,34 @@ INFO:     Stopping reloader process [11027]
 2025-03-10 23:29:05,018 - backend.firebase.repositories.base - INFO - Retrieved 8 documents from 'history'
 2025-03-10 23:29:05,019 - main - WARNING - Slow request: GET /prompts took 1.65s
 2025-03-10 23:29:05,019 - main - WARNING - Slow request: GET /history took 1.65s
+2025-03-11 12:47:38,336 - run - INFO - Starting server with 4 workers
+2025-03-11 12:47:39,540 - firebase_manager - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-11 12:47:39,608 - firebase_manager - INFO - Firebase initialized successfully.
+2025-03-11 12:47:39,617 - backend.firebase.core - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-11 12:47:39,617 - backend.firebase.core - INFO - Firebase app already exists, using existing app.
+2025-03-11 12:47:39,617 - backend.firebase.core - INFO - Firebase initialized successfully with existing app.
+2025-03-11 12:47:39,636 - main - INFO - Application startup
+2025-03-11 12:51:50,191 - backend.firebase.auth - INFO - Verifying token: eyJhbGciOi...
+2025-03-11 12:51:50,192 - backend.firebase.auth - INFO - Attempting to verify token with Firebase Admin SDK...
+2025-03-11 12:51:50,275 - backend.firebase.auth - ERROR - Error verifying token with Firebase Admin SDK: Token expired, 1741612984 < 1741690310
+2025-03-11 12:51:50,275 - backend.firebase.auth - INFO - Extracted user_id from token: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-11 12:51:50,276 - backend.firebase.repositories.base - INFO - Getting all documents from 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-11 12:51:51,561 - backend.firebase.repositories.base - INFO - Retrieved 1 documents from 'prompts'
+2025-03-11 12:51:51,561 - backend.firebase.repositories.base - INFO - Getting all documents from 'history' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-11 12:51:51,775 - backend.firebase.repositories.base - INFO - Retrieved 8 documents from 'history'
+2025-03-11 12:51:51,775 - main - WARNING - Slow request: GET /prompts took 1.58s
+2025-03-11 12:51:51,776 - main - WARNING - Slow request: GET /history took 1.58s
+2025-03-11 13:00:09,610 - backend.firebase.repositories.base - INFO - Getting all documents from 'history' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-11 13:00:10,645 - backend.firebase.repositories.base - INFO - Retrieved 8 documents from 'history'
+2025-03-11 13:00:10,645 - backend.firebase.repositories.base - INFO - Getting all documents from 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-11 13:00:10,854 - backend.firebase.repositories.base - INFO - Retrieved 1 documents from 'prompts'
+2025-03-11 13:00:10,854 - main - WARNING - Slow request: GET /history took 1.24s
+2025-03-11 13:00:10,854 - main - WARNING - Slow request: GET /prompts took 1.24s
+2025-03-11 13:10:58,195 - backend.firebase.repositories.base - INFO - Getting all documents from 'history' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-11 13:10:58,567 - backend.firebase.repositories.base - INFO - Retrieved 8 documents from 'history'
+2025-03-11 13:16:57,506 - backend.firebase.repositories.base - INFO - Getting all documents from 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-11 13:16:58,487 - backend.firebase.repositories.base - INFO - Retrieved 1 documents from 'prompts'
+2025-03-11 13:16:58,487 - backend.firebase.repositories.base - INFO - Getting all documents from 'history' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-11 13:16:58,763 - backend.firebase.repositories.base - INFO - Retrieved 8 documents from 'history'
+2025-03-11 13:16:58,764 - main - WARNING - Slow request: GET /prompts took 1.26s
+2025-03-11 13:16:58,764 - main - WARNING - Slow request: GET /history took 1.26s

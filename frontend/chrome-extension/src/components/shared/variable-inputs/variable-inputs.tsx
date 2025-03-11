@@ -25,11 +25,11 @@ export const VariableInputs: React.FC<VariableInputsProps> = memo(({
         {variables.map(variable => (
           <InputBlock
             key={variable}
+            variant="variable"
             label={variable}
             value={values[variable] || ''}
             onChange={(value) => onChange(variable, value)}
             className="variable-inputs__item"
-            onLabelButtonClick={() => console.log(`Variable ${variable} button clicked`)}
           />
         ))}
       </div>
