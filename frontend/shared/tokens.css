@@ -85,6 +85,9 @@
   --color-variable: rgb(68, 131, 97);
   --color-variable-light: rgba(68, 131, 97, 0.06);
 
+  --tooltip-background: rgb(55, 53, 47);
+  --tooltip-text: rgb(255, 255, 255);
+
   
   /* Backgroung colors */
   --color-background-primary: #ffffff;

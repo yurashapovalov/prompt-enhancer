@@ -1,6 +1,7 @@
 import React from 'react';
 import './input-block-label.css';
 import { Button } from '@components/ui/button/button';
+import { Tooltip } from '@components/tech/tooltip/tooltip';
 import chatSmileIconRaw from '@assets/icons/general/chat-smile.svg?raw';
 
 interface InputBlockLabelProps {
@@ -24,11 +25,13 @@ export const InputBlockLabel: React.FC<InputBlockLabelProps> = ({
       {/* Only display the button when variant is 'prompt' and onButtonClick handler is provided */}
       {variant === 'prompt' && onButtonClick && (
         <div className="input-block-label-right">
-          <Button 
-            size="small" 
-            icon={chatSmileIconRaw} 
-            onClick={onButtonClick}
-          />
+          <Tooltip content="Add to chat input" position="bottom-right">
+            <Button 
+              size="small" 
+              icon={chatSmileIconRaw} 
+              onClick={onButtonClick}
+            />
+          </Tooltip>
         </div>
       )}
     </div>

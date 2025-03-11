@@ -1,0 +1,35 @@
+/* 
+ * Tooltip Component Styles
+ */
+
+.tooltip-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip {
+  position: absolute;
+  z-index: var(--z-index-tooltip);
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-fast), visibility var(--transition-fast);
+  max-width: 300px;
+}
+
+.tooltip--visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip__content {
+  background-color: var(--tooltip-background);
+  color: var(--tooltip-text);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-1) var(--spacing-2);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-normal);
+  font-weight: var(--font-weight-medium);
+  text-align: center;
+  white-space: nowrap;
+}
