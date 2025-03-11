@@ -1,6 +1,6 @@
 import { getCurrentUserToken } from './auth-service';
 
-// Интерфейс для API клиента
+// Interface for API client
 export interface ApiClient<T> {
   getAll: (token: string) => Promise<T[]>;
   create: (item: T, token: string) => Promise<T>;
@@ -8,19 +8,19 @@ export interface ApiClient<T> {
   delete: (id: string, token: string) => Promise<void>;
 }
 
-// Базовый тип для всех данных
+// Base type for all data items
 export interface BaseItem {
   id?: string;
   [key: string]: any;
 }
 
-// Проверка, находимся ли мы в расширении Chrome
+// Check if we're running in a Chrome extension environment
 const isChromeExtension = typeof chrome !== 'undefined' && chrome.storage && chrome.runtime;
 
 /**
- * Универсальный сервис данных с подходом "offline-first"
- * Обеспечивает мгновенный доступ к данным из памяти и локального хранилища
- * с фоновой синхронизацией с сервером
+ * Universal data service with an "offline-first" approach
+ * Provides instant access to data from memory and local storage
+ * with background synchronization to the server
  */
 export class DataService<T extends BaseItem> {
   private storageKey: string;
@@ -36,44 +36,44 @@ export class DataService<T extends BaseItem> {
   }
   
   /**
-   * Получить все элементы мгновенно из памяти
+   * Get all items instantly from memory cache
    */
   getAll(): T[] {
     return [...this.memoryCache];
   }
   
   /**
-   * Получить элемент по ID мгновенно из памяти
+   * Get a specific item by ID instantly from memory cache
    */
   getById(id: string): T | undefined {
     return this.memoryCache.find(item => item.id === id);
   }
   
   /**
-   * Подписаться на изменения данных
-   * @returns Функция для отписки
+   * Subscribe to data changes
+   * @returns Unsubscribe function
    */
   subscribe(listener: (data: T[]) => void): () => void {
     this.listeners.push(listener);
-    // Сразу отправляем текущие данные
+    // Immediately send current data to the new listener
     listener([...this.memoryCache]);
     
-    // Возвращаем функцию для отписки
+    // Return unsubscribe function
     return () => {
       this.listeners = this.listeners.filter(l => l !== listener);
     };
   }
   
   /**
-   * Сохранить элемент (локально + фоновая синхронизация)
+   * Save an item (locally + background server synchronization)
    */
   async save(item: T): Promise<void> {
-    // Если нет ID, генерируем временный
+    // If no ID is provided, generate a temporary one
     if (!item.id) {
       item.id = 'temp_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
     }
     
-    // Обновляем в памяти
+    // Update in memory cache
     const index = this.memoryCache.findIndex(i => i.id === item.id);
     if (index >= 0) {
       this.memoryCache[index] = { ...item };
@@ -81,50 +81,50 @@ export class DataService<T extends BaseItem> {
       this.memoryCache.push({ ...item });
     }
     
-    // Уведомляем слушателей
+    // Notify all listeners about the change
     this.notifyListeners();
     
-    // Сохраняем локально
+    // Save to local storage
     await this.saveToStorage();
     
-    // Синхронизируем с сервером в фоне
+    // Synchronize with server in the background
     this.syncItemToServer(item, index >= 0 ? 'update' : 'create');
   }
   
   /**
-   * Удалить элемент (локально + фоновая синхронизация)
+   * Delete an item (locally + background server synchronization)
    */
   async delete(id: string): Promise<void> {
     if (id === 'all') {
-      // Специальный случай для удаления всех элементов
+      // Special case for deleting all items at once
       this.memoryCache = [];
       
-      // Уведомляем слушателей
+      // Notify all listeners about the change
       this.notifyListeners();
       
-      // Сохраняем локально
+      // Save to local storage
       await this.saveToStorage();
       
-      // Синхронизируем с сервером в фоне
+      // Synchronize with server in the background
       this.syncClearAllToServer();
       return;
     }
     
-    // Удаляем из памяти
+    // Remove from memory cache
     this.memoryCache = this.memoryCache.filter(i => i.id !== id);
     
-    // Уведомляем слушателей
+    // Notify all listeners about the change
     this.notifyListeners();
     
-    // Сохраняем локально
+    // Save to local storage
     await this.saveToStorage();
     
-    // Синхронизируем с сервером в фоне
+    // Synchronize with server in the background
     this.syncDeleteToServer(id);
   }
   
   /**
-   * Загрузить данные с сервера (вызывается при старте приложения)
+   * Load data from server (called at application startup)
    */
   async loadFromServer(): Promise<void> {
     if (this.syncInProgress) return;
@@ -142,19 +142,19 @@ export class DataService<T extends BaseItem> {
       const serverData = await this.apiClient.getAll(token);
       console.log(`[${this.storageKey}] Server data:`, serverData);
       
-      // Обновляем данные в памяти
+      // Update memory cache with server data
       this.memoryCache = serverData;
       console.log(`[${this.storageKey}] Memory cache updated:`, this.memoryCache);
       
-      // Уведомляем слушателей
+      // Notify all listeners about the change
       this.notifyListeners();
       console.log(`[${this.storageKey}] Listeners notified`);
       
-      // Сохраняем локально
+      // Save to local storage
       await this.saveToStorage();
       console.log(`[${this.storageKey}] Data saved to storage`);
     } catch (error) {
-      // Логируем ошибку, но продолжаем работать с локальными данными
+      // Log error but continue working with local data
       console.error(`[${this.storageKey}] Error loading data from server:`, error);
     } finally {
       this.syncInProgress = false;
@@ -162,7 +162,7 @@ export class DataService<T extends BaseItem> {
   }
   
   /**
-   * Уведомить всех слушателей об изменении данных
+   * Notify all listeners about data changes
    */
   private notifyListeners(): void {
     const data = [...this.memoryCache];
@@ -170,13 +170,13 @@ export class DataService<T extends BaseItem> {
       try {
         listener(data);
       } catch (error) {
-        // Игнорируем ошибки в слушателях
+        // Ignore errors in listeners to prevent one bad listener from breaking everything
       }
     });
   }
   
   /**
-   * Загрузить данные из локального хранилища
+   * Load data from local storage
    */
   private async loadFromStorage(): Promise<void> {
     try {
@@ -200,12 +200,12 @@ export class DataService<T extends BaseItem> {
         this.notifyListeners();
       }
     } catch (error) {
-      // Если ошибка чтения - просто используем пустой массив
+      // If there's a reading error, just use an empty array
     }
   }
   
   /**
-   * Сохранить данные в локальное хранилище
+   * Save data to local storage
    */
   private async saveToStorage(): Promise<void> {
     try {
@@ -221,17 +221,17 @@ export class DataService<T extends BaseItem> {
         localStorage.setItem(this.storageKey, JSON.stringify(this.memoryCache));
       }
     } catch (error) {
-      // Тихо обрабатываем ошибки хранилища
+      // Silently handle storage errors
     }
   }
   
   /**
-   * Синхронизировать элемент с сервером (создание или обновление)
+   * Synchronize an item with the server (create or update)
    */
   private async syncItemToServer(item: T, action: 'create' | 'update'): Promise<void> {
     if (this.syncInProgress) return;
     
-    // Запускаем синхронизацию в фоне
+    // Start background synchronization
     setTimeout(async () => {
       try {
         this.syncInProgress = true;
@@ -242,12 +242,12 @@ export class DataService<T extends BaseItem> {
         let serverItem: T;
         
         if (action === 'create') {
-          // Создаем на сервере
+          // Create item on the server
           serverItem = await this.apiClient.create(item, token);
           
-          // Если ID изменился (временный -> постоянный)
+          // If ID changed (temporary -> permanent)
           if (serverItem.id !== item.id) {
-            // Обновляем ID в памяти
+            // Update ID in memory cache
             const index = this.memoryCache.findIndex(i => i.id === item.id);
             if (index >= 0) {
               this.memoryCache[index] = serverItem;
@@ -256,11 +256,11 @@ export class DataService<T extends BaseItem> {
             }
           }
         } else {
-          // Обновляем на сервере
+          // Update item on the server
           serverItem = await this.apiClient.update(item.id!, item, token);
         }
       } catch (error) {
-        // Тихо обрабатываем ошибки - данные останутся в локальном хранилище
+        // Silently handle errors - data will remain in local storage
       } finally {
         this.syncInProgress = false;
       }
@@ -268,12 +268,12 @@ export class DataService<T extends BaseItem> {
   }
   
   /**
-   * Синхронизировать удаление с сервером
+   * Synchronize item deletion with the server
    */
   private async syncDeleteToServer(id: string): Promise<void> {
     if (this.syncInProgress) return;
     
-    // Запускаем синхронизацию в фоне
+    // Start background synchronization
     setTimeout(async () => {
       try {
         this.syncInProgress = true;
@@ -281,10 +281,10 @@ export class DataService<T extends BaseItem> {
         const token = await getCurrentUserToken();
         if (!token) return;
         
-        // Удаляем на сервере
+        // Delete item on the server
         await this.apiClient.delete(id, token);
       } catch (error) {
-        // Тихо обрабатываем ошибки
+        // Silently handle errors
       } finally {
         this.syncInProgress = false;
       }
@@ -292,12 +292,12 @@ export class DataService<T extends BaseItem> {
   }
   
   /**
-   * Синхронизировать удаление всех элементов с сервером
+   * Synchronize deletion of all items with the server
    */
   private async syncClearAllToServer(): Promise<void> {
     if (this.syncInProgress) return;
     
-    // Запускаем синхронизацию в фоне
+    // Start background synchronization
     setTimeout(async () => {
       try {
         this.syncInProgress = true;
@@ -305,12 +305,12 @@ export class DataService<T extends BaseItem> {
         const token = await getCurrentUserToken();
         if (!token) return;
         
-        // Для истории есть специальный метод clearHistory
+        // For history, there's a special clearHistory method
         if (this.storageKey === 'local_history') {
           await this.apiClient.delete('', token);
         } else {
-          // Для других типов данных удаляем каждый элемент по отдельности
-          // Это не оптимально, но обеспечивает совместимость с API
+          // For other data types, delete each item individually
+          // This is not optimal, but ensures compatibility with the API
           const items = await this.apiClient.getAll(token);
           for (const item of items) {
             if (item.id) {
@@ -319,7 +319,7 @@ export class DataService<T extends BaseItem> {
           }
         }
       } catch (error) {
-        // Тихо обрабатываем ошибки
+        // Silently handle errors
       } finally {
         this.syncInProgress = false;
       }

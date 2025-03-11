@@ -11,7 +11,8 @@ interface InputBlockProps {
   placeholder?: string;
   onLabelButtonClick?: () => void;
   children?: React.ReactNode;
-  onVariablesChange?: (variables: string[]) => void; // Callback для уведомления о переменных
+  onVariablesChange?: (variables: string[]) => void; // Callback function to notify parent component about detected variables
+  variant?: 'prompt' | 'variable'; // Determines the display variant: 'prompt' shows button, 'variable' hides it
 }
 
 export const InputBlock: React.FC<InputBlockProps> = ({ 
@@ -23,11 +24,15 @@ export const InputBlock: React.FC<InputBlockProps> = ({
   onLabelButtonClick,
   children,
   onVariablesChange,
+  variant = 'prompt', // Default to 'prompt' variant which displays the button
 }) => {
   return (
     <div className={`input-block ${className}`}>
       {label && (
-        <InputBlockLabel onButtonClick={onLabelButtonClick}>
+        <InputBlockLabel 
+          onButtonClick={onLabelButtonClick}
+          variant={variant} // Pass the variant to InputBlockLabel to control button visibility
+        >
           {label}
         </InputBlockLabel>
       )}

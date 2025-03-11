@@ -7,59 +7,59 @@ interface InputBlockContentProps {
   className?: string;
   placeholder?: string;
   children?: React.ReactNode;
-  onVariablesChange?: (variables: string[]) => void; // Callback для уведомления о переменных
+  onVariablesChange?: (variables: string[]) => void; // Callback function to notify parent component about detected variables
 }
 
 export const InputBlockContent: React.FC<InputBlockContentProps> = ({ 
   value = '',
   onChange,
   className = '',
-  placeholder = 'Введите текст...',
+  placeholder = 'Enter text...',
   children,
   onVariablesChange,
 }) => {
-  // Используем children как начальное значение, если оно предоставлено
+  // Use children as initial value if provided, otherwise use the value prop
   const initialValue = children ? (typeof children === 'string' ? children : String(children)) : value;
   const [text, setText] = useState(initialValue);
   const [htmlContent, setHtmlContent] = useState('');
   const contentRef = useRef<HTMLDivElement>(null);
   const selectionRef = useRef<{ start: number; end: number }>({ start: 0, end: 0 });
   
-  // Функция для подсветки переменных
+  // Function to highlight variables in the text with special styling
   const highlightVariables = useCallback((content: string): string => {
     if (!content) return '';
     
-    // Заменяем {{variable}} на <span class="variable">{{variable}}</span>
-    // Используем то же регулярное выражение, что и в extractVariables
+    // Replace {{variable}} with <span class="variable">{{variable}}</span> for visual highlighting
+    // Using the same regex pattern as in extractVariables function for consistency
     return content.replace(/\{\{(.*?)\}\}/g, '<span class="variable">{{$1}}</span>');
   }, []);
   
-  // Функция для извлечения переменных из текста
+  // Function to extract variable names from text content
   const extractVariables = useCallback((content: string): string[] => {
     if (!content) return [];
     
     const variables: string[] = [];
-    // Используем регулярное выражение, которое ищет текст в двойных фигурных скобках
-    // Обратите внимание, что мы используем .*? вместо [^{}]+ для поддержки пробелов и других символов
+    // Use regex to find text within double curly braces {{variable}}
+    // Note: Using .*? (non-greedy match) instead of [^{}]+ to support spaces and other characters
     const regex = /\{\{(.*?)\}\}/g;
     let match;
     
     while ((match = regex.exec(content)) !== null) {
-      // Добавляем переменную, удаляя лишние пробелы
+      // Add variable name to the array, trimming any extra whitespace
       const variableName = match[1].trim();
       if (variableName) {
         variables.push(variableName);
       }
     }
     
-    // Удаляем дубликаты
+    // Remove duplicate variable names using Set
     return [...new Set(variables)];
   }, []);
   
-  // Мемоизируем список переменных, чтобы избежать лишних вычислений
+  // Memoize the variables list to avoid unnecessary recalculations
   const currentVariables = useMemo(() => extractVariables(text), [text, extractVariables]);
   
-  // Сохраняем позицию курсора
+  // Save cursor position before modifying content
   const saveSelection = () => {
     const selection = window.getSelection();
     if (selection && selection.rangeCount > 0 && contentRef.current) {
@@ -76,7 +76,7 @@ export const InputBlockContent: React.FC<InputBlockContentProps> = ({
     }
   };
   
-  // Восстанавливаем позицию курсора
+  // Restore cursor position after content has been modified
   const restoreSelection = () => {
     if (contentRef.current) {
       const selection = window.getSelection();
@@ -120,78 +120,78 @@ export const InputBlockContent: React.FC<InputBlockContentProps> = ({
     }
   };
   
-  // Обработка переменных в тексте
+  // Process text to convert single braces to double braces for variables
   const processText = useCallback((text: string): string => {
     if (!text) return '';
     
-    // Обрабатываем одинарные скобки в реальном времени
-    // Ищем паттерны {variable} и заменяем на {{variable}}
-    // Но только если это не часть уже существующего {{variable}}
+    // Process single braces in real-time
+    // Find patterns like {variable} and convert them to {{variable}}
+    // But only if they're not already part of an existing {{variable}}
     return text.replace(/\{([^{}]*?)\}/g, (match, p1) => {
-      // Проверяем, не является ли это уже частью двойных скобок
-      // Для этого проверяем, есть ли в исходном тексте '{{' перед найденным совпадением
-      // или '}}' после найденного совпадения
+      // Check if this match is already part of double braces
+      // We do this by checking if there's a '{' character before the match
+      // or a '}' character after the match in the original text
       const index = text.indexOf(match);
       if (index > 0 && text[index - 1] === '{') {
-        return match; // Это уже часть {{variable}}, оставляем как есть
+        return match; // This is already part of {{variable}}, leave it as is
       }
       if (index + match.length < text.length && text[index + match.length] === '}') {
-        return match; // Это уже часть {{variable}}, оставляем как есть
+        return match; // This is already part of {{variable}}, leave it as is
       }
-      return `{{${p1}}}`; // Заменяем {variable} на {{variable}}
+      return `{{${p1}}}`; // Convert {variable} to {{variable}}
     });
   }, []);
   
-  // Обработчик изменения текста
+  // Handle input changes in the editable content
   const handleInput = () => {
     if (contentRef.current) {
-      // Сохраняем позицию курсора
+      // Save cursor position before making changes
       saveSelection();
       
-      // Получаем текст без HTML-разметки
+      // Get raw text without HTML markup
       const rawText = contentRef.current.innerText || '';
       
-      // Обрабатываем текст (заменяем одинарные скобки на двойные)
+      // Process text to convert single braces to double braces
       const processedText = processText(rawText);
       
-      // Обновляем состояние текста
+      // Update text state with processed content
       setText(processedText);
       
-      // Вызываем onChange, если он предоставлен
+      // Call onChange callback if provided
       if (onChange) {
         onChange(processedText);
       }
       
-      // Подсвечиваем переменные
+      // Apply variable highlighting to the processed text
       const highlighted = highlightVariables(processedText);
       
-      // Обновляем HTML-содержимое только если оно изменилось
+      // Only update HTML content if it has changed to avoid unnecessary re-renders
       if (highlighted !== contentRef.current.innerHTML) {
         setHtmlContent(highlighted);
       }
     }
   };
   
-  // Обработчик нажатия клавиш
+  // Handle keyboard events in the editable content
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
-      // Предотвращаем стандартное поведение Enter
+      // Prevent default Enter behavior (which would create a new paragraph)
       e.preventDefault();
       
-      // Используем execCommand для вставки переноса строки
+      // Use execCommand to insert a line break instead
       document.execCommand('insertLineBreak');
       
-      // Обновляем текст и HTML после вставки переноса строки
+      // Update text and HTML content after inserting the line break
       handleInput();
     }
   };
   
-  // Обновляем HTML-содержимое при изменении текста
+  // Update HTML content whenever text changes to apply variable highlighting
   useEffect(() => {
     setHtmlContent(highlightVariables(text));
   }, [text, highlightVariables]);
   
-  // Обновляем текст при изменении value или children извне
+  // Update text state when value or children props change externally
   useEffect(() => {
     if (children && typeof children === 'string' && children !== text) {
       setText(children);
@@ -200,7 +200,7 @@ export const InputBlockContent: React.FC<InputBlockContentProps> = ({
     }
   }, [value, children, text]);
   
-  // Восстанавливаем позицию курсора после обновления HTML
+  // Restore cursor position after HTML content has been updated
   useEffect(() => {
     if (contentRef.current) {
       contentRef.current.innerHTML = htmlContent;
@@ -208,19 +208,19 @@ export const InputBlockContent: React.FC<InputBlockContentProps> = ({
     }
   }, [htmlContent]);
   
-  // Храним предыдущие переменные для сравнения
+  // Store previous variables list for comparison to detect changes
   const prevVariablesRef = useRef<string[]>([]);
   
-  // Отслеживаем изменения переменных в тексте и вызываем onVariablesChange только при реальных изменениях
+  // Track changes in variables and only call onVariablesChange when actual changes occur
   useEffect(() => {
     if (onVariablesChange) {
-      // Проверяем, изменились ли переменные
+      // Check if variables have changed by comparing length or content
       const prevVars = prevVariablesRef.current;
       const varsChanged = 
         prevVars.length !== currentVariables.length || 
         currentVariables.some(v => !prevVars.includes(v));
       
-      // Вызываем onVariablesChange только если переменные изменились
+      // Only call onVariablesChange callback if variables have actually changed
       if (varsChanged) {
         onVariablesChange(currentVariables);
         prevVariablesRef.current = [...currentVariables];
@@ -228,14 +228,14 @@ export const InputBlockContent: React.FC<InputBlockContentProps> = ({
     }
   }, [currentVariables, onVariablesChange]);
   
-  // Обработчик для пустого содержимого (показываем плейсхолдер)
+  // Handle blur event - show placeholder if content is empty
   const handleBlur = () => {
     if (contentRef.current) {
       if (!contentRef.current.textContent?.trim()) {
         contentRef.current.classList.add('empty');
       }
       
-      // Удаляем класс focused у родительского элемента input-block
+      // Remove focused class from parent input-block element
       const inputBlock = contentRef.current.closest('.input-block');
       if (inputBlock) {
         inputBlock.classList.remove('input-block--focused');
@@ -247,7 +247,7 @@ export const InputBlockContent: React.FC<InputBlockContentProps> = ({
     if (contentRef.current) {
       contentRef.current.classList.remove('empty');
       
-      // Добавляем класс focused родительскому элементу input-block
+      // Add focused class to parent input-block element
       const inputBlock = contentRef.current.closest('.input-block');
       if (inputBlock) {
         inputBlock.classList.add('input-block--focused');
