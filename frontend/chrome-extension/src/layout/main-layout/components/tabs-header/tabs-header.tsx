@@ -1,6 +1,7 @@
 import React from 'react';
 import './tabs-header.css';
 import { Button } from '@components/ui/button/button';
+import { Tooltip, TooltipPosition } from '@components/tech/tooltip/tooltip';
 
 // Импорт иконок
 import baseIconRaw from '@assets/icons/general/base-icon.svg?raw';
@@ -8,6 +9,7 @@ import promptIconRaw from '@assets/icons/general/prompt-line.svg?raw';
 import historyIconRaw from '@assets/icons/general/history-line.svg?raw';
 import bracesIconRaw from '@assets/icons/general/braces-line.svg?raw';
 import menuIconRaw from '@assets/icons/general/menu-line.svg?raw';
+import searchIconRaw from '@assets/icons/general/search-line.svg?raw';
 
 // Типы табов
 export type TabType = 'prompts' | 'history' | 'marketplace';
@@ -20,31 +22,38 @@ interface TabsHeaderProps {
 
 export const TabsHeader: React.FC<TabsHeaderProps> = ({ onTabChange }) => {
   // Массив с данными о табах
-  const tabs: { id: TabType; icon: string }[] = [
-    { id: 'prompts', icon: promptIconRaw },
-    { id: 'history', icon: historyIconRaw },
-    { id: 'marketplace', icon: baseIconRaw }
+  const tabs: { id: TabType; icon: string; tooltip: string; position: TooltipPosition }[] = [
+    { id: 'prompts', icon: promptIconRaw, tooltip: 'Prompts', position: 'bottom' },
+    { id: 'history', icon: historyIconRaw, tooltip: 'Improvement history', position: 'bottom' },
+    { id: 'marketplace', icon: searchIconRaw, tooltip: 'Marketplace', position: 'bottom-center' }
   ];
 
   return (
     <div className="tabs-header">
       <div className="tabs-header-left">
         {tabs.map(tab => (
-          <Button
-            key={tab.id}
-            variant="transparent"
-            size="medium"
-            icon={tab.icon}
-            onClick={() => onTabChange(tab.id)}
-          />
+          <Tooltip 
+            key={tab.id} 
+            content={tab.tooltip} 
+            position={tab.position}
+          >
+            <Button
+              variant="transparent"
+              size="medium"
+              icon={tab.icon}
+              onClick={() => onTabChange(tab.id)}
+            />
+          </Tooltip>
         ))}
       </div>
       <div className="tabs-header-right">
-        <Button
-          variant="transparent"
-          size="medium"
-          icon={menuIconRaw}
-        />
+        <Tooltip content="Open menu" position="bottom-right">
+          <Button
+            variant="transparent"
+            size="medium"
+            icon={menuIconRaw}
+          />
+        </Tooltip>
       </div>
     </div>
   );
