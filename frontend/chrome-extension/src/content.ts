@@ -16,8 +16,8 @@ let activeTextElement: HTMLTextAreaElement | HTMLInputElement | HTMLElement | nu
 //   return '';
 // }
 
-// Отключаем отладочные сообщения для стабильности интерфейса
-const DEBUG = false;
+// Включаем отладочные сообщения для диагностики проблем с вставкой текста
+const DEBUG = true;
 
 // Функция для логирования отладочных сообщений
 function debugLog(...args: any[]): void {
@@ -151,6 +151,10 @@ function insertTextViaDataTransfer(element: HTMLElement, text: string): boolean 
 function insertTextToProseMirror(element: HTMLElement, text: string): boolean {
   debugLog('Inserting text to ProseMirror element');
   
+  // Проверяем, находимся ли мы на сайте ChatGPT
+  const isChatGPTSite = window.location.href.includes('chat.openai.com');
+  debugLog('Is ChatGPT site:', isChatGPTSite);
+  
   // Пробуем разные методы вставки текста
   let success = false;
   
@@ -187,9 +191,13 @@ function insertTextToProseMirror(element: HTMLElement, text: string): boolean {
       // Добавляем параграф в contenteditable элемент
       element.appendChild(p);
       
-      // Отправляем события для уведомления о изменениях
+      // Отправляем событие input для всех сайтов
       element.dispatchEvent(new Event('input', { bubbles: true }));
-      element.dispatchEvent(new Event('change', { bubbles: true }));
+      
+      // Для ChatGPT не генерируем событие change, чтобы избежать автоматической отправки
+      if (!isChatGPTSite) {
+        element.dispatchEvent(new Event('change', { bubbles: true }));
+      }
       
       success = true;
       debugLog('Inserted via direct HTML manipulation');
@@ -198,26 +206,10 @@ function insertTextToProseMirror(element: HTMLElement, text: string): boolean {
     }
   }
   
-  // Дополнительные события для ProseMirror
-  if (success) {
+  // Дополнительные события для ProseMirror (только для не-ChatGPT сайтов)
+  if (success && !isChatGPTSite) {
     setTimeout(() => {
       debugLog('Dispatching additional events for ProseMirror');
-      
-      // Симулируем нажатие клавиши Enter для активации обработчиков ProseMirror
-      const enterEvent = new KeyboardEvent('keydown', {
-        key: 'Enter',
-        code: 'Enter',
-        bubbles: true
-      });
-      element.dispatchEvent(enterEvent);
-      
-      // Симулируем нажатие клавиши Space
-      const spaceEvent = new KeyboardEvent('keydown', {
-        key: ' ',
-        code: 'Space',
-        bubbles: true
-      });
-      element.dispatchEvent(spaceEvent);
       
       // Симулируем событие input
       const inputEvent = new InputEvent('input', {
@@ -227,6 +219,15 @@ function insertTextToProseMirror(element: HTMLElement, text: string): boolean {
         data: text
       });
       element.dispatchEvent(inputEvent);
+      
+      // Для Claude и других сайтов (но не для ChatGPT) можем добавить дополнительные события
+      // Симулируем нажатие клавиши Space только для не-ChatGPT сайтов
+      const spaceEvent = new KeyboardEvent('keydown', {
+        key: ' ',
+        code: 'Space',
+        bubbles: true
+      });
+      element.dispatchEvent(spaceEvent);
     }, 100);
   }
   
@@ -242,12 +243,22 @@ function setTextToElement(element: HTMLElement, text: string): void {
   
   debugLog('Setting text to element:', element.tagName, element.className);
   
+  // Проверяем, находимся ли мы на сайте ChatGPT
+  const isChatGPTSite = window.location.href.includes('chat.openai.com');
+  debugLog('Is ChatGPT site:', isChatGPTSite);
+  
   if (element.tagName === 'TEXTAREA' || (element.tagName === 'INPUT' && (element as HTMLInputElement).type === 'text')) {
     debugLog('Element is a TEXTAREA or INPUT');
     const inputElement = element as HTMLTextAreaElement | HTMLInputElement;
     inputElement.value = text;
+    
+    // Генерируем событие input для всех сайтов
     inputElement.dispatchEvent(new Event('input', { bubbles: true }));
-    inputElement.dispatchEvent(new Event('change', { bubbles: true }));
+    
+    // Для ChatGPT не генерируем событие change, чтобы избежать автоматической отправки
+    if (!isChatGPTSite) {
+      inputElement.dispatchEvent(new Event('change', { bubbles: true }));
+    }
   } else if (element.isContentEditable) {
     debugLog('Element is contenteditable');
     
@@ -259,8 +270,14 @@ function setTextToElement(element: HTMLElement, text: string): void {
       // Стандартная обработка для других contenteditable элементов
       debugLog('Element is standard contenteditable');
       element.textContent = text;
+      
+      // Генерируем событие input для всех сайтов
       element.dispatchEvent(new Event('input', { bubbles: true }));
-      element.dispatchEvent(new Event('change', { bubbles: true }));
+      
+      // Для ChatGPT не генерируем событие change, чтобы избежать автоматической отправки
+      if (!isChatGPTSite) {
+        element.dispatchEvent(new Event('change', { bubbles: true }));
+      }
     }
     
     // Фокус на элементе
@@ -286,6 +303,42 @@ function handleFocus(event: FocusEvent): void {
 
 // Listen for focus events on the document
 document.addEventListener('focusin', handleFocus);
+
+// Функция для поиска элемента ввода на сайте ChatGPT
+function findChatGPTInputElement(): HTMLElement | null {
+  debugLog('Searching for ChatGPT input element');
+  
+  // Поиск по id (наиболее надежный способ)
+  const promptTextarea = document.getElementById('prompt-textarea');
+  if (promptTextarea) {
+    debugLog('Found ChatGPT textarea by id');
+    return promptTextarea as HTMLElement;
+  }
+  
+  // Поиск по атрибуту placeholder (может измениться в будущих версиях)
+  const placeholderElements = document.querySelectorAll('textarea[placeholder*="Send a message"]');
+  if (placeholderElements.length > 0) {
+    debugLog('Found ChatGPT textarea by placeholder');
+    return placeholderElements[0] as HTMLElement;
+  }
+  
+  // Поиск по классу (может измениться в будущих версиях)
+  const textareaElements = document.querySelectorAll('textarea.w-full');
+  if (textareaElements.length > 0) {
+    debugLog('Found ChatGPT textarea by class');
+    return textareaElements[0] as HTMLElement;
+  }
+  
+  // Поиск любого textarea
+  const allTextareas = document.querySelectorAll('textarea');
+  if (allTextareas.length > 0) {
+    debugLog('Found generic textarea');
+    return allTextareas[0] as HTMLElement;
+  }
+  
+  debugLog('No suitable ChatGPT input element found');
+  return null;
+}
 
 // Функция для поиска элемента ввода на сайте Claude
 function findClaudeInputElement(): HTMLElement | null {
@@ -338,12 +391,37 @@ function findClaudeInputElement(): HTMLElement | null {
 function handleInsertPrompt(text: string, sendResponse: (response: any) => void): void {
   debugLog('Handling insert prompt request with text:', text.substring(0, 30) + '...');
   
+  // Проверяем, находимся ли мы на сайте ChatGPT
+  const isChatGPTSite = window.location.href.includes('chat.openai.com');
+  debugLog('Is ChatGPT site:', isChatGPTSite);
+  
   // Проверяем, находимся ли мы на сайте Claude
   const isClaudeSite = window.location.href.includes('claude.ai');
   debugLog('Is Claude site:', isClaudeSite);
   
+  // Если мы на сайте ChatGPT, используем специальную логику
+  if (isChatGPTSite) {
+    debugLog('Using ChatGPT-specific logic');
+    
+    // Пытаемся найти элемент ввода на сайте ChatGPT
+    const chatGPTInputElement = findChatGPTInputElement();
+    
+    if (chatGPTInputElement) {
+      debugLog('Found ChatGPT input element, inserting text');
+      
+      // Добавляем небольшую задержку для ChatGPT
+      setTimeout(() => {
+        setTextToElement(chatGPTInputElement, text);
+        sendResponse({ success: true, site: 'chatgpt' });
+      }, 100);
+      
+      return;
+    } else {
+      debugLog('Could not find ChatGPT input element');
+    }
+  }
   // Если мы на сайте Claude, используем специальную логику
-  if (isClaudeSite) {
+  else if (isClaudeSite) {
     debugLog('Using Claude-specific logic');
     
     // Пытаемся найти элемент ввода на сайте Claude

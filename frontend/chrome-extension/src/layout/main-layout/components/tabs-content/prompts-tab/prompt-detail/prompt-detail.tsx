@@ -357,6 +357,15 @@ export const PromptDetail: React.FC<PromptDetailProps> = ({ promptId, onBack }) 
                       action: 'insertPrompt',
                       text: finalText
                     }
+                  }, (response) => {
+                    // Обрабатываем ответ от background script
+                    if (response && !response.success) {
+                      console.error('Error inserting prompt:', response.error);
+                      // Можно добавить уведомление для пользователя
+                      alert(`Не удалось вставить текст: ${response.error || 'Неизвестная ошибка'}`);
+                    } else if (response && response.success) {
+                      console.log('Prompt inserted successfully');
+                    }
                   });
                 }}
               />
