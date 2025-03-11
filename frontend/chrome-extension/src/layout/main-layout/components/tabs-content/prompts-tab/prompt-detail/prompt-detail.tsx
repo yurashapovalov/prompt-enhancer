@@ -342,20 +342,33 @@ export const PromptDetail: React.FC<PromptDetailProps> = ({ promptId, onBack }) 
                 onChange={handlePromptTextChange}
                 onVariablesChange={handleVariablesChange}
                 onLabelButtonClick={() => {
-                  // Prepare text with variable values substituted
-                  let finalText = promptText;
-                  variables.forEach(varName => {
-                    const value = variableValues[varName] || '';
-                    const pattern = new RegExp(`\\{\\{\\s*${varName}\\s*\\}\\}`, 'g');
-                    finalText = finalText.replace(pattern, value);
+                  console.log('Sending template with variables:', promptText);
+                  console.log('Variables:', variables.map(name => ({ name, value: variableValues[name] || '' })));
+                  
+                  // Заменяем переменные на их значения перед отправкой
+                  let processedText = promptText;
+                  
+                  // Заменяем переменные на их значения
+                  variables.forEach(name => {
+                    const value = variableValues[name] || '';
+                    // Экранируем специальные символы в имени переменной для использования в регулярном выражении
+                    const escapedName = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                    // Создаем регулярное выражение, которое учитывает возможные пробелы в имени переменной
+                    const pattern = new RegExp(`\\{\\{\\s*${escapedName}\\s*\\}\\}`, 'g');
+                    processedText = processedText.replace(pattern, value);
                   });
                   
-                  // Send message to background script to forward to active tab
+                  console.log('Original text:', promptText);
+                  console.log('Processed text:', processedText);
+                  
+                  // Отправляем обработанный текст без переменных
                   chrome.runtime.sendMessage({
                     action: 'sendToActiveTab',
                     data: {
                       action: 'insertPrompt',
-                      text: finalText
+                      text: processedText, // Текст с замененными переменными
+                      doNotReplaceVariables: true, // Флаг не имеет значения, так как переменные уже заменены
+                      variables: [] // Пустой массив переменных, так как они уже заменены
                     }
                   }, (response) => {
                     // Обрабатываем ответ от background script
