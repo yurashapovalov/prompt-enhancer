@@ -1,5 +1,5 @@
 import { api } from '../../../shared/firebase-config';
-import { promptsCache, historyCache } from './cache-service';
+// import { promptsCache, historyCache } from './cache-service';
 
 // Types
 export interface PromptVariable {

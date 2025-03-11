@@ -5,9 +5,12 @@
   height: 100%;
   background-color: white;
   box-sizing: border-box;
+  overflow-x: hidden; /* Предотвращаем горизонтальный скроллинг */
 }
 
 .main-content {
   flex: 1;
-  overflow-y: auto; /* Добавлен вертикальный скролл */
+  overflow-y: auto; /* Вертикальный скролл */
+  overflow-x: hidden; /* Предотвращаем горизонтальный скроллинг */
+  max-width: 100%; /* Ограничиваем ширину контентом */
 }

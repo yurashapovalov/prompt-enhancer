@@ -1,6 +1,17 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import './input-block-content.css';
 
+// Функция для дебаунсинга
+function debounce<T extends (...args: any[]) => any>(func: T, wait: number): (...args: Parameters<T>) => void {
+  let timeout: ReturnType<typeof setTimeout> | null = null;
+  
+  return function(...args: Parameters<T>) {
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
+}
+
+
 interface InputBlockContentProps {
   value?: string;
   onChange?: (value: string) => void;
@@ -142,6 +153,13 @@ export const InputBlockContent: React.FC<InputBlockContentProps> = ({
     });
   }, []);
   
+  // Функция для вызова onChange
+  const handleOnChange = useCallback((text: string) => {
+    if (onChange) {
+      onChange(text);
+    }
+  }, [onChange]);
+  
   // Handle input changes in the editable content
   const handleInput = () => {
     if (contentRef.current) {
@@ -157,18 +175,10 @@ export const InputBlockContent: React.FC<InputBlockContentProps> = ({
       // Update text state with processed content
       setText(processedText);
       
-      // Call onChange callback if provided
-      if (onChange) {
-        onChange(processedText);
-      }
+      // Вызываем функцию для onChange
+      handleOnChange(processedText);
       
-      // Apply variable highlighting to the processed text
-      const highlighted = highlightVariables(processedText);
-      
-      // Only update HTML content if it has changed to avoid unnecessary re-renders
-      if (highlighted !== contentRef.current.innerHTML) {
-        setHtmlContent(highlighted);
-      }
+      // HTML-содержимое обновится автоматически через useEffect
     }
   };
   
@@ -186,11 +196,6 @@ export const InputBlockContent: React.FC<InputBlockContentProps> = ({
     }
   };
   
-  // Update HTML content whenever text changes to apply variable highlighting
-  useEffect(() => {
-    setHtmlContent(highlightVariables(text));
-  }, [text, highlightVariables]);
-  
   // Update text state when value or children props change externally
   useEffect(() => {
     if (children && typeof children === 'string' && children !== text) {
@@ -199,6 +204,11 @@ export const InputBlockContent: React.FC<InputBlockContentProps> = ({
       setText(value);
     }
   }, [value, children, text]);
+  
+  // Update HTML content whenever text changes to apply variable highlighting
+  useEffect(() => {
+    setHtmlContent(highlightVariables(text));
+  }, [text, highlightVariables]);
   
   // Restore cursor position after HTML content has been updated
   useEffect(() => {
@@ -211,6 +221,16 @@ export const InputBlockContent: React.FC<InputBlockContentProps> = ({
   // Store previous variables list for comparison to detect changes
   const prevVariablesRef = useRef<string[]>([]);
   
+  // Создаем дебаунсированную функцию для обработки изменений переменных
+  const debouncedVariablesChange = useCallback(
+    debounce((variables: string[]) => {
+      if (onVariablesChange) {
+        onVariablesChange(variables);
+      }
+    }, 200), // 200ms задержка
+    [onVariablesChange]
+  );
+  
   // Track changes in variables and only call onVariablesChange when actual changes occur
   useEffect(() => {
     if (onVariablesChange) {
@@ -222,11 +242,11 @@ export const InputBlockContent: React.FC<InputBlockContentProps> = ({
       
       // Only call onVariablesChange callback if variables have actually changed
       if (varsChanged) {
-        onVariablesChange(currentVariables);
         prevVariablesRef.current = [...currentVariables];
+        debouncedVariablesChange(currentVariables);
       }
     }
-  }, [currentVariables, onVariablesChange]);
+  }, [currentVariables, debouncedVariablesChange]);
   
   // Handle blur event - show placeholder if content is empty
   const handleBlur = () => {

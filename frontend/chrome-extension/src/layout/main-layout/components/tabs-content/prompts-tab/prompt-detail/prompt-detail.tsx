@@ -43,8 +43,8 @@ export const PromptDetail: React.FC<PromptDetailProps> = ({ promptId, onBack }) 
   const [variableValues, setVariableValues] = useState<Record<string, string>>({});
   // State for storing prompt text
   const [promptText, setPromptText] = useState<string>('');
-  // State for saving status
-  const [saving, setSaving] = useState<boolean>(false);
+  // State for saving status (unused for now)
+  const [saving] = useState<boolean>(false);
   // State for prompt saving status
   const [savingPrompt, setSavingPrompt] = useState<boolean>(false);
   // Ref to track if prompt has unsaved changes
@@ -200,7 +200,7 @@ export const PromptDetail: React.FC<PromptDetailProps> = ({ promptId, onBack }) 
   const debouncedSavePrompt = useCallback(
     debounce(() => {
       savePrompt();
-    }, 500), // 500ms delay for better responsiveness
+    }, 1000), // 1000ms delay for better responsiveness and less frequent saves
     [savePrompt]
   );
   
@@ -278,7 +278,7 @@ export const PromptDetail: React.FC<PromptDetailProps> = ({ promptId, onBack }) 
   
   // Save prompt when user leaves the page
   useEffect(() => {
-    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+    const handleBeforeUnload = (_e: BeforeUnloadEvent) => {
       if (hasUnsavedChanges.current) {
         savePrompt();
       }
@@ -306,11 +306,6 @@ export const PromptDetail: React.FC<PromptDetailProps> = ({ promptId, onBack }) 
   return (
     <div className="prompt-detail">
       <BackHeader onBackClick={handleBackClick} />
-      {savingPrompt && (
-        <div className="prompt-detail__saving-prompt">
-          Saving...
-        </div>
-      )}
       
       <div className="prompt-detail__content">
         {loading ? (
@@ -346,7 +341,24 @@ export const PromptDetail: React.FC<PromptDetailProps> = ({ promptId, onBack }) 
                 value={promptText}
                 onChange={handlePromptTextChange}
                 onVariablesChange={handleVariablesChange}
-                onLabelButtonClick={() => console.log('Button clicked')}
+                onLabelButtonClick={() => {
+                  // Prepare text with variable values substituted
+                  let finalText = promptText;
+                  variables.forEach(varName => {
+                    const value = variableValues[varName] || '';
+                    const pattern = new RegExp(`\\{\\{\\s*${varName}\\s*\\}\\}`, 'g');
+                    finalText = finalText.replace(pattern, value);
+                  });
+                  
+                  // Send message to background script to forward to active tab
+                  chrome.runtime.sendMessage({
+                    action: 'sendToActiveTab',
+                    data: {
+                      action: 'insertPrompt',
+                      text: finalText
+                    }
+                  });
+                }}
               />
               
               {/* Display input blocks for each variable */}
@@ -355,12 +367,6 @@ export const PromptDetail: React.FC<PromptDetailProps> = ({ promptId, onBack }) 
                 values={variableValues}
                 onChange={handleVariableValueChange}
               />
-              
-              {saving && (
-                <div className="prompt-detail__saving">
-                  <p>Syncing variables...</p>
-                </div>
-              )}
             </div>
           </>
         ) : (
