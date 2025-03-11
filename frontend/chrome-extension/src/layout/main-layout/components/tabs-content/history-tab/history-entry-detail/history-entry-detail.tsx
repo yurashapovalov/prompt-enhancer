@@ -34,8 +34,8 @@ export const HistoryEntryDetail: React.FC<HistoryEntryDetailProps> = ({ entryId,
               timestamp: new Date()
             });
           } else {
-            // Use the new getHistoryEntry method with caching
-            const foundEntry = await historyApi.getHistoryEntry(entryId, token, false);
+            // Get history entry
+            const foundEntry = await historyApi.getHistoryEntry(entryId, token);
             
             if (foundEntry) {
               setEntry(foundEntry);

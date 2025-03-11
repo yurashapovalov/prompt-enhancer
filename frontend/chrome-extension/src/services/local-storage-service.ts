@@ -1,4 +1,4 @@
-import { Prompt, HistoryEntry, promptsApi, historyApi } from './api-service';
+import { Prompt, promptsApi, historyApi } from './api-service';
 import { getCurrentUserToken } from './auth-service';
 
 // Keys for local storage

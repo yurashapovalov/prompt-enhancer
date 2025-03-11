@@ -14,7 +14,7 @@ const historyApiClient: ApiClient<HistoryEntry> = {
   getAll: (token) => historyApi.getHistory(token),
   create: (entry, token) => historyApi.addHistoryEntry(entry, token),
   // История не обновляется, но нам нужна реализация для интерфейса
-  update: (id, entry, token) => Promise.resolve(entry),
+  update: (_id, entry, _token) => Promise.resolve(entry),
   delete: (id, token) => historyApi.deleteHistoryEntry(id, token)
 };
 

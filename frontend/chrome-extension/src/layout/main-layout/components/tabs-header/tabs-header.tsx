@@ -4,10 +4,8 @@ import { Button } from '@components/ui/button/button';
 import { Tooltip, TooltipPosition } from '@components/tech/tooltip/tooltip';
 
 // Импорт иконок
-import baseIconRaw from '@assets/icons/general/base-icon.svg?raw';
 import promptIconRaw from '@assets/icons/general/prompt-line.svg?raw';
 import historyIconRaw from '@assets/icons/general/history-line.svg?raw';
-import bracesIconRaw from '@assets/icons/general/braces-line.svg?raw';
 import menuIconRaw from '@assets/icons/general/menu-line.svg?raw';
 import searchIconRaw from '@assets/icons/general/search-line.svg?raw';
 

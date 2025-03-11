@@ -59,6 +59,16 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     sendResponse({ success: true });
     return false; // No async response needed
   }
+  
+  // Handle sending message to active tab
+  if (message.action === 'sendToActiveTab') {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      if (tabs[0]?.id) {
+        chrome.tabs.sendMessage(tabs[0].id, message.data);
+      }
+    });
+    return false; // No async response needed
+  }
 });
 
 // Function to get prompt templates from the backend
