@@ -2262,3 +2262,470 @@ INFO:     Stopping reloader process [11027]
 2025-03-10 21:13:08,054 - backend.firebase.repositories.base - INFO - Getting all documents from 'history' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
 2025-03-10 21:13:08,293 - backend.firebase.repositories.base - INFO - Retrieved 8 documents from 'history'
 2025-03-10 21:13:32,040 - main - INFO - Application shutdown
+2025-03-10 21:14:27,921 - run - INFO - Starting server with 4 workers
+2025-03-10 21:14:29,073 - firebase_manager - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-10 21:14:29,143 - firebase_manager - INFO - Firebase initialized successfully.
+2025-03-10 21:14:29,151 - backend.firebase.core - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-10 21:14:29,151 - backend.firebase.core - INFO - Firebase app already exists, using existing app.
+2025-03-10 21:14:29,151 - backend.firebase.core - INFO - Firebase initialized successfully with existing app.
+2025-03-10 21:14:29,169 - main - INFO - Application startup
+2025-03-10 21:16:00,723 - backend.firebase.auth - INFO - Verifying token: eyJhbGciOi...
+2025-03-10 21:16:00,724 - backend.firebase.auth - INFO - Attempting to verify token with Firebase Admin SDK...
+2025-03-10 21:16:00,935 - backend.firebase.auth - INFO - Token verified successfully. User ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:16:00,935 - backend.firebase.repositories.base - INFO - Getting all documents from 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:16:02,111 - backend.firebase.repositories.base - INFO - Retrieved 1 documents from 'prompts'
+2025-03-10 21:16:02,112 - backend.firebase.repositories.base - INFO - Getting all documents from 'history' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:16:02,324 - backend.firebase.repositories.base - INFO - Retrieved 8 documents from 'history'
+2025-03-10 21:16:02,337 - main - WARNING - Slow request: GET /prompts took 1.61s
+2025-03-10 21:16:02,337 - main - WARNING - Slow request: GET /history took 1.61s
+2025-03-10 21:18:02,183 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:04,097 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:04,098 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.92s
+2025-03-10 21:18:04,104 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:05,251 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:05,254 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.15s
+2025-03-10 21:18:05,261 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:06,716 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:06,716 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.46s
+2025-03-10 21:18:06,720 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:07,884 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:07,884 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.17s
+2025-03-10 21:18:07,892 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:08,942 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:08,942 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.05s
+2025-03-10 21:18:08,962 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:10,039 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:10,041 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.08s
+2025-03-10 21:18:10,045 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:11,674 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:11,675 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.63s
+2025-03-10 21:18:11,681 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:12,790 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:12,790 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.11s
+2025-03-10 21:18:12,793 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:13,887 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:13,888 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.10s
+2025-03-10 21:18:13,891 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:15,504 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:15,505 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.61s
+2025-03-10 21:18:15,513 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:16,621 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:16,621 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.11s
+2025-03-10 21:18:16,626 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:18,204 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:18,204 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.58s
+2025-03-10 21:18:18,207 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:19,297 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:19,298 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.09s
+2025-03-10 21:18:19,305 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:20,987 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:20,988 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.68s
+2025-03-10 21:18:20,995 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:22,092 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:22,093 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.10s
+2025-03-10 21:18:22,097 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:23,663 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:23,665 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.57s
+2025-03-10 21:18:23,672 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:24,938 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:24,938 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.27s
+2025-03-10 21:18:24,946 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:26,225 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:26,225 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.28s
+2025-03-10 21:18:26,230 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:27,422 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:27,422 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.19s
+2025-03-10 21:18:27,428 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:28,505 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:28,506 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.08s
+2025-03-10 21:18:28,514 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:30,114 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:30,115 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.60s
+2025-03-10 21:18:30,121 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:31,264 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:31,265 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.14s
+2025-03-10 21:18:31,269 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:32,807 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:32,808 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.54s
+2025-03-10 21:18:32,815 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:34,005 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:34,006 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.19s
+2025-03-10 21:18:34,012 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:35,555 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:35,555 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.54s
+2025-03-10 21:18:35,560 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:36,791 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:36,791 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.23s
+2025-03-10 21:18:36,797 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:38,335 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:38,335 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.54s
+2025-03-10 21:18:38,340 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:39,481 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:39,482 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.14s
+2025-03-10 21:18:39,488 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:40,621 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:40,622 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.13s
+2025-03-10 21:18:40,626 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:42,347 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:42,347 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.72s
+2025-03-10 21:18:42,351 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:43,391 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:43,392 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.04s
+2025-03-10 21:18:43,397 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:45,059 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:45,061 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.66s
+2025-03-10 21:18:45,067 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:46,151 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:46,153 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.09s
+2025-03-10 21:18:46,158 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:47,072 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:47,072 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.92s
+2025-03-10 21:18:47,077 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:47,602 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:47,603 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.53s
+2025-03-10 21:18:47,607 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:48,124 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:48,124 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.52s
+2025-03-10 21:18:48,131 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:48,634 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:48,634 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.50s
+2025-03-10 21:18:48,639 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:49,175 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:49,175 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.54s
+2025-03-10 21:18:49,181 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:49,718 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:49,719 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.54s
+2025-03-10 21:18:49,725 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:50,294 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:50,294 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.57s
+2025-03-10 21:18:50,299 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:50,821 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:50,821 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.52s
+2025-03-10 21:18:50,827 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:51,351 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:51,352 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.53s
+2025-03-10 21:18:51,358 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:51,881 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:51,881 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.52s
+2025-03-10 21:18:51,887 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:52,418 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:52,419 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.53s
+2025-03-10 21:18:52,426 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:52,984 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:52,984 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.56s
+2025-03-10 21:18:52,990 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:53,499 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:53,499 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.51s
+2025-03-10 21:18:53,506 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:54,048 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:54,048 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.54s
+2025-03-10 21:18:54,054 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:18:54,571 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:18:54,572 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.52s
+2025-03-10 21:19:07,518 - backend.firebase.repositories.base - INFO - Getting all documents from 'history' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:19:07,702 - backend.firebase.repositories.base - INFO - Retrieved 8 documents from 'history'
+2025-03-10 21:20:35,100 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:20:36,879 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:20:36,880 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.78s
+2025-03-10 21:20:36,885 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:20:38,164 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:20:38,165 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.28s
+2025-03-10 21:21:36,431 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:21:37,615 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:21:37,616 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.19s
+2025-03-10 21:21:37,619 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:21:39,138 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:21:39,138 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.52s
+2025-03-10 21:23:01,388 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:23:03,310 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:23:03,311 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.92s
+2025-03-10 21:23:03,318 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:23:04,413 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:23:04,414 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.10s
+2025-03-10 21:25:43,240 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:25:45,104 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:25:45,105 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.87s
+2025-03-10 21:25:45,112 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:25:46,195 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:25:46,196 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.08s
+2025-03-10 21:25:46,199 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:25:47,900 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:25:47,900 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.70s
+2025-03-10 21:25:47,903 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:25:48,961 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:25:48,961 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.06s
+2025-03-10 21:25:48,966 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:25:50,489 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:25:50,489 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.52s
+2025-03-10 21:25:50,493 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:25:51,547 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:25:51,548 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.06s
+2025-03-10 21:25:51,551 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:25:53,194 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:25:53,195 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.64s
+2025-03-10 21:25:53,198 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:25:54,259 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:25:54,259 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.06s
+2025-03-10 21:25:54,264 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:25:55,844 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:25:55,844 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.58s
+2025-03-10 21:25:55,847 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:25:56,896 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:25:56,896 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.05s
+2025-03-10 21:25:56,899 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:25:58,518 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:25:58,519 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.62s
+2025-03-10 21:25:58,524 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:25:59,612 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:25:59,612 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.09s
+2025-03-10 21:25:59,616 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:01,128 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:01,129 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.51s
+2025-03-10 21:26:01,133 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:02,281 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:02,281 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.15s
+2025-03-10 21:26:02,283 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:03,866 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:03,866 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.58s
+2025-03-10 21:26:03,873 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:04,941 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:04,942 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.07s
+2025-03-10 21:26:04,949 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:06,528 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:06,529 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.58s
+2025-03-10 21:26:06,535 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:07,737 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:07,738 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.20s
+2025-03-10 21:26:07,749 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:09,197 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:09,199 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.45s
+2025-03-10 21:26:09,208 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:10,397 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:10,397 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.19s
+2025-03-10 21:26:10,404 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:11,908 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:11,909 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.50s
+2025-03-10 21:26:11,915 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:12,969 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:12,969 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.05s
+2025-03-10 21:26:12,972 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:14,473 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:14,473 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.50s
+2025-03-10 21:26:14,475 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:15,601 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:15,602 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.13s
+2025-03-10 21:26:15,605 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:17,031 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:17,031 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.43s
+2025-03-10 21:26:17,035 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:18,310 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:18,311 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.28s
+2025-03-10 21:26:18,315 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:19,587 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:19,588 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.27s
+2025-03-10 21:26:19,590 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:20,859 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:20,860 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.27s
+2025-03-10 21:26:20,862 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:22,275 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:22,276 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.41s
+2025-03-10 21:26:22,282 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:23,540 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:23,541 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.26s
+2025-03-10 21:26:23,545 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:25,040 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:25,041 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.50s
+2025-03-10 21:26:25,044 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:26,142 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:26,149 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.11s
+2025-03-10 21:26:26,153 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:27,669 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:27,670 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 1.52s
+2025-03-10 21:26:27,677 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:28,282 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:28,282 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.61s
+2025-03-10 21:26:28,287 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:28,808 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:28,808 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.52s
+2025-03-10 21:26:28,811 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:29,339 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:29,340 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.53s
+2025-03-10 21:26:29,346 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:29,891 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:29,892 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.55s
+2025-03-10 21:26:29,899 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:30,467 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:30,467 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.57s
+2025-03-10 21:26:30,471 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:30,992 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:30,993 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.52s
+2025-03-10 21:26:30,998 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:31,516 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:31,517 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.52s
+2025-03-10 21:26:31,520 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:32,047 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:32,048 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.53s
+2025-03-10 21:26:32,054 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:32,583 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:32,583 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.53s
+2025-03-10 21:26:32,587 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:33,108 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:33,109 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.52s
+2025-03-10 21:26:33,113 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:33,644 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:33,645 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.53s
+2025-03-10 21:26:33,651 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:34,167 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:34,167 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.52s
+2025-03-10 21:26:34,172 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:34,677 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:34,679 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.51s
+2025-03-10 21:26:34,683 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:35,207 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:35,208 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.53s
+2025-03-10 21:26:35,210 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:35,759 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:35,761 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.55s
+2025-03-10 21:26:35,769 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:36,304 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:36,305 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.54s
+2025-03-10 21:26:36,307 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:36,834 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:36,835 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.53s
+2025-03-10 21:26:36,839 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:37,351 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:37,351 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.51s
+2025-03-10 21:26:37,354 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:37,871 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:37,871 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.52s
+2025-03-10 21:26:37,878 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:38,388 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:38,389 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.51s
+2025-03-10 21:26:38,394 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:38,929 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:38,929 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.54s
+2025-03-10 21:26:38,935 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:39,457 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:39,457 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.52s
+2025-03-10 21:26:39,460 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:39,987 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:39,988 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.53s
+2025-03-10 21:26:39,994 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:40,532 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:40,533 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.54s
+2025-03-10 21:26:40,542 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:41,047 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:41,048 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.51s
+2025-03-10 21:26:41,054 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:41,592 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:41,592 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.54s
+2025-03-10 21:26:41,599 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:42,116 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:42,116 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.52s
+2025-03-10 21:26:42,122 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:42,661 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:42,661 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.54s
+2025-03-10 21:26:42,667 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:43,190 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:43,190 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.52s
+2025-03-10 21:26:43,197 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:43,713 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:43,713 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.52s
+2025-03-10 21:26:43,720 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:44,280 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:44,281 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.56s
+2025-03-10 21:26:44,286 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:44,807 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:44,807 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.52s
+2025-03-10 21:26:44,812 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:45,330 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:45,331 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.52s
+2025-03-10 21:26:45,337 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:45,864 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:45,865 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.53s
+2025-03-10 21:26:45,869 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:46,415 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:46,415 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.55s
+2025-03-10 21:26:46,420 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:46,961 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:46,962 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.54s
+2025-03-10 21:26:46,964 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:47,490 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:47,491 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.53s
+2025-03-10 21:26:47,494 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:48,019 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:48,020 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.53s
+2025-03-10 21:26:48,032 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:48,547 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:48,548 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.52s
+2025-03-10 21:26:48,552 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:49,058 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:49,059 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.51s
+2025-03-10 21:26:49,065 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:49,590 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:49,590 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.53s
+2025-03-10 21:26:49,596 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:50,104 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:50,104 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.51s
+2025-03-10 21:26:50,111 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:50,621 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:50,622 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.51s
+2025-03-10 21:26:50,628 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:51,144 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:51,144 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.52s
+2025-03-10 21:26:51,151 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:51,653 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:51,654 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.50s
+2025-03-10 21:26:51,660 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:52,291 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:52,291 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.63s
+2025-03-10 21:26:52,297 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:52,796 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:52,797 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.50s
+2025-03-10 21:26:52,806 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:53,325 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:53,325 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.52s
+2025-03-10 21:26:53,332 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:53,880 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:53,880 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.55s
+2025-03-10 21:26:53,884 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:54,414 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:54,414 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.53s
+2025-03-10 21:26:54,416 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:54,936 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:54,936 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.52s
+2025-03-10 21:26:54,944 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:55,446 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:55,447 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.50s
+2025-03-10 21:26:55,453 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:55,973 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:55,974 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.52s
+2025-03-10 21:26:55,976 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:56,496 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:56,496 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.52s
+2025-03-10 21:26:56,501 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:56,998 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:57,002 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:57,505 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:57,506 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.50s
+2025-03-10 21:26:57,512 - backend.firebase.repositories.base - INFO - Updating document '0Y9L0gehQZPULFQ1vSp9' in 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 21:26:58,031 - backend.firebase.repositories.base - INFO - Document '0Y9L0gehQZPULFQ1vSp9' updated successfully
+2025-03-10 21:26:58,032 - main - WARNING - Slow request: PUT /prompts/0Y9L0gehQZPULFQ1vSp9 took 0.52s
+2025-03-10 22:11:29,996 - backend.firebase.auth - INFO - Verifying token: eyJhbGciOi...
+2025-03-10 22:11:29,996 - backend.firebase.auth - INFO - Attempting to verify token with Firebase Admin SDK...
+2025-03-10 22:11:30,017 - backend.firebase.auth - INFO - Token verified successfully. User ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 22:11:30,018 - backend.firebase.repositories.base - INFO - Getting all documents from 'history' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 22:11:31,044 - backend.firebase.repositories.base - INFO - Retrieved 8 documents from 'history'
+2025-03-10 22:11:31,044 - backend.firebase.repositories.base - INFO - Getting all documents from 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 22:11:31,279 - backend.firebase.repositories.base - INFO - Retrieved 1 documents from 'prompts'
+2025-03-10 22:11:31,280 - main - WARNING - Slow request: GET /history took 1.28s
+2025-03-10 22:11:31,280 - main - WARNING - Slow request: GET /prompts took 1.28s
+2025-03-10 23:29:03,368 - backend.firebase.auth - INFO - Verifying token: eyJhbGciOi...
+2025-03-10 23:29:03,368 - backend.firebase.auth - INFO - Attempting to verify token with Firebase Admin SDK...
+2025-03-10 23:29:03,384 - backend.firebase.auth - INFO - Token verified successfully. User ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 23:29:03,384 - backend.firebase.repositories.base - INFO - Getting all documents from 'prompts' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 23:29:04,746 - backend.firebase.repositories.base - INFO - Retrieved 1 documents from 'prompts'
+2025-03-10 23:29:04,747 - backend.firebase.repositories.base - INFO - Getting all documents from 'history' for user ID: 9wfpc7SokLe1QPw1RoLiJdZPgY93
+2025-03-10 23:29:05,018 - backend.firebase.repositories.base - INFO - Retrieved 8 documents from 'history'
+2025-03-10 23:29:05,019 - main - WARNING - Slow request: GET /prompts took 1.65s
+2025-03-10 23:29:05,019 - main - WARNING - Slow request: GET /history took 1.65s
