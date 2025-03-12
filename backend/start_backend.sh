@@ -1,78 +1,89 @@
 #!/bin/bash
 
-# Скрипт для автоматического запуска бэкенда
-
 # Цвета для вывода
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
-echo -e "${YELLOW}Запуск бэкенда Prompt Enhancer...${NC}"
+# Директория скрипта
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "$SCRIPT_DIR"
 
-# Проверка наличия виртуального окружения
-if [ ! -d "venv" ]; then
-    echo -e "${YELLOW}Виртуальное окружение не найдено. Создаю...${NC}"
-    python -m venv venv
-    if [ $? -ne 0 ]; then
-        echo -e "${RED}Ошибка при создании виртуального окружения.${NC}"
-        exit 1
+# Порт для бэкенда
+PORT=8000
+
+# Функция для остановки процессов, использующих порт
+kill_port_processes() {
+    local port=$1
+    echo -e "${YELLOW}Проверка процессов, использующих порт $port...${NC}"
+    
+    # Получаем PID процессов, использующих порт
+    local pids=$(lsof -ti :$port)
+    
+    if [ -n "$pids" ]; then
+        echo -e "${YELLOW}Найдены процессы, использующие порт $port: $pids${NC}"
+        echo -e "${YELLOW}Останавливаем процессы...${NC}"
+        
+        # Останавливаем процессы
+        kill -9 $pids 2>/dev/null
+        
+        # Проверяем, что порт освободился
+        sleep 1
+        if lsof -Pi :$port -sTCP:LISTEN -t >/dev/null ; then
+            echo -e "${RED}Не удалось освободить порт $port. Пожалуйста, закройте приложение, использующее этот порт.${NC}"
+            return 1
+        else
+            echo -e "${GREEN}Порт $port успешно освобожден.${NC}"
+        fi
+    else
+        echo -e "${GREEN}Порт $port свободен.${NC}"
     fi
-    echo -e "${GREEN}Виртуальное окружение создано успешно.${NC}"
+    
+    return 0
+}
+
+# Остановка процессов, использующих порт
+kill_port_processes $PORT || exit 1
+
+# Создание виртуального окружения, если оно не существует
+if [ ! -d "venv" ]; then
+    echo -e "${YELLOW}Создание виртуального окружения Python...${NC}"
+    python3 -m venv venv
 fi
 
 # Активация виртуального окружения
-echo -e "${YELLOW}Активация виртуального окружения...${NC}"
 source venv/bin/activate
 
-# Проверка, нужно ли устанавливать зависимости
+# Проверка изменений в requirements.txt
 REQUIREMENTS_HASH_FILE=".requirements_hash"
 CURRENT_HASH=$(md5sum requirements.txt | awk '{ print $1 }')
-INSTALL_DEPS=true
+SAVED_HASH=""
 
 if [ -f "$REQUIREMENTS_HASH_FILE" ]; then
     SAVED_HASH=$(cat "$REQUIREMENTS_HASH_FILE")
-    if [ "$CURRENT_HASH" == "$SAVED_HASH" ]; then
-        echo -e "${GREEN}Зависимости уже установлены и актуальны.${NC}"
-        INSTALL_DEPS=false
-    fi
 fi
 
-# Установка зависимостей, если нужно
-if [ "$INSTALL_DEPS" = true ]; then
-    echo -e "${YELLOW}Установка зависимостей...${NC}"
+# Установка зависимостей, если они изменились
+if [ "$CURRENT_HASH" != "$SAVED_HASH" ]; then
+    echo -e "${YELLOW}Обнаружены изменения в requirements.txt. Установка зависимостей...${NC}"
     pip install -r requirements.txt
-    if [ $? -ne 0 ]; then
-        echo -e "${RED}Ошибка при установке зависимостей из requirements.txt.${NC}"
-        echo -e "${YELLOW}Пробую установить firebase-admin напрямую...${NC}"
-        pip install firebase-admin
-        if [ $? -ne 0 ]; then
-            echo -e "${RED}Ошибка при установке firebase-admin.${NC}"
-            exit 1
-        fi
-    fi
-    # Сохраняем хэш requirements.txt
     echo "$CURRENT_HASH" > "$REQUIREMENTS_HASH_FILE"
-    echo -e "${GREEN}Зависимости установлены успешно.${NC}"
+else
+    echo -e "${GREEN}Зависимости не изменились. Пропуск установки.${NC}"
 fi
 
-# Очистка кэша Python перед запуском
+# Очистка кэша Python
 echo -e "${YELLOW}Очистка кэша Python...${NC}"
 find . -name "__pycache__" -type d -exec rm -rf {} +
-find . -name "*.pyc" -delete
 
-# Запуск бэкенда с оптимизированными настройками
-echo -e "${YELLOW}Запуск бэкенда...${NC}"
-# Устанавливаем переменные окружения для оптимизации Python
-export PYTHONOPTIMIZE=1
-export PYTHONUNBUFFERED=1
-export PYTHONHASHSEED=0
+# Запуск бэкенда
+echo -e "${GREEN}Запуск бэкенда...${NC}"
+python run.py &
 
-# Запускаем с увеличенным лимитом на количество открытых файлов
-ulimit -n 4096 2>/dev/null || true
+# Сохранение PID процесса
+echo $! > backend_pid.txt
 
-# Запускаем с оптимизированными настройками uvicorn
-python run.py
-
-# Деактивация виртуального окружения при выходе
-deactivate
+echo -e "${GREEN}Бэкенд запущен на http://localhost:$PORT${NC}"
+echo -e "${GREEN}Документация API доступна на http://localhost:$PORT/docs${NC}"
+echo -e "${YELLOW}Для остановки бэкенда выполните: kill $(cat backend_pid.txt)${NC}"
