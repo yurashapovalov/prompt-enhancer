@@ -2896,3 +2896,159 @@ INFO:     Stopping reloader process [11027]
 2025-03-11 16:31:43,030 - backend.firebase.repositories.base - INFO - Retrieved 8 documents from 'history'
 2025-03-11 16:31:43,031 - main - WARNING - Slow request: GET /prompts took 0.97s
 2025-03-11 16:31:43,031 - main - WARNING - Slow request: GET /history took 0.97s
+2025-03-12 11:40:34,894 - firebase_manager - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:40:34,961 - firebase_manager - INFO - Firebase initialized successfully.
+2025-03-12 11:40:43,789 - firebase_manager - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:40:43,857 - firebase_manager - INFO - Firebase initialized successfully.
+2025-03-12 11:40:50,854 - firebase_manager - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:40:50,921 - firebase_manager - INFO - Firebase initialized successfully.
+2025-03-12 11:40:59,687 - firebase_manager - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:40:59,753 - firebase_manager - INFO - Firebase initialized successfully.
+2025-03-12 11:41:11,817 - firebase_manager - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:41:11,883 - firebase_manager - INFO - Firebase initialized successfully.
+2025-03-12 11:41:28,238 - firebase_manager - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:41:28,305 - firebase_manager - INFO - Firebase initialized successfully.
+2025-03-12 11:41:42,654 - firebase_manager - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:41:42,722 - firebase_manager - INFO - Firebase initialized successfully.
+2025-03-12 11:42:13,867 - firebase_manager - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:42:13,934 - firebase_manager - INFO - Firebase initialized successfully.
+2025-03-12 11:42:28,540 - firebase_manager - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:42:28,608 - firebase_manager - INFO - Firebase initialized successfully.
+2025-03-12 11:42:44,388 - firebase_manager - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:42:44,455 - firebase_manager - INFO - Firebase initialized successfully.
+2025-03-12 11:42:57,901 - firebase_manager - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:42:57,970 - firebase_manager - INFO - Firebase initialized successfully.
+2025-03-12 11:43:27,620 - firebase_manager - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:43:27,687 - firebase_manager - INFO - Firebase initialized successfully.
+2025-03-12 11:43:50,209 - firebase_manager - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:43:50,276 - firebase_manager - INFO - Firebase initialized successfully.
+2025-03-12 11:44:03,608 - firebase_manager - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:44:03,675 - firebase_manager - INFO - Firebase initialized successfully.
+2025-03-12 11:44:19,158 - firebase_manager - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:44:19,225 - firebase_manager - INFO - Firebase initialized successfully.
+2025-03-12 11:44:36,426 - firebase_manager - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:44:36,495 - firebase_manager - INFO - Firebase initialized successfully.
+2025-03-12 11:44:46,063 - firebase_manager - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:44:46,130 - firebase_manager - INFO - Firebase initialized successfully.
+2025-03-12 11:44:57,722 - firebase_manager - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:44:57,789 - firebase_manager - INFO - Firebase initialized successfully.
+2025-03-12 11:45:24,836 - firebase_manager - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:45:24,903 - firebase_manager - INFO - Firebase initialized successfully.
+2025-03-12 11:45:51,665 - firebase_manager - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:45:51,732 - firebase_manager - INFO - Firebase initialized successfully.
+2025-03-12 11:46:02,448 - firebase_manager - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:46:02,515 - firebase_manager - INFO - Firebase initialized successfully.
+2025-03-12 11:50:03,313 - root - INFO - Starting backend application
+2025-03-12 11:50:04,340 - firebase_config - WARNING - No Firebase credentials path provided. Using application default credentials.
+2025-03-12 11:50:04,340 - firebase_config - INFO - Firebase initialized successfully
+2025-03-12 11:50:07,346 - google.auth.compute_engine._metadata - WARNING - Compute Engine Metadata server unavailable on attempt 1 of 3. Reason: timed out
+2025-03-12 11:50:08,346 - google.auth.compute_engine._metadata - WARNING - Compute Engine Metadata server unavailable on attempt 2 of 3. Reason: [Errno 64] Host is down
+2025-03-12 11:50:10,261 - google.auth.compute_engine._metadata - WARNING - Compute Engine Metadata server unavailable on attempt 3 of 3. Reason: [Errno 64] Host is down
+2025-03-12 11:50:10,261 - google.auth._default - WARNING - Authentication failed using Compute Engine authentication due to unavailable metadata server.
+2025-03-12 11:50:47,568 - firebase_config - WARNING - No Firebase credentials path provided. Using application default credentials.
+2025-03-12 11:50:47,569 - firebase_config - INFO - Using mock Firestore client for testing
+2025-03-12 11:50:47,573 - firebase_config - WARNING - No Firebase credentials path provided. Using application default credentials.
+2025-03-12 11:50:47,573 - firebase_config - INFO - Using mock Firestore client for testing
+2025-03-12 11:50:47,575 - firebase_config - WARNING - No Firebase credentials path provided. Using application default credentials.
+2025-03-12 11:50:47,575 - firebase_config - INFO - Using mock Firestore client for testing
+2025-03-12 11:51:11,982 - firebase_config - WARNING - No Firebase credentials path provided. Using application default credentials.
+2025-03-12 11:51:11,982 - firebase_config - INFO - Using mock Firestore client for testing
+2025-03-12 11:51:11,984 - firebase_config - WARNING - No Firebase credentials path provided. Using application default credentials.
+2025-03-12 11:51:11,984 - firebase_config - INFO - Using mock Firestore client for testing
+2025-03-12 11:51:11,985 - firebase_config - WARNING - No Firebase credentials path provided. Using application default credentials.
+2025-03-12 11:51:11,985 - firebase_config - INFO - Using mock Firestore client for testing
+2025-03-12 11:51:24,795 - firebase_config - WARNING - No Firebase credentials path provided. Using application default credentials.
+2025-03-12 11:51:24,796 - firebase_config - INFO - Firebase initialized successfully
+2025-03-12 11:51:27,798 - google.auth.compute_engine._metadata - WARNING - Compute Engine Metadata server unavailable on attempt 1 of 3. Reason: timed out
+2025-03-12 11:51:31,863 - google.auth.compute_engine._metadata - WARNING - Compute Engine Metadata server unavailable on attempt 2 of 3. Reason: timed out
+2025-03-12 11:51:33,814 - google.auth.compute_engine._metadata - WARNING - Compute Engine Metadata server unavailable on attempt 3 of 3. Reason: [Errno 64] Host is down
+2025-03-12 11:51:33,815 - google.auth._default - WARNING - Authentication failed using Compute Engine authentication due to unavailable metadata server.
+2025-03-12 11:51:53,235 - root - INFO - Starting backend application
+2025-03-12 11:53:35,954 - root - INFO - Starting backend application
+2025-03-12 11:53:37,039 - firebase_config - WARNING - No Firebase credentials path provided. Using application default credentials.
+2025-03-12 11:53:37,039 - firebase_config - INFO - Firebase initialized successfully
+2025-03-12 11:53:40,045 - google.auth.compute_engine._metadata - WARNING - Compute Engine Metadata server unavailable on attempt 1 of 3. Reason: timed out
+2025-03-12 11:53:44,104 - google.auth.compute_engine._metadata - WARNING - Compute Engine Metadata server unavailable on attempt 2 of 3. Reason: timed out
+2025-03-12 11:53:46,297 - google.auth.compute_engine._metadata - WARNING - Compute Engine Metadata server unavailable on attempt 3 of 3. Reason: [Errno 64] Host is down
+2025-03-12 11:53:46,297 - google.auth._default - WARNING - Authentication failed using Compute Engine authentication due to unavailable metadata server.
+2025-03-12 11:54:06,760 - firebase_config - WARNING - No Firebase credentials path provided. Using application default credentials.
+2025-03-12 11:54:06,760 - firebase_config - INFO - Firebase initialized successfully
+2025-03-12 11:54:09,762 - google.auth.compute_engine._metadata - WARNING - Compute Engine Metadata server unavailable on attempt 1 of 3. Reason: timed out
+2025-03-12 11:54:13,863 - google.auth.compute_engine._metadata - WARNING - Compute Engine Metadata server unavailable on attempt 2 of 3. Reason: timed out
+2025-03-12 11:54:16,052 - google.auth.compute_engine._metadata - WARNING - Compute Engine Metadata server unavailable on attempt 3 of 3. Reason: [Errno 64] Host is down
+2025-03-12 11:54:16,052 - google.auth._default - WARNING - Authentication failed using Compute Engine authentication due to unavailable metadata server.
+2025-03-12 11:55:16,650 - firebase_config - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:55:16,650 - firebase_config - INFO - Firebase app doesn't exist yet, initializing new app.
+2025-03-12 11:55:16,650 - firebase_config - INFO - Service account key file found at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:55:16,719 - firebase_config - INFO - Firebase initialized successfully with service account key.
+2025-03-12 11:55:23,908 - root - INFO - Starting backend application
+2025-03-12 11:55:24,980 - firebase_config - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:55:24,980 - firebase_config - INFO - Firebase app doesn't exist yet, initializing new app.
+2025-03-12 11:55:24,981 - firebase_config - INFO - Service account key file found at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:55:25,049 - firebase_config - INFO - Firebase initialized successfully with service account key.
+2025-03-12 11:56:55,523 - root - INFO - Starting backend application
+2025-03-12 11:56:56,586 - firebase_config - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:56:56,587 - firebase_config - INFO - Firebase app doesn't exist yet, initializing new app.
+2025-03-12 11:56:56,587 - firebase_config - INFO - Service account key file found at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:56:56,655 - firebase_config - INFO - Firebase initialized successfully with service account key.
+2025-03-12 11:58:03,342 - root - INFO - Starting backend application
+2025-03-12 11:58:04,425 - firebase_config - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:58:04,425 - firebase_config - INFO - Firebase app doesn't exist yet, initializing new app.
+2025-03-12 11:58:04,425 - firebase_config - INFO - Service account key file found at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:58:04,493 - firebase_config - INFO - Firebase initialized successfully with service account key.
+2025-03-12 11:58:53,877 - firebase_config - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:58:53,877 - firebase_config - INFO - Firebase app doesn't exist yet, initializing new app.
+2025-03-12 11:58:53,877 - firebase_config - INFO - Service account key file found at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:58:53,945 - firebase_config - INFO - Firebase initialized successfully with service account key.
+2025-03-12 11:59:30,667 - firebase_config - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:59:30,667 - firebase_config - INFO - Firebase app doesn't exist yet, initializing new app.
+2025-03-12 11:59:30,667 - firebase_config - INFO - Service account key file found at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:59:30,735 - firebase_config - INFO - Firebase initialized successfully with service account key.
+2025-03-12 11:59:40,958 - root - INFO - Starting backend application
+2025-03-12 11:59:41,943 - firebase_config - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:59:41,943 - firebase_config - INFO - Firebase app doesn't exist yet, initializing new app.
+2025-03-12 11:59:41,943 - firebase_config - INFO - Service account key file found at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 11:59:42,010 - firebase_config - INFO - Firebase initialized successfully with service account key.
+2025-03-12 12:06:25,545 - root - INFO - Starting backend application
+2025-03-12 12:06:26,550 - firebase_config - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 12:06:26,550 - firebase_config - INFO - Firebase app doesn't exist yet, initializing new app.
+2025-03-12 12:06:26,550 - firebase_config - INFO - Service account key file found at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 12:06:26,616 - firebase_config - INFO - Firebase initialized successfully with service account key.
+2025-03-12 12:07:41,652 - firebase_config - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 12:07:41,652 - firebase_config - INFO - Firebase app doesn't exist yet, initializing new app.
+2025-03-12 12:07:41,652 - firebase_config - INFO - Service account key file found at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 12:07:41,719 - firebase_config - INFO - Firebase initialized successfully with service account key.
+2025-03-12 12:07:49,634 - root - INFO - Starting backend application
+2025-03-12 12:07:50,718 - firebase_config - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 12:07:50,719 - firebase_config - INFO - Firebase app doesn't exist yet, initializing new app.
+2025-03-12 12:07:50,719 - firebase_config - INFO - Service account key file found at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 12:07:50,787 - firebase_config - INFO - Firebase initialized successfully with service account key.
+2025-03-12 12:08:18,555 - firebase_config - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 12:08:18,555 - firebase_config - INFO - Firebase app doesn't exist yet, initializing new app.
+2025-03-12 12:08:18,555 - firebase_config - INFO - Service account key file found at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 12:08:18,622 - firebase_config - INFO - Firebase initialized successfully with service account key.
+2025-03-12 12:08:34,109 - firebase_config - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 12:08:34,110 - firebase_config - INFO - Firebase app doesn't exist yet, initializing new app.
+2025-03-12 12:08:34,110 - firebase_config - INFO - Service account key file found at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 12:08:34,180 - firebase_config - INFO - Firebase initialized successfully with service account key.
+2025-03-12 12:08:34,201 - root - INFO - Application startup
+2025-03-12 12:08:34,201 - root - INFO - Application startup
+2025-03-12 12:08:34,201 - firebase_config - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 12:08:34,201 - firebase_config - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 12:08:34,201 - firebase_config - INFO - Firebase app already exists, using existing app.
+2025-03-12 12:08:34,201 - firebase_config - INFO - Firebase app already exists, using existing app.
+2025-03-12 12:08:34,201 - firebase_config - INFO - Firebase initialized successfully with existing app.
+2025-03-12 12:08:34,201 - firebase_config - INFO - Firebase initialized successfully with existing app.
+2025-03-12 12:08:54,547 - root - INFO - Starting backend application
+2025-03-12 12:08:55,583 - firebase_config - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 12:08:55,583 - firebase_config - INFO - Firebase app doesn't exist yet, initializing new app.
+2025-03-12 12:08:55,583 - firebase_config - INFO - Service account key file found at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 12:08:55,652 - firebase_config - INFO - Firebase initialized successfully with service account key.
+2025-03-12 12:08:55,677 - root - INFO - Application startup
+2025-03-12 12:08:55,677 - root - INFO - Application startup
+2025-03-12 12:08:55,677 - firebase_config - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 12:08:55,677 - firebase_config - INFO - Initializing Firebase with service account key at: /Users/yura/Documents/prompt-enhancer/backend/prompt-enhancer-8f2c8-firebase-adminsdk-fbsvc-751d476968.json
+2025-03-12 12:08:55,677 - firebase_config - INFO - Firebase app already exists, using existing app.
+2025-03-12 12:08:55,677 - firebase_config - INFO - Firebase app already exists, using existing app.
+2025-03-12 12:08:55,677 - firebase_config - INFO - Firebase initialized successfully with existing app.
+2025-03-12 12:08:55,677 - firebase_config - INFO - Firebase initialized successfully with existing app.
